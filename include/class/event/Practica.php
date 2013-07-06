@@ -1,26 +1,26 @@
 <?php
 /**
  * Author: Ghost
- * Date: 6/19/13
+ * Date: 7/4/13
  */
-require_once("Event_Instructed.php");
- 
-class Lesson extends Event_Instructed{
+require_once("Event_Instructed_DJd.php");
+
+class Practica extends Event_Instructed_DJd {
     //Level of difficulty
     private $difficulty;
-    //Topic of the lesson
+    //Topic of the event
     private $topic;
 
 
 
     /**
-     * @param Array         $data
-     * @param Location      $location
-     * @param Array         $instructors
-     * @throws Exception
+     * @param Array     $data
+     * @param Location  $location
+     * @param Array     $instructors
+     * @param Array     $djs
      */
-    public function __construct($data, $location, $instructors){
-        parent::__construct($data, $location);
+    public function __construct($data, $location, $instructors = null, $djs = null){
+        parent::__construct($data, $location, $instructors, $djs);
         if(isset($data['difficulty']))
             $this->setDifficulty($data['difficulty']);
         if(isset($data['topic']))
@@ -48,8 +48,8 @@ class Lesson extends Event_Instructed{
 
 
     /**
-     * @param String        $difficulty
-     * @throws Exception
+     * @param   String     $difficulty
+     * @throws  Exception
      */
     public function setDifficulty($difficulty){
         if(!is_string($difficulty))
@@ -60,8 +60,8 @@ class Lesson extends Event_Instructed{
 
 
     /**
-     * @param String        $topic
-     * @throws Exception
+     * @param   mixed       $topic
+     * @throws  Exception
      */
     public function setTopic($topic){
         if(!is_string($topic))

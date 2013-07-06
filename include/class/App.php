@@ -15,6 +15,8 @@ class App{
     //Will contain tooltips for the page
     private $tooltips;
 
+
+
     /**
      * @param $config   Array           The config array for the site
      *
@@ -112,6 +114,7 @@ class App{
 
         return $data;
     } //End head()
+
 
 
     /**
