@@ -4,7 +4,7 @@
  * Date: 6/19/13
  */
 
-final class Location {
+final class Location implements Interface_Displayable{
     private $name;
     private $address;
     private $city;
@@ -150,5 +150,21 @@ final class Location {
         if(!is_string($zip))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be a string, and a " . gettype($zip) . " was passed.");
         $this->zip = $zip;
+    }
+
+
+    /**
+     * Convert to an object for functions like to_JSON() to quickly iterate, etc.
+     * @return stdClass
+     */
+    public function to_object(){
+        $obj = new stdClass();
+        $obj->address = $this->getAddress();
+        $obj->city = $this->getCity();
+        $obj->name = $this->getName();
+        $obj->state = $this->getState();
+        $obj->country = $this->getCountry();
+        $obj->zip = $this->getZip();
+        return $obj;
     }
 }

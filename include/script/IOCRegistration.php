@@ -5,8 +5,8 @@
  * Date: 5/22/13
  */
 
-IOC::register("App", function(){
+Utility_IOC::register("Utility_App", function(){
     global $config;
-    $app = new App($config, "/../../");
+    $app = new Utility_App($config, "/../../../");
     return $app;
 });

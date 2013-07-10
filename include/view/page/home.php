@@ -17,8 +17,6 @@ $pageContent = <<<HTML
 <section>
 
 </section>
-
-
 $footer
 
 HTML;

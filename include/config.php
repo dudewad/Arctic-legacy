@@ -18,8 +18,11 @@ $config['settings']['contactEmail'] = "info@tanguer.com";
 ################################################################
 _____________________Filepath Settings________________________*/
 
-//Location of the "views" directory relative to the base directory for the site
-$config['path']['view'] = "/include/view/";
+//Location of the "Page View" directory relative to the base directory for the site
+$config['path']['pageView'] = "/include/view/page/";
+
+//Location of the "Module View" directory relative to the base directory for the site
+$config['path']['pageView'] = "/include/view/page/";
 
 
 
