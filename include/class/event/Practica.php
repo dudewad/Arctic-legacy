@@ -3,9 +3,8 @@
  * Author: Ghost
  * Date: 7/4/13
  */
-require_once("Event_Instructed_DJd.php");
 
-class Practica extends Event_Instructed_DJd {
+class Event_Practica extends Event_EventInstructedDJd {
     //Level of difficulty
     private $difficulty;
     //Topic of the event
@@ -48,6 +47,15 @@ class Practica extends Event_Instructed_DJd {
 
 
     /**
+     * @return Array
+     */
+    public function getPrimaryActors(){
+
+    }
+
+
+
+    /**
      * @param   String     $difficulty
      * @throws  Exception
      */
@@ -67,5 +75,18 @@ class Practica extends Event_Instructed_DJd {
         if(!is_string($topic))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be a string, and a " . gettype($topic) . " was passed.");
         $this->topic = $topic;
+    }
+
+
+
+    /**
+     * Convert to an object for functions like to_JSON() to quickly iterate, etc.
+     * @return stdClass
+     */
+    public function to_object(){
+        $obj = parent::to_object();
+        $obj->difficulty = $this->getDifficulty();
+        $obj->topic = $this->getTopic();
+        return $obj;
     }
 }

@@ -84,8 +84,13 @@ p{
 
 
 /**
- * SECTION AND CONTENT AREA STYLES
+ * Event object styles
+ * Key:
+ * Event objects all start with e-
+ * No other styles should start with e-
+ * All events in all contexts should have the event type class on their outer wrapper for targeting.
  */
+
 
 
 

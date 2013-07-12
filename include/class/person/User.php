@@ -5,7 +5,7 @@
  */
 require_once("Person.php");
 
-class User extends Person{
+class Person_User extends Person_Person{
     private $user_id;
     private $email;
 
@@ -31,7 +31,7 @@ class User extends Person{
     /**
      * @return Integer
      */
-    public function getID(){
+    public function getUserID(){
         return $this->user_id;
     }
 
@@ -57,5 +57,18 @@ class User extends Person{
         if(!is_int($user_id))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be an integer, and a " . gettype($user_id) . " was passed.");
         $this->user_id = $user_id;
+    }
+
+
+
+    /**
+     * Convert this object to an object with accessible properties for echo to JSON, etc
+     * @return stdClass
+     */
+    public function to_object(){
+        $obj = parent::to_object();
+        $obj->user_id = $this->getUserID();
+        $obj->email = $this->getEmail();
+        return $obj;
     }
 }

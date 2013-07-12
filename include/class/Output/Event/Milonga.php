@@ -5,11 +5,12 @@
  */
  
 class Output_Event_Milonga extends Output_Event_Event{
-    private $data;
+    const E_TYPE = "Milonga";
+    protected $data;
 
 
     public function __construct(Event_Milonga $data){
-        $this->data = $data;
+        parent::__construct($data);
     }
 
 
@@ -20,7 +21,7 @@ class Output_Event_Milonga extends Output_Event_Event{
      * @return string
      */
     public function to_html_full($class = "milonga"){
-        return parent::to_html_calendar($class);
+        return parent::to_html_full($class);
     }
 
 
@@ -31,7 +32,7 @@ class Output_Event_Milonga extends Output_Event_Event{
      * @return string
      */
     public function to_html_thumb($class = "milonga"){
-        return parent::to_html_calendar($class);
+        return parent::to_html_thumb($class);
     }
 
 

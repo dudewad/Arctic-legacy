@@ -4,17 +4,31 @@
  * Date: 7/4/13
  */
  
-class Person{
-    //Person's ID
+class Person_Person implements Interface_Displayable{
+    //Person_Person's ID
     protected $person_id;
     protected $first_name;
     protected $last_name;
+
+
 
     public function __construct($data){
         $this->setPersonID($data['person_id']);
         $this->setFirstName($data['first_name']);
         $this->setLastName($data['last_name']);
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getPersonID(){
+        return $this->person_id;
+    }
+
+
+
 
     /**
      * @return String
@@ -23,12 +37,16 @@ class Person{
         return $this->first_name;
     }
 
+
+
     /**
      * @return String
      */
     public function getLastName(){
         return $this->last_name;
     }
+
+
 
     /**
      * @param   Integer      $person_id
@@ -40,6 +58,8 @@ class Person{
         $this->person_id = $person_id;
     }
 
+
+
     /**
      * @param   String      $first_name
      * @throws  Exception
@@ -50,6 +70,8 @@ class Person{
         $this->first_name = $first_name;
     }
 
+
+
     /**
      * @param   String      $last_name
      * @throws  Exception
@@ -58,5 +80,19 @@ class Person{
         if(!is_string($last_name))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be a string, and a " . gettype($last_name) . " was passed.");
         $this->last_name = $last_name;
+    }
+
+
+
+    /**
+     * Convert this object to an object with accessible properties for echo to JSON, etc
+     * @return stdClass
+     */
+    public function to_object(){
+        $obj = new stdClass();
+        $obj->person_id = $this->getPersonID();
+        $obj->first_name = $this->getFirstName();
+        $obj->last_name = $this->getLastName();
+        return $obj;
     }
 }

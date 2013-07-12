@@ -4,4 +4,85 @@
 body{
     background:#000;
     color:#09F;
+    font-family:Lato, Arial, sans-serif;
+    padding:50px;
+}
+
+.e-th{
+    color:#333;
+    font-family:Lato, serif;
+    margin-top:5px;
+}
+
+.e-th .col-left{
+    width:55px;
+    float:left;
+}
+
+.e-th .col-right{
+    width:160px;
+    float:right;
+}
+
+.e-th .title{
+    font-size:13px;
+    font-weight:700;
+    font-style:italic;
+}
+
+.e-th .e-th-stripe{
+    padding-left:5px;
+    display:block;
+}
+
+.e-th .details{
+    padding-top:2px;
+    clear:both;
+    font-size:11px;
+    font-weight:400;
+    font-style:italic;
+}
+
+.e-th.lesson{
+    background-color:#ccefff;
+    border:1px solid #00aeff;
+    width:228px;
+    padding:2px;
+}
+
+.e-th.lesson .e-th-stripe{
+    border-left:8px solid #00aeff;
+}
+
+.e-th.milonga{
+    background-color:#f7cccc;
+    border:1px solid #d92626;
+    width:228px;
+    padding:2px;
+}
+
+.e-th.milonga .e-th-stripe{
+    border-left:8px solid #d92626;
+}
+
+.e-th.show{
+    background-color:#dbf7cc;
+    border:1px solid #4dd900;
+    width:228px;
+    padding:2px;
+}
+
+.e-th.show .e-th-stripe{
+    border-left:8px solid #4dd900;
+}
+
+.e-th.practica{
+    background-color:#fdeacc;
+    border:1px solid #f69700;
+    width:228px;
+    padding:2px;
+}
+
+.e-th.practica .e-th-stripe{
+    border-left:8px solid #f69700;
 }

@@ -5,7 +5,8 @@
  */
  
 class Output_Event_Show extends Output_Event_Event{
-    private $data;
+    const E_TYPE = "Show";
+    protected $data;
 
 
     public function __construct(Event_Show $data){
@@ -20,7 +21,7 @@ class Output_Event_Show extends Output_Event_Event{
      * @return string
      */
     public function to_html_full($class = "show"){
-        return parent::to_html_calendar($class);
+        return parent::to_html_full($class);
     }
 
 
@@ -31,7 +32,7 @@ class Output_Event_Show extends Output_Event_Event{
      * @return string
      */
     public function to_html_thumb($class = "show"){
-        return parent::to_html_calendar($class);
+        return parent::to_html_thumb($class);
     }
 
 

@@ -3,9 +3,8 @@
  * Author: Ghost
  * Date: 6/19/13
  */
-require_once("Event_Instructed.php");
  
-class Lesson extends Event_Instructed{
+class Event_Lesson extends Event_EventInstructed{
     //Level of difficulty
     private $difficulty;
     //Topic of the lesson
@@ -20,7 +19,7 @@ class Lesson extends Event_Instructed{
      * @throws Exception
      */
     public function __construct($data, $location, $instructors){
-        parent::__construct($data, $location);
+        parent::__construct($data, $location, $instructors);
         if(isset($data['difficulty']))
             $this->setDifficulty($data['difficulty']);
         if(isset($data['topic']))
@@ -39,10 +38,19 @@ class Lesson extends Event_Instructed{
 
 
     /**
-     * @return String
+     * @return Array
      */
     public function getTopic(){
         return $this->topic;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryActors(){
+
     }
 
 
@@ -67,5 +75,18 @@ class Lesson extends Event_Instructed{
         if(!is_string($topic))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be a string, and a " . gettype($topic) . " was passed.");
         $this->topic = $topic;
+    }
+
+
+
+    /**
+     * Convert to an object for functions like to_JSON() to quickly iterate, etc.
+     * @return stdClass
+     */
+    public function to_object(){
+        $obj = parent::to_object();
+        $obj->difficulty = $this->getDifficulty();
+        $obj->topic = $this->getTopic();
+        return $obj;
     }
 }

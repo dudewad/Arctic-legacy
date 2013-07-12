@@ -4,7 +4,7 @@
  * Date: 6/19/13
  */
  
-abstract class Event {
+abstract class Event_Event implements Interface_Displayable{
     //Event's ID
     protected $id;
     //Whether the organizing user has confirmed this event will happen
@@ -135,6 +135,22 @@ abstract class Event {
 
 
     /**
+     * @return mixed
+     */
+    public function getRepeat(){
+        return $this->repeat;
+    }
+
+
+
+    /**
+     * @return Array
+     */
+    abstract public function getPrimaryActors();
+
+
+
+    /**
      * @param mixed $id
      * @throws Exception
      */
@@ -251,5 +267,22 @@ abstract class Event {
         if(!is_string($repeat))
             throw new Exception("Invalid value passed to " . __FUNCTION__ . ". The passed value must be a string, and a " . gettype($repeat) . " was passed.");
         $this->repeat = $repeat;
+    }
+
+
+
+    public function to_object(){
+        $obj = new stdClass();
+        $obj->id = $this->getId();
+        $obj->confirmed = $this->getConfirmed();
+        $obj->location = $this->getLocation()->to_object();
+        $obj->name = $this->getName();
+        $obj->organizer_id = $this->getOrganizerId();
+        $obj->parent_id = $this->getParentId();
+        $obj->date_end = $this->getDateEnd();
+        $obj->date_start = $this->getDateStart();
+        $obj->price = $this->getPrice();
+        $obj->repeats = $this->getRepeat();
+        return $obj;
     }
 }
