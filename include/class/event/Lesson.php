@@ -5,6 +5,8 @@
  */
  
 class Event_Lesson extends Event_EventInstructed{
+    //Event type
+    const E_TYPE = "Lesson";
     //Level of difficulty
     private $difficulty;
     //Topic of the lesson
@@ -47,10 +49,14 @@ class Event_Lesson extends Event_EventInstructed{
 
 
     /**
+     * Returns an array of the primary actors for this event
      * @return mixed
      */
     public function getPrimaryActors(){
-
+        $arr = array();
+        if($instructors = $this->getInstructors())
+            $arr = $instructors;
+        return $arr;
     }
 
 

@@ -33,13 +33,18 @@ class Module_Calendar{
         }
         $dateCheck = date("dmY", $day);
 
-        $thumbs = '<div class="th-list">' . $this->eventListToThumbs($eventList) . "</div>";
+        $thumbs = $this->eventListToThumbs($eventList);
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
-            <div class="calendar $class">
-                <div class="c-th">
+            <div class="c $class">
+                <div class="th-list">
                     $thumbs
+                </div>
+                <div class="c-e-disp">
+                    <div class="e-f">
+
+                    </div>
                 </div>
             </div>
 HTML;
@@ -83,31 +88,31 @@ HTML;
             if(!($e instanceof Event_Event))
                 throw new Exception("All events passed to " . __CLASS__ . "::to_html_full_day() must be of type Event_Event.");
             if($e instanceof Event_Milonga){
-                if(!$mOut)
-                    $mOut = new Output_Event_Milonga($e);
-                else
+                if(isset($mOut))
                     $mOut->setData($e);
+                else
+                    $mOut = new Output_Event_Milonga($e);
                 $eOut = $mOut;
             }
             if($e instanceof Event_Practica){
-                if(!$pOut)
-                    $pOut = new Output_Event_Practica($e);
-                else
+                if(isset($pOut))
                     $pOut->setData($e);
+                else
+                    $pOut = new Output_Event_Practica($e);
                 $eOut = $pOut;
             }
             if($e instanceof Event_Lesson){
-                if(!$lOut)
-                    $lOut = new Output_Event_Lesson($e);
-                else
+                if(isset($lOut))
                     $lOut->setData($e);
+                else
+                    $lOut = new Output_Event_Lesson($e);
                 $eOut = $lOut;
             }
             if($e instanceof Event_Show){
-                if(!$sOut)
-                    $sOut = new Output_Event_Show($e);
-                else
+                if(isset($sOut))
                     $sOut->setData($e);
+                else
+                    $sOut = new Output_Event_Show($e);
                 $eOut = $sOut;
             }
             $html .= $eOut->to_html_thumb();

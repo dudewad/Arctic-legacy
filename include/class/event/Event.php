@@ -3,8 +3,10 @@
  * Author: Ghost
  * Date: 6/19/13
  */
- 
+
 abstract class Event_Event implements Interface_Displayable{
+    //Event type
+    const E_TYPE = "Event";
     //Event's ID
     protected $id;
     //Whether the organizing user has confirmed this event will happen

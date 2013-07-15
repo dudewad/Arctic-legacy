@@ -17,6 +17,7 @@ class Utility_App{
 
 
 
+
     /**
      * @param $config   Array           The config array for the site
      *
@@ -78,7 +79,7 @@ class Utility_App{
                 $metaDesc = "";
                 break;
         }
-
+        //TODO: Remove the text.css on deployment, as well as un-comment the google fonts reference
         $data = "<head>
                     <meta charset='utf-8' />
                     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -86,16 +87,20 @@ class Utility_App{
                     <script type='text/javascript'>
                         " . $jsEnvVars . "
                     </script>
-                    <script src='js/jquery-1.10.1.min.js' type='text/javascript' ></script>
-                    <script src='js/jquery.validate.min.js' type='text/javascript' ></script>
+                    <script src='js/third-party/jquery-1.10.1.min.js' type='text/javascript' ></script>
+                    <script src='js/third-party/jquery.validate.min.js' type='text/javascript' ></script>
+                    <script src='js/third-party/head.core.min.js' type='text/javascript' ></script>
                     <script src='js/TANGUER_APP.js' type='text/javascript' ></script>
                     <script src='js/extensions/Tanguer_IOC.js' type='text/javascript' ></script>
                     <script src='js/extensions/Tanguer_JSONCall.js' type='text/javascript' ></script>
                     <script src='js/components/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <link href='css/style.css' media='all' rel='stylesheet' type='text/css' />
                     <link href='css/tooltip.css' rel='stylesheet' type='text/css' />
+
+                    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
                     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-                    <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+                    <link rel='stylesheet' type='text/css' href='POC/css/test.css' />
                 </head>";
 
         return $data;
@@ -120,6 +125,36 @@ class Utility_App{
      */
     public function getURL($name){
         return isset($this->config['url'][$name]) ? $this->config['url'][$name] : "";
+    }
+
+
+
+    public function setUserSession($user){
+        if(!($user instanceof Person_User))
+            throw new Exception("Error setting user in " . __CLASS__ . "::setUser - the passed object must be of type Person_User");
+        $obj = $user->to_object();
+        $_SESSION['user'] = $obj;
+        String_String::setLanguage($user->getLanguage());
+    }
+
+
+
+    /**
+     * Return a constant string from the application's main string repository for the user's language.
+     * Gracefully handles bad language settings - but this will revert the user's language to en-US.
+     *
+     * @param   $str      String        The constant being requested. Language will be figured out automatically.
+     * @return String
+     */
+    public function getConstantString($str){
+        try{
+            $r = new ReflectionClass("String_Strings" . $this->language);
+        }
+        catch(Exception $e){
+            $this->setLanguage("ESAR");
+            $r = new ReflectionClass("String_Strings" . $this->language);
+        }
+        return $r->getConstant($str);
     }
 
 

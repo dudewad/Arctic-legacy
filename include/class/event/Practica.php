@@ -5,6 +5,8 @@
  */
 
 class Event_Practica extends Event_EventInstructedDJd {
+    //Event type
+    const E_TYPE = "Practica";
     //Level of difficulty
     private $difficulty;
     //Topic of the event
@@ -50,7 +52,12 @@ class Event_Practica extends Event_EventInstructedDJd {
      * @return Array
      */
     public function getPrimaryActors(){
-
+        $arr = array();
+        if($instructors = $this->getInstructors())
+            $arr = $instructors;
+        else if($djs = $this->getDJs())
+            $arr = $djs;
+        return $arr;
     }
 
 

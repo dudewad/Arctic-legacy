@@ -8,6 +8,7 @@ require_once("Person.php");
 class Person_User extends Person_Person{
     private $user_id;
     private $email;
+    private $language;
 
 
 
@@ -15,6 +16,7 @@ class Person_User extends Person_Person{
         parent::__construct($data);
         $this->setEmail($data['email']);
         $this->setUserID($data['user_id']);
+        $this->setLanguage($data['language']);
     }
 
 
@@ -50,6 +52,15 @@ class Person_User extends Person_Person{
 
 
     /**
+     * @return mixed
+     */
+    public function getLanguage(){
+        return $this->language;
+    }
+
+
+
+    /**
      * @param   Integer     $user_id
      * @throws  Exception
      */
@@ -62,6 +73,15 @@ class Person_User extends Person_Person{
 
 
     /**
+     * @param mixed $language
+     */
+    public function setLanguage($language){
+        $this->language = $language;
+    }
+
+
+
+    /**
      * Convert this object to an object with accessible properties for echo to JSON, etc
      * @return stdClass
      */
@@ -69,6 +89,7 @@ class Person_User extends Person_Person{
         $obj = parent::to_object();
         $obj->user_id = $this->getUserID();
         $obj->email = $this->getEmail();
+        $obj->language = $this->getLanguage();
         return $obj;
     }
 }

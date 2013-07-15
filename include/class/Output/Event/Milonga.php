@@ -5,7 +5,6 @@
  */
  
 class Output_Event_Milonga extends Output_Event_Event{
-    const E_TYPE = "Milonga";
     protected $data;
 
 
@@ -44,5 +43,34 @@ class Output_Event_Milonga extends Output_Event_Event{
      */
     public function to_html_calendar($class = "milonga"){
         return parent::to_html_calendar($class);
+    }
+
+
+
+    /**
+     * Returns a string representation of the primary actors for this event, including a prefix of actor type
+     * @param   $max        Integer         The maximum number of actors to return in the string
+     * @return  String
+     */
+    protected function getPrimaryActorsAsString($max = 2){
+        $e = $this->data;
+        $actorList = $e->getPrimaryActors();
+        //Start with an empty string
+        $actors = "";
+        //Base-0, so max needs to be smaller
+        $max--;
+        for($i = 0; $i < count($actorList); $i++){
+            if($i > $max){
+                $actors .= " (...)";
+                break;
+            }
+            if(strlen($actors)) $actors .= ", ";
+            $a = $actorList[$i];
+            if($a instanceof Person_Person){
+                $actors .= $a->getFullName();
+            }
+        }
+        $actorName = String_String::getString("ACTOR_NAME_DJ");
+        return "<strong>$actorName:</strong><br />" . $actors;
     }
 }

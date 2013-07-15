@@ -47,6 +47,13 @@ class Person_Person implements Interface_Displayable{
     }
 
 
+    /**
+     * Get the full name of this Person object
+     */
+    public function getFullName(){
+        return $this->first_name . " " . $this->last_name;
+    }
+
 
     /**
      * @param   Integer      $person_id

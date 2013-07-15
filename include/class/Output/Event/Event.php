@@ -5,7 +5,6 @@
  */
  
 abstract class Output_Event_Event implements Interface_OutputBase, Interface_OutputEvent {
-    const E_TYPE = "Event";
     protected $data;
 
 
@@ -50,49 +49,30 @@ HTML;
         $eventName = $event->getName();
         $location = $event->getLocation();
         $address = $location->getAddress();
-        $eType = $this::E_TYPE;
+        $eType = String_String::getString("EVENT_TYPE_" . strtoupper($event::E_TYPE));
+        $actors = $this->getPrimaryActorsAsString();
+
         $html = <<<HTML
-            <div class='e-th $class'>
-                <div class="e-th-stripe">
+            <div class='e th $class'>
+                <div class="stripe">
                     <div class="title">
                         <div class="col-left">
                             $startTime -
                         </div>
                         <div class="col-right">
                             $eType: $eventName
-                        </div>
-                    </div>
-                    <div class="details">
-                        <div class="col-left e-icons">
-                        </div>
-                        <div class="col-right">
-                            <div class="address">
-                                $address
-                            </div>
-                            <div class="organizer">
-                                [Organizer Information]
+                            <div class="details">
+                                <div class="address">
+                                    $address
+                                </div>
+                                <div class="organizer">
+                                    $actors
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="clear"></div>
                 </div>
-            </div>
-HTML;
-
-        return $html;
-    }
-
-
-
-    /**
-     * Format the calendar-full version of the object to HTML
-     * @param   $class    String      The class of the outer-most HTML container element
-     * @return  string
-     */
-    public function to_html_calendar($class = null){
-        $html = <<<HTML
-            <div class='event-display $class'>
-                Hello World, this is a $class event.
             </div>
 HTML;
 
@@ -123,4 +103,12 @@ HTML;
     public function setData(Event_Event $data){
         $this->data = $data;
     }
+
+
+
+    /**
+     * Returns a string representation of the primary actors for this event, including a prefix of actor type
+     * @return String
+     */
+    abstract protected function getPrimaryActorsAsString();
 }

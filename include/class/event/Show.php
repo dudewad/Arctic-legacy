@@ -5,6 +5,11 @@
  */
 
 class Event_Show extends Event_EventPerformed{
+    //Event type
+    const E_TYPE = "Show";
+
+
+
     /**
      * @param Array         $data
      * @param Location      $location
@@ -20,7 +25,10 @@ class Event_Show extends Event_EventPerformed{
      * @return Array
      */
     public function getPrimaryActors(){
-
+        $arr = array();
+        if($performers = $this->getPerformers())
+            $arr = $performers;
+        return $arr;
     }
 
 
