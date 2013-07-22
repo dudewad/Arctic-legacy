@@ -3,26 +3,24 @@
  * Define the application object
  * @constructor
  */
-var TANG_APP;
+var Tanguer_App;
 (function () {
-    function TANGUER_APP(){
+    function Tanguer_App(){
         //Application settings go here
         this.settings = {};
-        //All ajax requests will go to this url
-        this.settings.jsonRequest = TANGUER_JSEnvVars.jsonRequest;
         //Access to other images (error, etc)
         this.settings.baseImageDir = "images/";
         //Set up the app object (auto-constructor)
         this.initialize();
     };
 
-    TANGUER_APP.prototype = {
+    Tanguer_App.prototype = {
 
         /**
          * Any pre-processing
          */
         initialize:function(){
-            this.ioc = new TANGUER_IOC();
+            this.ioc = new Tanguer_IOC();
             this.initIOC();
         },
 
@@ -32,13 +30,18 @@ var TANG_APP;
          */
         initIOC:function(){
             this.ioc.register("tooltip", function(){
-                var t = new TANGUER_Tooltip();
+                var t = new Tanguer_Tooltip();
                 return t;
             });
 
             this.ioc.register("JSONCalls", function(){
-                var j = new TANGUER_JSONCalls();
+                var j = new Tanguer_JSONCalls();
                 return j;
+            });
+
+            this.ioc.register("calendar", function(){
+                var c = new Tanguer_Calendar();
+                return c;
             });
         },
 
@@ -61,23 +64,19 @@ var TANG_APP;
 
     //Initialize the app!
     $(window).on('load', function(){
-        TANG_APP = new TANGUER_APP();
+        Tanguer_App = new Tanguer_App();
 
         //Build all required objects via IOC and create extensions
         //Only fire tooltip construction if there are tooltips on the page
         if($("[data-tooltip]").length > 0)
-            TANG_APP.ioc.build("tooltip");
+            Tanguer_App.ioc.build("tooltip");
+
+        //Add calendar to the page, if applicable
+        if($(".c").length > 0)
+            var cal = Tanguer_App.ioc.build("calendar");
 
         //Add JSON call functionality
-        TANG_APP.extend("JSONCalls", TANG_APP.ioc.build("JSONCalls"));
-
-        //Search results page requires customizer component
-        if($("html.results").length > 0)
-            TANG_APP.ioc.build("customizer");
-
-        //Vehicle picker initialization
-        if($("[data-plugin=picker]").length > 0)
-            TANG_APP.ioc.build("picker");
+        //Tanguer_App.extend("JSONCalls", TANG_APP.ioc.build("JSONCalls"));
 
         //Validation additions
         //TODO:Refactor this... this is a sloppy place for this to go

@@ -1,0 +1,368 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{
+    padding:0;
+    margin:0;
+}
+
+body{
+    padding:0;
+    color:#09f;
+    font-family:Lato, Arial, sans-serif;
+}
+
+input{
+    background-color:#333;
+    color:#DEDEDE;
+    padding:8px;
+    border:0;
+}
+
+.content{
+    width:auto;
+    min-width:0;
+    max-width:none;
+    padding-top:50px;
+}
+
+
+
+/**
+ * GRID STYLES
+ */
+.row{
+    clear:both;
+}
+
+.col-1-2{
+    width:49%;
+    margin-right:1%;
+    float:left;
+}
+
+.col-1-5{
+    width:19%;
+    margin-right:1%;
+    float:left;
+}
+
+.col-2-5{
+    width:39%;
+    margin-right:1%;
+    float:left;
+}
+
+.col-3-5{
+    width:59%;
+    margin-right:1%;
+    float:left;
+}
+
+.col-4-5{
+    width:79%;
+    margin-right:1%;
+    float:left;
+}
+
+.end{
+    margin:0;
+}
+
+
+/**
+ * CALENDAR STYLES
+ */
+.c{
+    width:100%;
+}
+
+.c-e-disp .container{
+}
+
+/*Thumbnail styles*/
+.e.th:hover,
+.e.th:hover a{
+    color:#FFF;
+}
+
+.c .th-list{
+    width:auto;
+}
+
+.e.th{
+    width:auto;
+    margin-top:0;
+    padding:5px !important;
+    border-top:none !important;
+}
+
+.e.th,
+.e.th a{
+    color:#333;
+    font-family:Lato, serif;
+}
+
+.e.th .e-content{
+    padding-left:60px;
+    padding-right:55px;
+    display:block;
+}
+
+
+.e.th .col-left{
+    width:55px;
+    margin-left:-55px;
+    float:left;
+    position:relative;
+}
+
+.e.th .col-center{
+    width:100%;
+    float:left;
+    position:relative;
+}
+
+.e.th .col-right{
+    width:50px;
+    margin-right:-50px;
+    float:left;
+    position:relative;
+}
+
+.e.th .title,
+.e.th .time,
+.e.th .price{
+    font-size:13px;
+    font-weight:700;
+    font-style:italic;
+}
+
+.e.th .price{
+    float:right;
+}
+
+.e.th .details{
+    padding-top:2px;
+    clear:both;
+    font-size:11px;
+    font-weight:400;
+    font-style:italic;
+}
+
+.e.th .organizer{
+    padding-top:2px;
+}
+
+.e.th.lesson{
+    background-color:#ccefff;
+    border:1px solid #1f79e5;
+    padding:2px;
+}
+
+.e.th.lesson:hover{
+    background-color:#1f79e5;
+    color:#ccefff;
+}
+
+.e.th.lesson .e-content{
+    border-left:8px solid #1f79e5;
+}
+
+.e.th.lesson:hover .e-content{
+    border-left:8px solid #ccefff;
+}
+
+.e.th.milonga{
+    background-color: #ffd2d2;
+    border:1px solid #b12f2c;
+    padding:2px;
+}
+
+.e.th.milonga:hover{
+    background-color:#b12f2c;
+    color:#ffd2d2;
+}
+
+.e.th.milonga .e-content{
+    border-left:8px solid #b12f2c;
+}
+
+.e.th.milonga:hover .e-content{
+    border-left:8px solid #f7cccc;
+}
+
+.e.th.practica{
+    background-color:#dbf7cc;
+    border:1px solid #299428;
+    padding:2px;
+}
+
+.e.th.practica:hover{
+    background-color:#299428;
+    color:#dbf7cc;
+}
+
+.e.th.practica .e-content{
+    border-left:8px solid #299428;
+}
+
+.e.th.practica:hover .e-content{
+    border-left:8px solid #dbf7cc;
+}
+
+.e.th.show{
+    background-color:#fdeacc;
+    border:1px solid #bf7b16;
+    padding:2px;
+}
+
+.e.th.show:hover{
+    background-color:#bf7b16;
+    color:#fdeacc;
+}
+
+.e.th.show .e-content{
+    border-left:8px solid #bf7b16;
+}
+
+.e.th.show:hover .e-content{
+    border-left:8px solid #fdeacc;
+}
+
+/**
+ * Login module styles
+ */
+.c .login{
+    text-align:center;
+    background-color:#dfdfdf;
+    padding:30px 20px;
+    border:1px solid #333;
+}
+
+.c .login form{
+    padding-top:20px;
+    padding-bottom:10px;
+    color:#333;
+}
+
+.c .login h2,
+.c .login h3{
+    color:#b12f2c;
+}
+
+.c .login h3{
+    font-style:italic;
+    margin:20px 0 15px 0;
+}
+
+.c .login hr{
+    height:1px;
+    border:0;
+    background-color:#333;
+}
+
+.c .login input,
+.c .login .label{
+    margin-bottom:10px;
+    clear:both;
+}
+
+.c .login .label{
+    padding:8px;
+    height:16px;
+    float:right;
+    font-size:13px;
+    font-style:italic;
+}
+
+.c .login .submit{
+    cursor:pointer;
+    font-weight:900;
+}
+
+.c .login .submit:hover,
+.c .login .cta{
+    background-color:#b12f2c;
+}
+
+.c .login .cta-container{
+    padding:2px;
+    border:1px solid #b12f2c;
+    display:inline-block;
+}
+
+.c .login .cta{
+    color:#FFF;
+    font-weight:900;
+    padding:8px;
+    display:block;
+}
+
+
+
+/**
+ * Tablet portrait (Ipad and surface)
+ */
+@media only screen and (min-width:768px){
+    body{
+        color:#09F;
+        font-family:Lato, Arial, sans-serif;
+        width:auto;
+    }
+
+    .content{
+        width:100%;
+        max-width:1200px;
+        margin:0 auto;
+    }
+
+    .c .th-list{
+        width:25%;
+        float:left;
+    }
+
+    .c-e-disp{
+        width:74%;
+        float:right;
+    }
+
+
+
+    /*EVENT STYLES*/
+    .e.th{
+        cursor:pointer;
+        margin-bottom:10px;
+        width:auto;
+    }
+
+    .e.th.lesson{
+        border:1px solid #1f79e5 !important;
+    }
+
+    .e.th.milonga{
+        border:1px solid #b12f2c !important;
+    }
+
+    .e.th.practica{
+        border:1px solid #299428 !important;
+    }
+
+    .e.th.show{
+        border:1px solid #bf7b16 !important;
+    }
+}
+
+
+
+
+/**
+ * Desktop styles (above 1024)
+ */
+@media only screen and (min-width:1024px){
+}
+
+#debug{
+    clear:both;
+    padding-top:30px;
+}

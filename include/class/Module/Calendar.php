@@ -3,6 +3,7 @@
  * Author: Ghost
  * Date: 7/9/13
  */
+require_once("Login.php");
  
 class Module_Calendar{
 
@@ -20,30 +21,46 @@ class Module_Calendar{
 
     /**
      * Formats the calendar to it's full HTML view for a single day
-     * @param   $eventList  Array       An array of Event objects to display
-     * @param   $day        Integer     Timestamp of the day to be displayed
-     * @param   $class      String      The class of the outer-most HTML container element
-     * @return  string                  Render the calendar as HTML
+     * @param   $eventList  Array           An array of Event objects to display
+     * @param   $day        Integer         Timestamp of the day to be displayed
+     * @param   $event      Event_Event     The event to be viewed, if applicable. This typically will only be set if the
+     *                                      user has Javascript disabled, as this data is brought in via AJAX otherwise
+     * @param   $class      String          The class of the outer-most HTML container element
+     * @return  string                      Render the calendar as HTML
      * @throws  Exception
      */
-    public function to_html_full_day($eventList, $day = null, $class = null){
+    public function to_html_full_day($eventList, $day = null, $event = null, $class = null){
+        $eData = null;
+        $dateCheck = date("dmY", $day);
+
         //Use today by default
         if(!$day){
             $day = time() + $this->timezoneOffset;
         }
-        $dateCheck = date("dmY", $day);
+
+        if(isset($event)){
+            $eData = $event->to_html_full();
+        }
+
+        $login = new Module_Login();
+        $default = $login->to_html_full();
 
         $thumbs = $this->eventListToThumbs($eventList);
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
-            <div class="c $class">
+            <div class="c full-day $class">
                 <div class="th-list">
                     $thumbs
                 </div>
-                <div class="c-e-disp">
-                    <div class="e-f">
-
+                <div class="c-e-disp full">
+                    <div class="container">
+                        <div class="default">
+                            $default
+                        </div>
+                        <div class="e-container">
+                            $eData
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,7 +103,8 @@ HTML;
         foreach($eventList as $e){
             //Require events
             if(!($e instanceof Event_Event))
-                throw new Exception("All events passed to " . __CLASS__ . "::to_html_full_day() must be of type Event_Event.");
+                throw new Exception("All events passed to " . __CLASS__ . "::eventListToThumbs() must be of type Event_Event.");
+
             if($e instanceof Event_Milonga){
                 if(isset($mOut))
                     $mOut->setData($e);
@@ -115,7 +133,10 @@ HTML;
                     $sOut = new Output_Event_Show($e);
                 $eOut = $sOut;
             }
-            $html .= $eOut->to_html_thumb();
+
+            $id = $e->getID();
+            $url = Utility_App::getURL("URL_MAIN","id=$id");
+            $html .= $eOut->to_html_thumb($url);
         }
 
         return $html;

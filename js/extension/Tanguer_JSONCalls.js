@@ -1,9 +1,9 @@
+;
 /**
  * Created by Layton Miller
  * Date: 5/28/13
  * Time: 12:26 PM
  */
-;
 
 function Tanguer_JSONCalls(){
 }

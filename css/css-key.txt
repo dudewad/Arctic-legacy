@@ -1,0 +1,5 @@
+c                       Calendar
+disp                    Display
+e                       Event
+f                       Full
+th                      Thumb

@@ -10,6 +10,7 @@
 class String_String {
     private static $language;
     private static $strings;
+    private static $reflector;
 
     private final function __construct(){}
     private final function __clone(){}
@@ -18,8 +19,10 @@ class String_String {
         //Set default language if none is set
         if(!isset(self::$language))
             self::setLanguage();
-        $strs = new ReflectionClass(self::$strings);
-        return $strs->getConstant($str);
+        //Only instantiate the reflection class once
+        if(!self::$reflector)
+            self::$reflector = new ReflectionClass(self::$strings);
+        return self::$reflector->getConstant($str);
     }
 
     public static function setLanguage($language = null){

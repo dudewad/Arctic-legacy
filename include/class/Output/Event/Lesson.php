@@ -27,11 +27,12 @@ class Output_Event_Lesson extends Output_Event_Event{
 
     /**
      * Format the thumbnail version of the object to HTML
+     * @param $url      String      The URL this thumb references
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_thumb($class = "lesson"){
-        return parent::to_html_thumb($class);
+    public function to_html_thumb($url, $class = "lesson"){
+        return parent::to_html_thumb($url, $class);
     }
 
 

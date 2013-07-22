@@ -40,10 +40,11 @@ HTML;
 
     /**
      * Format the thumbnail version of the object to HTML
+     * @param $url      String      The URL this thumb references
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_thumb($class = null){
+    public function to_html_thumb($url, $class = null){
         $event = $this->data;
         $startTime = $this->startTime();
         $eventName = $event->getName();
@@ -51,28 +52,38 @@ HTML;
         $address = $location->getAddress();
         $eType = String_String::getString("EVENT_TYPE_" . strtoupper($event::E_TYPE));
         $actors = $this->getPrimaryActorsAsString();
+        $price = "$" . $event->getPrice();
 
         $html = <<<HTML
             <div class='e th $class'>
-                <div class="stripe">
-                    <div class="title">
-                        <div class="col-left">
-                            $startTime -
-                        </div>
-                        <div class="col-right">
-                            $eType: $eventName
-                            <div class="details">
-                                <div class="address">
-                                    $address
-                                </div>
-                                <div class="organizer">
-                                    $actors
+                <a href="$url">
+                    <div class="e-content">
+                        <div>
+                            <div class="col-left">
+                                <div class="time">
+                                    $startTime -
                                 </div>
                             </div>
+                            <div class="col-center">
+                                <div class="title">
+                                    $eType: $eventName
+                                </div>
+                                <div class="details">
+                                    <div class="address">
+                                        $address
+                                    </div>
+                                    <div class="organizer">
+                                        $actors
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-right">
+                                <span class="price">$price</span>
+                            </div>
                         </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
-                </div>
+                </a>
             </div>
 HTML;
 

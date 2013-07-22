@@ -9,14 +9,12 @@ body{
     background:#000;
     color:#09F;
     font-family:Lato, Arial, sans-serif;
-    padding:50px;
     width:auto;
 }
 
 .content{
     width:100%;
     max-width:1200px;
-    min-width:944px;
     margin:0px auto;
 }
 
@@ -48,28 +46,43 @@ body{
     color:#FFF;
 }
 
-.e.th .stripe{
-    padding-left:5px;
+.e.th .e-content{
+    padding-left:60px;
+    padding-right:55px;
     display:block;
 }
 
 
 .e.th .col-left{
     width:55px;
+    margin-left:-55px;
     float:left;
-    display:block;
+    position:relative;
+}
+
+.e.th .col-center{
+    width:100%;
+    float:left;
+    position:relative;
 }
 
 .e.th .col-right{
-    width:210px;
+    width:50px;
+    margin-right:-50px;
     float:left;
-    display:block;
+    position:relative;
 }
 
-.e.th .title{
+.e.th .title,
+.e.th .time,
+.e.th .price{
     font-size:13px;
     font-weight:700;
     font-style:italic;
+}
+
+.e.th .price{
+    float:right;
 }
 
 .e.th .details{
@@ -95,11 +108,11 @@ body{
     color:#ccefff;
 }
 
-.e.th.lesson .stripe{
+.e.th.lesson .e-content{
     border-left:8px solid #1f79e5;
 }
 
-.e.th.lesson:hover .stripe{
+.e.th.lesson:hover .e-content{
     border-left:8px solid #ccefff;
 }
 
@@ -114,11 +127,11 @@ body{
     color:#ffd2d2;
 }
 
-.e.th.milonga .stripe{
+.e.th.milonga .e-content{
     border-left:8px solid #b12f2c;
 }
 
-.e.th.milonga:hover .stripe{
+.e.th.milonga:hover .e-content{
     border-left:8px solid #f7cccc;
 }
 
@@ -133,11 +146,11 @@ body{
     color:#dbf7cc;
 }
 
-.e.th.practica .stripe{
+.e.th.practica .e-content{
     border-left:8px solid #299428;
 }
 
-.e.th.practica:hover .stripe{
+.e.th.practica:hover .e-content{
     border-left:8px solid #dbf7cc;
 }
 
@@ -152,24 +165,37 @@ body{
     color:#fdeacc;
 }
 
-.e.th.show .stripe{
+.e.th.show .e-content{
     border-left:8px solid #bf7b16;
 }
 
-.e.th.show:hover .stripe{
+.e.th.show:hover .e-content{
     border-left:8px solid #fdeacc;
 }
 
 
 
 
+@media only screen and (max-width:944px){
+
+}
+
+
+
+
 /**
- * LT < 640 styles
+ * LT < 480 styles
  */
-@media (max-width:480px){
+@media only screen and (max-width:480px){
     body{
         padding:0;
         width:100%;
+    }
+
+    .content{
+        width:auto;
+        min-width:0;
+        max-width:none;
     }
 
     .c .th-list{
