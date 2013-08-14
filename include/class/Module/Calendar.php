@@ -50,9 +50,6 @@ class Module_Calendar{
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
             <div class="c full-day $class">
-                <div class="th-list">
-                    $thumbs
-                </div>
                 <div class="c-e-disp full">
                     <div class="container">
                         <div class="default">
@@ -62,6 +59,9 @@ class Module_Calendar{
                             $eData
                         </div>
                     </div>
+                </div>
+                <div class="th-list">
+                    $thumbs
                 </div>
             </div>
 HTML;

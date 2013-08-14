@@ -31,13 +31,13 @@ class Utility_App{
         $view = $this->config['path']['pageView'];
         //Include the current page file or revert to index
         $page = $baseDir . $view . $this->currentPage . ".php";
-        if(file_exists($page))
+        /*if(file_exists($page))
             require_once($page);
         else
             require_once($baseDir . $view . "home.php");
 
         $this->currentPageContent = isset($pageContent) ? $pageContent : null;
-        $this->tooltips = isset($tooltips) ? $tooltips : null;
+        $this->tooltips = isset($tooltips) ? $tooltips : null;*/
     } //End __construct
 
 
@@ -68,11 +68,6 @@ class Utility_App{
      * @return string HTML string representing the site <head>
      */
     public function head(){
-        $jsEnvVars = "var Tanguer_JSEnvVars = {};";
-        foreach($this->config['jsEnvVars'] as $key => $val){
-            $jsEnvVars .= "Tanguer_JSEnvVars." . $key . " = '" . $val . "';";
-        }
-
         //Set the meta description
         switch($this->currentPage){
             default:
@@ -84,23 +79,21 @@ class Utility_App{
                     <meta charset='utf-8' />
                     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
                     <meta name='description' content='" . $metaDesc . "'/>
-                    <script type='text/javascript'>
-                        " . $jsEnvVars . "
-                    </script>
                     <script src='js/third-party/jquery-1.10.1.min.js' type='text/javascript' ></script>
                     <script src='js/third-party/jquery.validate.min.js' type='text/javascript' ></script>
                     <script src='js/third-party/head.core.min.js' type='text/javascript' ></script>
-                    <script src='js/TANGUER_APP.js' type='text/javascript' ></script>
-                    <script src='js/extensions/Tanguer_IOC.js' type='text/javascript' ></script>
-                    <script src='js/extensions/Tanguer_JSONCall.js' type='text/javascript' ></script>
-                    <script src='js/components/Tanguer_Tooltip.js' type='text/javascript' ></script>
+                    <script src='js/Tanguer_App.js' type='text/javascript' ></script>
+                    <script src='js/extension/Tanguer_IOC.js' type='text/javascript' ></script>
+                    <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
+                    <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
+                    <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
                     <link href='css/style.css' media='all' rel='stylesheet' type='text/css' />
                     <link href='css/tooltip.css' rel='stylesheet' type='text/css' />
 
                     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+                    <meta name='viewport' content='width=device-width', initial-scale='1', user-scalable='no' />
 
                     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-                    <link rel='stylesheet' type='text/css' href='POC/css/test.css' />
                 </head>";
 
         return $data;
@@ -117,14 +110,22 @@ class Utility_App{
     } //End getCurrentPageName()
 
 
+
     /**
-     * @param $name String      Gets the URL form the config['url']['xxxx'] array if available.
-     *                          Otherwise returns an empty string
+     * @param $page     String      The page to be linked to
      *
-     * @return string           URL or empty string
+     * @param $q        String      Query string arguments to be appended to the URL
+     *
+     * @return string               URL or empty string
      */
-    public function getURL($name){
-        return isset($this->config['url'][$name]) ? $this->config['url'][$name] : "";
+    public static function getURL($page = null, $q = null){
+        if(strtoupper($page) == "URL_CURRENT"){
+            return $_SERVER["PHP_SELF"];
+        }
+        $url = constant("Utility_Constants::" . strtoupper($page));
+        if($q)
+            $url .= "?$q";
+        return $url;
     }
 
 
@@ -165,26 +166,26 @@ class Utility_App{
      * @return string HTML String representing the site nav
      */
     private function nav(){
-        $home = $this->getURL("main");
+        /*$home = $this->getURL("main");
         $images = $this->getURL("images");
 
         $data = "<div class='nav'>
                     <div id='siteNav'>";
         //Currently we have no links in the header. Commented out for future use
-                        /*<ul>";
+                        <ul>";
         foreach ($this->config['nav']['links'] as $key => $value){
             $target = preg_split("/=/", $value);
             $check = isset($target[1]) ? $target[1] : "home";
             $class = $check == strtolower($this->currentPage) ? " class='currentPage'" : '';
             $data .= "<li $class ><a href='$value'>$key</a></li>";
         }
-        $data .= "</ul>";*/
+        $data .= "</ul>";
         $data .= "<a href='$home'><img src='" . $images . "logo.png' alt='Tanguer'/></a>";
 
         //Close nav
         $data .= "</div>";
 
-        return $data;
+        return $data;*/
     } //End nav()
 }
 

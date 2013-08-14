@@ -25,18 +25,24 @@ class Module_Login{
                 <h2>$loginSubtitle</h2>
                 <div class="row">
                     <form action="" method="post">
-                        <div class="col-1-2">
-                            <div class="label">
+                        <div class="row">
+                            <div class="col-2-5">
                                 <label for="username">$usernameLabel</label>
                             </div>
-                            <div class="label">
-                                <label for="password">$passwordLabel</label>
+                            <div class="col-3-5">
+                                <input type="text" name="username"/>
                             </div>
                         </div>
-                        <div class="col-1-2 end">
-                            <input type="text" name="username" class="left"/>
-                            <input type="password" name="password" class="left" />
-                            <input type="submit" name="submit" value="$submitText" class="left submit" />
+                        <div class="row">
+                            <div class="col-2-5">
+                                <label for="password">$passwordLabel</label>
+                            </div>
+                            <div class="col-3-5">
+                                <input type="password" name="password" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="submit" name="submit" value="$submitText" class="submit" />
                         </div>
                         <div class="clear"></div>
                     </form>
