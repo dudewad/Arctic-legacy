@@ -5,6 +5,11 @@
  */
  
 class String_StringsESAR {
+    //Global Event Strings
+    const EVENT_DIFFICULTY_BEGINNER = "Principiante";
+    const EVENT_DIFFICULTY_INTERMEDIATE = "Intermedio";
+    const EVENT_DIFFICULTY_ADVANCED = "Avanzado";
+
     //Milonga related strings
     const EVENT_TYPE_MILONGA = "Milonga";
 

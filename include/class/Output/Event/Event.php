@@ -46,6 +46,7 @@ HTML;
      */
     public function to_html_thumb($url, $class = null){
         $event = $this->data;
+        $id = $event->getId();
         $startTime = $this->startTime();
         $eventName = $event->getName();
         $location = $event->getLocation();
@@ -55,7 +56,7 @@ HTML;
         $price = "$" . $event->getPrice();
 
         $html = <<<HTML
-            <div class='e th $class'>
+            <div class='e th $class' data-event-id='$id'>
                 <a href="$url">
                     <div class="e-content">
                         <div>

@@ -153,6 +153,7 @@ final class Location implements Interface_Displayable{
     }
 
 
+
     /**
      * Convert to an object for functions like to_JSON() to quickly iterate, etc.
      * @return stdClass

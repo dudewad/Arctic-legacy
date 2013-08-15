@@ -8,4 +8,11 @@
 
 $("document").ready(function(){
     $("#debug").html($("html").attr("class"));
+
+    //All onclick events for event objects
+    $("body").on("click",".e",function(){
+        if($(this).hasClass("th")){
+
+        }
+    })
 });

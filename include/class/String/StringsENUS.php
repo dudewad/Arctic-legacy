@@ -5,6 +5,11 @@
  */
  
 class String_StringsENUS {
+    //Global Event Strings
+    const EVENT_DIFFICULTY_BEGINNER = "Beginner";
+    const EVENT_DIFFICULTY_INTERMEDIATE = "Intermediate";
+    const EVENT_DIFFICULTY_ADVANCED = "Advanced";
+
     //Milonga related strings
     const EVENT_TYPE_MILONGA = "Milonga";
 
