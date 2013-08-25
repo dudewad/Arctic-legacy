@@ -141,26 +141,6 @@ class Utility_App{
 
 
     /**
-     * Return a constant string from the application's main string repository for the user's language.
-     * Gracefully handles bad language settings - but this will revert the user's language to en-US.
-     *
-     * @param   $str      String        The constant being requested. Language will be figured out automatically.
-     * @return String
-     */
-    public function getConstantString($str){
-        try{
-            $r = new ReflectionClass("String_Strings" . $this->language);
-        }
-        catch(Exception $e){
-            $this->setLanguage("ESAR");
-            $r = new ReflectionClass("String_Strings" . $this->language);
-        }
-        return $r->getConstant($str);
-    }
-
-
-
-    /**
      * Print the site nav and return as HTML string
      *
      * @return string HTML String representing the site nav
@@ -188,5 +168,3 @@ class Utility_App{
         return $data;*/
     } //End nav()
 }
-
-?>

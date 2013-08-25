@@ -33,6 +33,7 @@ class String_String {
         else{
             self::$language = "ESAR";
         }
+
         //Set strings file
         if(!isset(self::$strings)){
             $class = "String_Strings" . self::$language;
