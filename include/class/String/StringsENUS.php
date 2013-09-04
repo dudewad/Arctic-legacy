@@ -9,6 +9,12 @@ class String_StringsENUS {
     const EVENT_DIFFICULTY_BEGINNER = "Beginner";
     const EVENT_DIFFICULTY_INTERMEDIATE = "Intermediate";
     const EVENT_DIFFICULTY_ADVANCED = "Advanced";
+    const EVENT_TITLE_INFORMATION = "Information";
+    const EVENT_TITLE_DESCRIPTION = "Description";
+    const EVENT_TITLE_DAY = "When";
+    const EVENT_TITLE_TIME = "Time";
+    const EVENT_TITLE_COST = "Cost";
+    const EVENT_TITLE_LOCATION = "Location";
 
     //Milonga related strings
     const EVENT_TYPE_MILONGA = "Milonga";

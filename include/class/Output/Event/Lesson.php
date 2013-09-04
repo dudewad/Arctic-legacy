@@ -31,7 +31,8 @@ class Output_Event_Lesson extends Output_Event_Event{
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_thumb($url, $class = "lesson"){
+    public function to_html_thumb($url, $class = null){
+        $class = isset($class) ? $class . " lesson" : "lesson";
         return parent::to_html_thumb($url, $class);
     }
 

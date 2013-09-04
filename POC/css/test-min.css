@@ -10,7 +10,7 @@ body{
     padding:0;
     color:#09f;
     font-family:Lato, Arial, sans-serif;
-    background:#333;
+    background:#FFF;
 }
 
 input{
@@ -20,10 +20,31 @@ input{
     border:0;
 }
 
+p{
+    padding-bottom:0;
+    margin-bottom:0;
+}
+
+table{
+    font-size:12px;
+}
+
 .content{
     width:auto;
     min-width:0;
     max-width:none;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-center{
+    text-align:center;
 }
 
 
@@ -35,9 +56,11 @@ input{
     clear:both;
 }
 
-.end{
+.column.end{
     margin:0;
+    padding:0;
 }
+
 
 
 /**
@@ -47,24 +70,129 @@ input{
     width:100%;
 }
 
-.c-e-disp .container{
+.c.full-day{
+    padding-top:20px;
 }
 
-/*Thumbnail styles*/
+.c-e-disp .banner-container{
+    max-height:200px;
+    overflow:hidden;
+}
+
+.c-e-disp .banner{
+    width:100%;
+    display:block;
+}
+
+/* Calendar event full display styles */
+
+.c-e-disp.full .title{
+    font-family:Vollkorn,Lato,Arial,sans-serif;
+    font-size:24px;
+    font-style:oblique;
+    font-weight:bold;
+    padding:30px 20px;
+    color:#FFF;
+    background-color:#333;
+}
+
+.c-e-disp.full .social,
+.c-e-disp.full .e-data{
+    padding:20px;
+}
+
+.c-e-disp.full .e-data table{
+    width:100%;
+}
+
+.c-e-disp.full .e-data td.label{
+    width:25%;
+}
+
+.c-e-disp.full .e-data td.content{
+    width:75%;
+}
+
+.c-e-disp.full .e-data .information{
+    padding-bottom:20px;
+}
+
+.c-e-disp.full .e-data .description{
+    margin-top:20px;
+}
+
+.c-e-disp.full .lesson .social,
+.c-e-disp.full .lesson .e-data{
+    background-color:#1f79e5;
+    color:#ccefff;
+}
+
+.c-e-disp.full .lesson .information{
+    border-bottom:1px solid #ccefff;
+}
+
+.c-e-disp.full .lesson .e-data{
+    border-top:1px solid #ccefff;
+}
+
+.c-e-disp.full .milonga .social,
+.c-e-disp.full .milonga .e-data{
+    background-color:#b12f2c;
+    color:#ffd2d2;
+}
+
+.c-e-disp.full .milonga .information{
+    border-bottom:1px solid #ffd2d2;
+}
+
+.c-e-disp.full .milonga .e-data{
+    border-top:1px solid #ffd2d2;
+}
+
+.c-e-disp.full .practica .social,
+.c-e-disp.full .practica .e-data{
+    background-color:#299428;
+    color:#dbf7cc;
+}
+
+.c-e-disp.full .practica .information{
+    border-bottom:1px solid #dbf7cc;
+}
+
+.c-e-disp.full .practica .e-data{
+    border-top:1px solid #dbf7cc;
+}
+
+.c-e-disp.full .show .social,
+.c-e-disp.full .show .e-data{
+    background-color:#bf7b16;
+    color:#fdeacc;
+}
+
+.c-e-disp.full .show .information{
+    border-bottom:1px solid #fdeacc;
+}
+
+.c-e-disp.full .show .e-data{
+    border-top:1px solid #fdeacc;
+}
+
+/* Calendar event thumbnail styles*/
 
 .c .th-list{
     width:auto;
+    position:relative;
 }
 
 .e.th{
     width:auto;
     margin-top:0;
-    padding:5px !important;
-    border-top:none !important;
+    padding:5px;
 }
 
 .e.th,
 .e.th a{
+    display:block;
     color:#333;
     font-family:Lato, serif;
 }
@@ -123,7 +251,7 @@ input{
 .e.th.lesson{
     background-color:#ccefff;
     border:1px solid #1f79e5;
-    padding:2px;
+    border-top:0;
 }
 
 .e.th.lesson .e-content{
@@ -133,7 +261,7 @@ input{
 .e.th.milonga{
     background-color: #ffd2d2;
     border:1px solid #b12f2c;
-    padding:2px;
+    border-top:0;
 }
 
 .e.th.milonga .e-content{
@@ -143,7 +271,7 @@ input{
 .e.th.practica{
     background-color:#dbf7cc;
     border:1px solid #299428;
-    padding:2px;
+    border-top:0;
 }
 
 .e.th.practica .e-content{
@@ -153,16 +281,20 @@ input{
 .e.th.show{
     background-color:#fdeacc;
     border:1px solid #bf7b16;
-    padding:2px;
+    border-top:0;
 }
 
 .e.th.show .e-content{
     border-left:8px solid #bf7b16;
 }
 
+
+
 /**
  * Login module styles
  */
+
+/* Calendar login styles */
 .c .login{
     text-align:center;
     background-color:#dfdfdf;
@@ -243,38 +375,20 @@ input{
 
 
 /**
- * Above Mobile
+ * TABLET STYLES ( width > 360 )
  */
 @media only screen and (min-width:360px){
 
     /* GRID STYLES */
     .col-1-2{
-        width:49%;
-        margin-right:1%;
+        width:48%;
+        margin-right:2%;
         float:left;
     }
 
-    .col-1-5{
-        width:19%;
-        margin-right:1%;
-        float:left;
-    }
-
-    .col-2-5{
-        width:39%;
-        margin-right:1%;
-        float:left;
-    }
-
-    .col-3-5{
-        width:59%;
-        margin-right:1%;
-        float:left;
-    }
-
-    .col-4-5{
-        width:79%;
-        margin-right:1%;
+    .col-1-4{
+        width:23.5%;
+        margin-right:2%;
         float:left;
     }
 
@@ -322,7 +436,7 @@ input{
     }
 
     .c .th-list{
-        width:25%;
+        width:26%;
         float:left;
     }
 
@@ -334,6 +448,7 @@ input{
 
 
     /*EVENT STYLES*/
+
     .e.th{
         cursor:pointer;
         margin-bottom:10px;
@@ -341,19 +456,46 @@ input{
     }
 
     .e.th.lesson{
-        border:1px solid #1f79e5 !important;
+        border:1px solid #1f79e5;
     }
 
     .e.th.milonga{
-        border:1px solid #b12f2c !important;
+        border:1px solid #b12f2c;
     }
 
     .e.th.practica{
-        border:1px solid #299428 !important;
+        border:1px solid #299428;
+    }
+
+    .e.th.show{
+        border:1px solid #bf7b16;
+    }
+
+    .c .th-list .e.th{
+        margin-right:10px;
+    }
+
+    .c .th-list .e.th.selected{
+        margin-right:0;
+    }
+
+    .c .th-list .e.th.selected{
+        margin-right:0;
+        border-right:0;
     }
 
     .c .login{
         border-top:1px solid #333;
+    }
+
+    /* Calendar Event styles */
+    .c-e-disp.full .e-data .col-left{
+        width:73%;
+        margin-right:2%;
+    }
+
+    .c-e-disp.full .e-data .col-right{
+        width:25%;
     }
 }
 
@@ -368,43 +510,53 @@ input{
     /* EVENT STYLES */
 
     .e.th:hover,
-    .e.th:hover a{
+    .e.th:hover a,
+    .e.th.selected,
+    .e.th.selected a{
         color:#FFF;
     }
 
-    .e.th.lesson:hover{
+    .e.th.lesson:hover,
+    .e.th.lesson.selected{
         background-color:#1f79e5;
         color:#ccefff;
     }
 
-    .e.th.lesson:hover .e-content{
+    .e.th.lesson:hover .e-content,
+    .e.th.lesson.selected .e-content{
         border-left:8px solid #ccefff;
     }
 
-    .e.th.milonga:hover{
+    .e.th.milonga:hover,
+    .e.th.milonga.selected{
         background-color:#b12f2c;
         color:#ffd2d2;
     }
 
-    .e.th.milonga:hover .e-content{
+    .e.th.milonga:hover .e-content,
+    .e.th.milonga.selected .e-content{
         border-left:8px solid #f7cccc;
     }
 
-    .e.th.practica:hover{
+    .e.th.practica:hover,
+    .e.th.practica.selected{
         background-color:#299428;
         color:#dbf7cc;
     }
 
-    .e.th.practica:hover .e-content{
+    .e.th.practica:hover .e-content,
+    .e.th.practica.selected .e-content{
         border-left:8px solid #dbf7cc;
     }
 
-    .e.th.show:hover{
+    .e.th.show:hover,
+    .e.th.show.selected{
         background-color:#bf7b16;
         color:#fdeacc;
     }
 
-    .e.th.show:hover .e-content{
+    .e.th.show:hover .e-content,
+    .e.th.show.selected .e-content{
         border-left:8px solid #fdeacc;
     }
 }

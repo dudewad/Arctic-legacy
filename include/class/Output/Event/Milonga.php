@@ -31,7 +31,8 @@ class Output_Event_Milonga extends Output_Event_Event{
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_thumb($url, $class = "milonga"){
+    public function to_html_thumb($url, $class = null){
+        $class = isset($class) ? $class . " milonga" : "milonga";
         return parent::to_html_thumb($url, $class);
     }
 

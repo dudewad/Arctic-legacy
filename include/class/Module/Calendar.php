@@ -30,7 +30,7 @@ class Module_Calendar{
      * @throws  Exception
      */
     public function to_html_full_day($eventList, $day = null, $event = null, $class = null){
-        $eData = null;
+        $selectedID = null;
         $dateCheck = date("dmY", $day);
 
         //Use today by default
@@ -39,25 +39,37 @@ class Module_Calendar{
         }
 
         if(isset($event)){
-            $eData = $event->to_html_full();
+            $eObj = null;
+            switch(get_class($event)){
+                case "Event_Milonga":
+                    $eObj = new Output_Event_Milonga($event);
+                    break;
+                case "Event_Lesson":
+                    $eObj = new Output_Event_Lesson($event);
+                    break;
+                case "Event_Practica":
+                    $eObj = new Output_Event_Practica($event);
+                    break;
+                case "Event_Show":
+                    $eObj = new Output_Event_Show($event);
+                    break;
+            }
+            $default = $eObj->to_html_calendar();
+            $selectedID = $event->getId();
+        }
+        else{
+            $login = new Module_Login();
+            $default = $login->to_html_full();
         }
 
-        $login = new Module_Login();
-        $default = $login->to_html_full();
-
-        $thumbs = $this->eventListToThumbs($eventList);
+        $thumbs = $this->eventListToThumbs($eventList, $selectedID);
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
             <div class="c full-day $class">
                 <div class="c-e-disp full">
-                    <div class="container">
-                        <div class="default">
-                            $default
-                        </div>
-                        <div class="e-container">
-                            $eData
-                        </div>
+                    <div class="e-container">
+                        $default
                     </div>
                 </div>
                 <div class="th-list">
@@ -88,11 +100,15 @@ HTML;
 
     /**
      * Take an event list and turn it into HTML thumbnails and return as an HTML string.
-     * @param $eventList
+     * @param $eventList    Array       Required        An array of Event_Event objects
+     *
+     * @param $selectedID   Integer     Optional        The ID of the event in the set that is to be rendered with a
+     *                                                  "selected" class. This is for when a user loads a page with an
+     *                                                  event selected, namely with JS disabled.
      * @return string
      * @throws Exception
      */
-    private function eventListToThumbs($eventList){
+    private function eventListToThumbs($eventList, $selectedID = null){
         $html = "";
         $eOut = null;
         $mOut = null;
@@ -135,8 +151,9 @@ HTML;
             }
 
             $id = $e->getID();
-            $url = Utility_App::getURL("URL_MAIN","id=$id");
-            $html .= $eOut->to_html_thumb($url);
+            $url = Utility_App::getURL("URL_MAIN","e=$id");
+            $selected = ($id == $selectedID) ? "selected" : null;
+            $html .= $eOut->to_html_thumb($url, $selected);
         }
 
         return $html;

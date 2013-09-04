@@ -39,6 +39,102 @@ HTML;
 
 
     /**
+     * Format the calendar view version of the object to HTML
+     * @param $class    String      The class of the outer-most HTML container element
+     * @return string
+     */
+    public function to_html_calendar($class = null){
+        $eventName = $this->data->getName();
+        $banner = "<img src='" . Utility_AssetManager::getEventBanner($this->data->getID()) . "' alt='$eventName' class='banner' />";
+        $description = $this->data->getDescription();
+        $time = $this->data->getTimeRange();
+        $price = "$" . $this->data->getPrice();
+
+        $titleInfo = String_String::getString("EVENT_TITLE_INFORMATION");
+        $titleDesc = String_String::getString("EVENT_TITLE_DESCRIPTION");
+        $titleDay = String_String::getString("EVENT_TITLE_DAY");
+        $titleTime = String_String::getString("EVENT_TITLE_TIME");
+        $titlePrice = String_String::getString("EVENT_TITLE_COST");
+        $titleLocation = String_String::getString("EVENT_TITLE_LOCATION");
+        $locationOut = new Output_Location_Location($this->data->getLocation());
+        $location = $locationOut->to_html_full();
+
+        $html = <<<HTML
+            <div class='$class'>
+                <div class="banner-container">
+                    $banner
+                </div>
+                <div class="title">
+                    <h2>$eventName</h2>
+                </div>
+                <div class="social"></div>
+                <div class="e-data">
+                    <div class="col-left">
+                        <div class="information">
+                            <h2>$titleInfo</h2>
+                            <div class="row">
+                                <div class="column col-1-2">
+                                    <table>
+                                        <tr>
+                                            <td class="label">
+                                                $titleDay
+                                            </td>
+                                            <td class="text-right content">
+                                                Test
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">
+                                                $titleTime
+                                            </td>
+                                            <td class="text-right content">
+                                                $time
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">
+                                                $titlePrice
+                                            </td>
+                                            <td class="text-right content">
+                                                $price
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="column col-1-2 end">
+                                    <table>
+                                        <tr>
+                                            <td class="label">
+                                                $titleLocation
+                                            </td>
+                                            <td class="text-right content">
+                                                $location
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="description">
+                            <h2>$titleDesc</h2>
+                            <p>$description</p>
+                        </div>
+                    </div>
+                    <div class="col-right">
+
+                    </div>
+                </div>
+            </div>
+HTML;
+
+        return $html;
+    }
+
+
+
+    /**
      * Format the thumbnail version of the object to HTML
      * @param $url      String      The URL this thumb references
      * @param $class    String      The class of the outer-most HTML container element

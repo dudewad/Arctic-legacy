@@ -31,15 +31,24 @@ class Test_ObjectGenerator {
         $this->eventNames = array("El Faro","Purple Haze","China Harbor","Roja","Cafe de la Flor","Los Zarpados","Cachete","Bailarines","La Monita");
         $this->topics = array("Ochos","Crosses","Ochos and Crosses","Caminata","Pasos Chiquitos","Musicality","Ganchos","Boleos","Sistemas de Baile Avanzadas","Walking slowly","Dancing to the Music","El Abrazo");
         $this->difficulties = array(String_String::getString("EVENT_DIFFICULTY_BEGINNER"),String_String::getString("EVENT_DIFFICULTY_INTERMEDIATE"),String_String::getString("EVENT_DIFFICULTY_ADVANCED"));
+        $this->descriptions = array(
+            "Consectetuer in refero vel gemino pala pagus in. Obruo pecus mauris. Camur wisi vel suscipere et quod consequat tamen. Eum jumentum ne nisl quod pecus vel damnum laoreet zelus brevitas imputo. Ullamcorper quidem feugait foras.",
+            "Vel suscipere probo tamen dolore tum singularis quidem nisl iriure. Enim mauris gilvus importunus transverbero decet diam vicis. Velit quidem uxor nullus dignissim facilisi eum exputo. Hendrerit suscipit decet comis.",
+            "Abico iriure luptatum autem transverbero humo typicus. Sed eum pneum loquor capto praemitto tum nibh eros iriure. Ille ea nobis cui ea quia. Nostrud eu roto quod jus decet modo esse ea ille. Genitus causa brevitas importunus praemitto commodo ullamcorper. Ratis commodo fatua aptent ideo feugiat modo nostrud nulla si nimis ut.",
+            "Quis duis causa lucidus rusticus haero vero transverbero neque velit zelus tation. Duis facilisis abdo mauris indoles suscipit fere esse."
+        );
     }
 
 
 
-    public function getRandomEvent(){
+    public function getRandomEvent($type = null){
         $data = array();
         $startHour = rand(18,22);
         $halfHour = rand(0,1) ? "00" : "30";
         $startTime = $startHour . ":" . $halfHour . ":00";
+        $description = $this->descriptions[rand(0,3)];
+        $e = null;
+        $typeNum = null;
 
         $data['name'] = $this->eventNames[rand(0,count($this->eventNames) - 1)];
         $data['price'] = rand(5,50);
@@ -53,15 +62,31 @@ class Test_ObjectGenerator {
         $data['date_end'] = strtotime("today " . $startTime . " + 4 hours");
         $data['min_age'] = rand(0,1) ? 0 : 18;
         $data['repeat'] = "weekly";
+        $data['description'] = $description;
 
         $location = $this->getRandomLocation();
         $numDJs = rand(1,2);
         $numInstructors = rand(1,2);
         $numArtists = rand(2,6);
+        switch($type){
+            case "milonga":
+                $typeNum = 0;
+                break;
+            case "lesson":
+                $typeNum = 1;
+                break;
+            case "practica":
+                $typeNum = 2;
+                break;
+            case "show":
+                $typeNum = 3;
+                break;
+            default:
+                $typeNum = rand(0,3);
+                break;
+        }
 
-        $e = null;
-
-        switch(rand(0,3)){
+        switch($typeNum){
             case 0:
                 $djs = array();
                 for($i = 0; $i < $numDJs; $i++){

@@ -9,6 +9,8 @@ abstract class Event_Event implements Interface_Displayable{
     const E_TYPE = "Event";
     //Event's ID
     protected $id;
+    //Event's description
+    protected $description;
     //Whether the organizing user has confirmed this event will happen
     protected $confirmed;
     //Must be a location object
@@ -44,6 +46,7 @@ abstract class Event_Event implements Interface_Displayable{
         $this->setDateEnd($data["date_end"]);
         $this->setOrganizerId($data["organizer_id"]);
         $this->setConfirmed($data["confirmed"]);
+        $this->setDescription($data["description"]);
         //Optional items
         if(isset($data['parent_id']))
             $this->setParentId($data["parent_id"]);
@@ -128,6 +131,16 @@ abstract class Event_Event implements Interface_Displayable{
 
 
     /**
+     * Returns the times of the event as a string, e.g. 21:00 - 01:00
+     * @return mixed
+     */
+    public function getTimeRange(){
+        return date("H:i", $this->getDateStart()) . " - " . date("H:i", $this->getDateEnd());
+    }
+
+
+
+    /**
      * @return mixed
      */
     public function getDateStart(){
@@ -149,6 +162,15 @@ abstract class Event_Event implements Interface_Displayable{
      * @return Array
      */
     abstract public function getPrimaryActors();
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getDescription(){
+        return $this->description;
+    }
 
 
 
@@ -271,11 +293,19 @@ abstract class Event_Event implements Interface_Displayable{
         $this->repeat = $repeat;
     }
 
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description){
+        $this->description = $description;
+    }
+
 
 
     public function to_object(){
         $obj = new stdClass();
         $obj->id = $this->getId();
+        $obj->description = $this->getDescription();
         $obj->confirmed = $this->getConfirmed();
         $obj->location = $this->getLocation()->to_object();
         $obj->name = $this->getName();

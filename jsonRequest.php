@@ -1,19 +1,20 @@
 <?php
 /**
  * Author: Layton Miller
- * Contact: layton@newcarcity.com
- * Date: 6/5/13
+ * Contact: layton@desmill.com
+ * Date: 9/2/13
  *
  * This file handles all json responses for the application.
  * All requests must come in with a "t" parameter, indicating the "type" of  json request this is.
  * The different types are listed below - as more are added they should be added here, AND KEPT IN ALPHABETICAL ORDER!!
  * For more information on each request type, see the switch statement below.
  *
- * ei = "Evox Image" request
+ * ei = "event" request
  */
 header("Content-type: application/json");
 define("BASEDIR", __DIR__ . "/");
 require_once(BASEDIR . "/includes/config.php");
+require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/includes/class/DB.php");
 require_once(BASEDIR . "/includes/class/JSONGenerator.php");
 
@@ -27,15 +28,11 @@ if(!isset($_REQUEST['t'])){
 
 switch($_REQUEST['t']){
     /**
-     * Evox image (ei) request- asks for one image from the server, returned as:
-     * {"url":"...."}
-     * Requires url values:
-     * mk =     the make of the vehicle
-     * mdl =    the model of the vehicle
+     * Event (e) request- asks for one event from the server
      */
-    case "ei":
-        if(!isset($_REQUEST['mk']) || !isset($_REQUEST['mdl'])){
-            exit($jsonGen->echoDocument("{'error':'Missing required vehicle data.'}"));
+    case "e":
+        if(!isset($_REQUEST['id'])){
+            exit($jsonGen->echoDocument("{'error':'Missing '}"));
         }
         require_once(BASEDIR . "/includes/procedures/evox_image.php");
         $v = new stdClass();

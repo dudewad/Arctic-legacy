@@ -9,6 +9,12 @@ class String_StringsESAR {
     const EVENT_DIFFICULTY_BEGINNER = "Principiante";
     const EVENT_DIFFICULTY_INTERMEDIATE = "Intermedio";
     const EVENT_DIFFICULTY_ADVANCED = "Avanzado";
+    const EVENT_TITLE_INFORMATION = "Datos";
+    const EVENT_TITLE_DESCRIPTION = "Descripción";
+    const EVENT_TITLE_DAY = "Día";
+    const EVENT_TITLE_TIME = "Horario";
+    const EVENT_TITLE_COST = "Entrada";
+    const EVENT_TITLE_LOCATION = "Ubicación";
 
     //Milonga related strings
     const EVENT_TYPE_MILONGA = "Milonga";

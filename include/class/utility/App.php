@@ -79,6 +79,9 @@ class Utility_App{
                     <meta charset='utf-8' />
                     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
                     <meta name='description' content='" . $metaDesc . "'/>
+                    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+                    <meta name='viewport' content='width=device-width', initial-scale='1', user-scalable='no' />
+
                     <script src='js/third-party/jquery-1.10.1.min.js' type='text/javascript' ></script>
                     <script src='js/third-party/jquery.validate.min.js' type='text/javascript' ></script>
                     <script src='js/third-party/head.core.min.js' type='text/javascript' ></script>
@@ -87,13 +90,13 @@ class Utility_App{
                     <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
+                    <script type='text/javascript' src='POC/js/test.js'></script>
+
+
                     <link href='css/style.css' media='all' rel='stylesheet' type='text/css' />
                     <link href='css/tooltip.css' rel='stylesheet' type='text/css' />
-
-                    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-                    <meta name='viewport' content='width=device-width', initial-scale='1', user-scalable='no' />
-
                     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+                    <link rel='stylesheet' type='text/css' href='POC/css/test-min.css' />
                 </head>";
 
         return $data;

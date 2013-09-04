@@ -11,8 +11,10 @@ var Tanguer_Calendar = function(){
 Tanguer_Calendar.prototype = {
     init:function(){
         var scope = this;
-        $("div.c.full-day a").on("click",function(e){
-
+        $("body").on("click","div.c .th-list a", function(e){
+            var thumb = $(this).closest(".e.th");
+            thumb.siblings().removeClass("selected");
+            thumb.addClass("selected");
             e.preventDefault();
             return false;
         });
