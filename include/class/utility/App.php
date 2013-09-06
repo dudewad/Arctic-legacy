@@ -133,12 +133,24 @@ class Utility_App{
 
 
 
-    public function setUserSession($user){
+    public static function setUserSession($user){
         if(!($user instanceof Person_User))
             throw new Exception("Error setting user in " . __CLASS__ . "::setUser - the passed object must be of type Person_User");
         $obj = $user->to_object();
         $_SESSION['user'] = $obj;
         String_String::setLanguage($user->getLanguage());
+    }
+
+
+
+    public static function hasUserSession(){
+        return isset($_SESSION);
+    }
+
+
+
+    public static function getUserSession(){
+        return $_SESSION['user'];
     }
 
 

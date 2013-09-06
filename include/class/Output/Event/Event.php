@@ -58,6 +58,11 @@ HTML;
         $titleLocation = String_String::getString("EVENT_TITLE_LOCATION");
         $locationOut = new Output_Location_Location($this->data->getLocation());
         $location = $locationOut->to_html_full();
+        $social = null;
+
+        if(Utility_App::hasUserSession()){
+            $social = '<div class="social">User signed in. Display social!</div>';
+        }
 
         $html = <<<HTML
             <div class='$class'>
@@ -67,7 +72,7 @@ HTML;
                 <div class="title">
                     <h2>$eventName</h2>
                 </div>
-                <div class="social"></div>
+                $social
                 <div class="e-data">
                     <div class="col-left">
                         <div class="information">

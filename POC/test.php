@@ -3,13 +3,16 @@
  * Author: Ghost
  * Date: 6/19/13
  */
+//Destroy user session in test environment
+
+@session_destroy();
 define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/config.php");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
 $APP = Utility_IOC::build("Utility_App");
-String_String::setLanguage("ESAR");
+String_String::setLanguage("ENUS");
 $generator = new Test_ObjectGenerator();
 
 $appUser = $generator->getRandomUser();
