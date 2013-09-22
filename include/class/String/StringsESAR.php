@@ -47,4 +47,11 @@ class String_StringsESAR {
 
     //Button strings
     const BUTTON_REGISTER = "Registrate ahora";
+    const BUTTON_SUBMIT = "Listo";
+
+    //Verbs
+    const V_1P_PRES_ATTENDING = "Voy";
+    const V_2P_PRES_ATTENDING = "Vas";
+    const V_3P_PRES_S_ATTENDING = "Va";
+    const V_3P_PRES_PL_ATTENDING = "Van";
 }

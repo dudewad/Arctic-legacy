@@ -6,7 +6,7 @@
 class Output_Location_Location implements Interface_OutputBase{
     private $data;
 
-    public function __construct(Location $data){
+    public function __construct(Location_Location $data){
         $this->data = $data;
     }
 

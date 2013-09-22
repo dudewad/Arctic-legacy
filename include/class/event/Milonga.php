@@ -14,7 +14,7 @@ class Event_Milonga extends Event_EventDJd{
 
     /**
      * @param Array         $data
-     * @param Location      $location
+     * @param Location_Location      $location
      * @param Array|null    $djs
      */
     public function __construct($data, $location, $djs = null){

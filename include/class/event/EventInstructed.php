@@ -11,7 +11,7 @@ abstract class Event_EventInstructed extends Event_Event{
 
     /**
      * @param Array             $data
-     * @param Location|null     $location
+     * @param Location_Location|null     $location
      * @param Array|null        $instructors
      */
     public function __construct($data, $location, $instructors = null){

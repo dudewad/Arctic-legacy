@@ -16,7 +16,7 @@ class Event_Lesson extends Event_EventInstructed{
 
     /**
      * @param Array         $data
-     * @param Location      $location
+     * @param Location_Location      $location
      * @param Array         $instructors
      * @throws Exception
      */

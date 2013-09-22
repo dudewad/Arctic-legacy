@@ -6,8 +6,8 @@
 
 class Utility_Constants {
     //URL CONSTANTS
-    const URL_MAIN = "http://10.0.0.17/tanguer/";
-    const URL_ACCOUNT = "http://10.0.0.17/tanguer/test";
+    const URL_MAIN = "http://localhost/tanguer/";
+    const URL_ACCOUNT = "http://localhost/tanguer/test";
 
 
 

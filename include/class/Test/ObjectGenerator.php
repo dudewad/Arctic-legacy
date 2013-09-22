@@ -63,6 +63,7 @@ class Test_ObjectGenerator {
         $data['min_age'] = rand(0,1) ? 0 : 18;
         $data['repeat'] = "weekly";
         $data['description'] = $description;
+        $data['num_attendees'] = rand(0,50);
 
         $location = $this->getRandomLocation();
         $numDJs = rand(1,2);
@@ -192,6 +193,6 @@ class Test_ObjectGenerator {
         $address['state'] = $this->states[rand(0,count($this->states)-1)];
         $address['zip'] = rand(10001,99999) . "";
         $address['country'] = $this->countries[rand(0,count($this->countries)-1)];
-        return new Location($address);
+        return new Location_Location($address);
     }
 }

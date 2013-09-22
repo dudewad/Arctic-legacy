@@ -19,9 +19,6 @@ $appUser = $generator->getRandomUser();
 //Languages can be "ESAR" or "ENUS"
 
 $APP->setUserSession($appUser);
-
-//$mOut = new Output_Base_Event_Milonga($m);
-//$eOut = new Output_Event_Milonga($m);
 $cal = new Module_Calendar(time());
 
 $numEvents = rand(4,10);

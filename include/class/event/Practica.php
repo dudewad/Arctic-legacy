@@ -16,7 +16,7 @@ class Event_Practica extends Event_EventInstructedDJd {
 
     /**
      * @param Array     $data
-     * @param Location  $location
+     * @param Location_Location  $location
      * @param Array     $instructors
      * @param Array     $djs
      */

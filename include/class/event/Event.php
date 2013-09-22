@@ -29,13 +29,15 @@ abstract class Event_Event implements Interface_Displayable{
     protected $price;
     //Event repeat cycle
     protected $repeat;
+    //Number of people going to this event
+    protected $num_attendees;
 
 
 
     /**
      * @param $data  Array             An associative array containing all event data except location
      *
-     * @param $location   Location          A location object containing all data for this event
+     * @param $location   Location_Location          A location object containing all data for this event
      */
     public function __construct($data, $location = null){
         //Required items
@@ -47,6 +49,7 @@ abstract class Event_Event implements Interface_Displayable{
         $this->setOrganizerId($data["organizer_id"]);
         $this->setConfirmed($data["confirmed"]);
         $this->setDescription($data["description"]);
+        $this->setNumAttendees($data["num_attendees"]);
         //Optional items
         if(isset($data['parent_id']))
             $this->setParentId($data["parent_id"]);
@@ -86,7 +89,7 @@ abstract class Event_Event implements Interface_Displayable{
 
 
     /**
-     * @return Location|null
+     * @return Location_Location|null
      */
     public function getLocation(){
         return $this->location;
@@ -172,6 +175,14 @@ abstract class Event_Event implements Interface_Displayable{
         return $this->description;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNumAttendees()
+    {
+        return $this->num_attendees;
+    }
+
 
 
     /**
@@ -199,9 +210,9 @@ abstract class Event_Event implements Interface_Displayable{
 
 
     /**
-     * @param Location $location
+     * @param Location_Location $location
      */
-    public function setLocation(Location $location){
+    public function setLocation(Location_Location $location){
         $this->location = $location;
     }
 
@@ -302,6 +313,15 @@ abstract class Event_Event implements Interface_Displayable{
 
 
 
+    /**
+     * @param mixed $num_attendees
+     */
+    public function setNumAttendees($num_attendees){
+        $this->num_attendees = $num_attendees;
+    }
+
+
+
     public function to_object(){
         $obj = new stdClass();
         $obj->id = $this->getId();
@@ -315,6 +335,7 @@ abstract class Event_Event implements Interface_Displayable{
         $obj->date_start = $this->getDateStart();
         $obj->price = $this->getPrice();
         $obj->repeats = $this->getRepeat();
+        $obj->numAttendees = $this->getNumAttendees();
         return $obj;
     }
 }

@@ -47,4 +47,11 @@ class String_StringsENUS {
 
     //Button strings
     const BUTTON_REGISTER = "Register Now";
+    const BUTTON_SUBMIT = "Listo";
+
+    //Verbs
+    const V_1P_PRES_ATTENDING = "Attending";
+    const V_2P_PRES_ATTENDING = "Attending";
+    const V_3P_PRES_S_ATTENDING = "Attending";
+    const V_3P_PRES_PL_ATTENDING = "Attending";
 }

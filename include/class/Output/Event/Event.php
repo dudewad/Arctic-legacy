@@ -49,7 +49,8 @@ HTML;
         $description = $this->data->getDescription();
         $time = $this->data->getTimeRange();
         $price = "$" . $this->data->getPrice();
-
+        $numAttendees = $this->data->getNumAttendees();
+var_dump($numAttendees);
         $titleInfo = String_String::getString("EVENT_TITLE_INFORMATION");
         $titleDesc = String_String::getString("EVENT_TITLE_DESCRIPTION");
         $titleDay = String_String::getString("EVENT_TITLE_DAY");
@@ -61,7 +62,16 @@ HTML;
         $social = null;
 
         if(Utility_App::hasUserSession()){
-            $social = '<div class="social">User signed in. Display social!</div>';
+            $social = <<<HTML
+            <div class="social">
+                <div class="button">
+                    Going?
+                </div>
+                <div class="">
+                    $numAttendees people RSVP'd this event.
+                </div>
+            </div>
+HTML;
         }
 
         $html = <<<HTML

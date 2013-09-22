@@ -12,7 +12,7 @@ class Event_Show extends Event_EventPerformed{
 
     /**
      * @param Array         $data
-     * @param Location      $location
+     * @param Location_Location      $location
      * @param Array         $performers
      */
     public function __construct($data, $location, $performers){

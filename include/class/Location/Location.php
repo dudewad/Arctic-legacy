@@ -4,7 +4,7 @@
  * Date: 6/19/13
  */
 
-final class Location implements Interface_Displayable{
+final class Location_Location implements Interface_Displayable{
     private $name;
     private $address;
     private $city;
