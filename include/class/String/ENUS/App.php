@@ -1,10 +1,10 @@
 <?php
 /**
  * Author: Ghost
- * Date: 7/12/13
+ * Date: 9/22/13
  */
  
-class String_StringsENUS {
+class String_ENUS_App {
     //Global Event Strings
     const EVENT_DIFFICULTY_BEGINNER = "Beginner";
     const EVENT_DIFFICULTY_INTERMEDIATE = "Intermediate";

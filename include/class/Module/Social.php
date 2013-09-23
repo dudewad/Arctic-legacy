@@ -4,7 +4,7 @@
  * Date: 9/11/13
  */
  
-class Module_Social_Social {
+class Module_Social {
     public function __construct(){
 
     }
@@ -16,9 +16,9 @@ class Module_Social_Social {
      * @param uid Integer   Required        The user id
      */
     public function select_event_attendance($eid, $uid){
-        $yes = String_String::getString("BUTTON_SOCIAL_ATTENDING");
-        $no = String_String::getString("BUTTON_SOCIAL_NOT_ATTENDING");
-        $maybe = String_String::getString("BUTTON_SOCIAL_MAYBE_ATTENDING");
+        $yes = String_String::getString("OPTION_ATTENDING",__CLASS__);
+        $no = String_String::getString("OPTION_MAYBE",__CLASS__);
+        $maybe = String_String::getString("OPTION_NOT_ATTENDING",__CLASS__);
 
 
         $html = <<<HTML
