@@ -136,7 +136,7 @@ HTML;
                             <h2>$titleDesc</h2>
                             <p>$description</p>
                         </div>
-                    </div>
+                    </div>s
                     <div class="col-right">
 
                     </div>

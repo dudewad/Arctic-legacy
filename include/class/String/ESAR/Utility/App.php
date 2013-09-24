@@ -4,7 +4,7 @@
  * Date: 7/12/13
  */
  
-class String_ESAR_App {
+class String_ESAR_Utility_App {
     //Global Event Strings
     const EVENT_DIFFICULTY_BEGINNER = "Principiante";
     const EVENT_DIFFICULTY_INTERMEDIATE = "Intermedio";

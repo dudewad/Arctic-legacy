@@ -13,17 +13,18 @@ class String_String {
     private final function __construct(){}
     private final function __clone(){}
 
-    public static function getString($str, $module = "App"){
+    public static function getString($str, $module = "Utility_App"){
         //Set default language if none is set
         if(!isset(self::$language))
             self::setLanguage();
 
         $class = "String_" . self::$language . "_" . $module;
+        echo $class . "::" . $str;
         return constant("$class::$str");
     }
 
     public static function setLanguage($language = null){
         //Default to Argentine Spanish
-        self::$language = file_exists(__DIR__ . "/Strings" . $language . ".php") ? $language : "ESAR";
+        self::$language = file_exists(__DIR__ . "/" . $language) ? $language : "ESAR";
     }
 }
