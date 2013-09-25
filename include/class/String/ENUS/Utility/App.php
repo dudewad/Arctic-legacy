@@ -5,20 +5,11 @@
  */
  
 class String_ENUS_Utility_App {
-    //Form fields
-    const FIELD_EMAIL = "Email";
-    const FIELD_USERNAME = "User";
-    const FIELD_PASSWORD = "Password";
-    const FIELD_SUBMIT_LOGIN = "Enter";
 
     //Login module related strings
     const LOGIN_SUBTITLE = "The free system to find and organize your tango";
 
-    //CTA strings
-    const CTA_REGISTER = "Don't have an account? Register for free.";
-
     //Button strings
-    const BUTTON_REGISTER = "Register Now";
     const BUTTON_SUBMIT = "Listo";
 
     //Verbs

@@ -19,7 +19,6 @@ class String_String {
             self::setLanguage();
 
         $class = "String_" . self::$language . "_" . $module;
-        echo $class . "::" . $str;
         return constant("$class::$str");
     }
 

@@ -72,7 +72,8 @@ class Output_Event_Milonga extends Output_Event_Event{
                 $actors .= $a->getFullName();
             }
         }
-        $actorName = String_String::getString("ACTOR_NAME_DJ");
+
+        $actorName = String_String::getString("ACTOR_NAME_DJ",$this->getTopAncestorClassName());
         return "<strong>$actorName:</strong><br />" . $actors;
     }
 }

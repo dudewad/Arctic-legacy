@@ -12,10 +12,11 @@ require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
 $APP = Utility_IOC::build("Utility_App");
-String_String::setLanguage("ENUS");
+$lang = "ESAR";
+String_String::setLanguage($lang);
 $generator = new Test_ObjectGenerator();
 
-$appUser = $generator->getRandomUser();
+$appUser = $generator->getRandomUser($lang);
 //Languages can be "ESAR" or "ENUS"
 
 $APP->setUserSession($appUser);
@@ -28,7 +29,6 @@ for($i = 0; $i < $numEvents; $i++){
 }
 
 usort($eList, "sortByStartTime");
-
 $eventToView = isset($_GET['e']) ? $eList[0] : null;
 ?>
 <!DOCTYPE html>

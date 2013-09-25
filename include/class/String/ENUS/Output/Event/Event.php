@@ -4,7 +4,8 @@
  * Date: 9/23/13
  */
  
-class String_ENUS_Event_Event {//Global Event Strings
+class String_ENUS_Output_Event_Event {
+    //Global Event Strings
     const EVENT_DIFFICULTY_BEGINNER = "Beginner";
     const EVENT_DIFFICULTY_INTERMEDIATE = "Intermediate";
     const EVENT_DIFFICULTY_ADVANCED = "Advanced";

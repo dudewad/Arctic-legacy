@@ -193,7 +193,7 @@ table{
 .e.th,
 .e.th a{
     display:block;
-    color:#333;
+    color:inherit;
     font-family:Lato, serif;
 }
 
@@ -252,40 +252,80 @@ table{
     background-color:#ccefff;
     border:1px solid #1f79e5;
     border-top:0;
+    color:#333;
 }
 
 .e.th.lesson .e-content{
     border-left:8px solid #1f79e5;
 }
 
+.e.th.lesson.selected{
+    background-color:#1f79e5;
+    color:#ccefff;
+}
+
+.e.th.lesson.selected .e-content{
+    border-left:8px solid #ccefff;
+}
+
 .e.th.milonga{
     background-color: #ffd2d2;
     border:1px solid #b12f2c;
     border-top:0;
+    color:#333;
 }
 
 .e.th.milonga .e-content{
     border-left:8px solid #b12f2c;
 }
 
+.e.th.milonga.selected{
+    background-color:#b12f2c;
+    color:#ffd2d2;
+}
+
+.e.th.milonga.selected .e-content{
+    border-left:8px solid #f7cccc;
+}
+
 .e.th.practica{
     background-color:#dbf7cc;
     border:1px solid #299428;
     border-top:0;
+    color:#333;
 }
 
 .e.th.practica .e-content{
     border-left:8px solid #299428;
 }
 
+.e.th.practica.selected{
+    background-color:#299428;
+    color:#dbf7cc;
+}
+
+.e.th.practica.selected .e-content{
+    border-left:8px solid #dbf7cc;
+}
+
 .e.th.show{
     background-color:#fdeacc;
     border:1px solid #bf7b16;
     border-top:0;
+    color:#333;
 }
 
 .e.th.show .e-content{
     border-left:8px solid #bf7b16;
+}
+
+.e.th.show.selected{
+    background-color:#bf7b16;
+    color:#fdeacc;
+}
+
+.e.th.show.selected .e-content{
+    border-left:8px solid #fdeacc;
 }
 
 
@@ -533,54 +573,39 @@ table{
 
     /* EVENT STYLES */
 
-    .e.th:hover,
-    .e.th:hover a,
-    .e.th.selected,
-    .e.th.selected a{
-        color:#FFF;
-    }
-
-    .e.th.lesson:hover,
-    .e.th.lesson.selected{
+    .e.th.lesson:hover{
         background-color:#1f79e5;
         color:#ccefff;
     }
 
-    .e.th.lesson:hover .e-content,
-    .e.th.lesson.selected .e-content{
+    .e.th.lesson:hover .e-content{
         border-left:8px solid #ccefff;
     }
 
-    .e.th.milonga:hover,
-    .e.th.milonga.selected{
+    .e.th.milonga:hover{
         background-color:#b12f2c;
         color:#ffd2d2;
     }
 
-    .e.th.milonga:hover .e-content,
-    .e.th.milonga.selected .e-content{
+    .e.th.milonga:hover .e-content{
         border-left:8px solid #f7cccc;
     }
 
-    .e.th.practica:hover,
-    .e.th.practica.selected{
+    .e.th.practica:hover{
         background-color:#299428;
         color:#dbf7cc;
     }
 
-    .e.th.practica:hover .e-content,
-    .e.th.practica.selected .e-content{
+    .e.th.practica:hover .e-content{
         border-left:8px solid #dbf7cc;
     }
 
-    .e.th.show:hover,
-    .e.th.show.selected{
+    .e.th.show:hover{
         background-color:#bf7b16;
         color:#fdeacc;
     }
 
-    .e.th.show:hover .e-content,
-    .e.th.show.selected .e-content{
+    .e.th.show:hover .e-content{
         border-left:8px solid #fdeacc;
     }
 }

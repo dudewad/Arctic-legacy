@@ -51,12 +51,12 @@ HTML;
         $price = "$" . $this->data->getPrice();
         $numAttendees = $this->data->getNumAttendees();
 var_dump($numAttendees);
-        $titleInfo = String_String::getString("EVENT_TITLE_INFORMATION");
-        $titleDesc = String_String::getString("EVENT_TITLE_DESCRIPTION");
-        $titleDay = String_String::getString("EVENT_TITLE_DAY");
-        $titleTime = String_String::getString("EVENT_TITLE_TIME");
-        $titlePrice = String_String::getString("EVENT_TITLE_COST");
-        $titleLocation = String_String::getString("EVENT_TITLE_LOCATION");
+        $titleInfo = String_String::getString("EVENT_TITLE_INFORMATION",__CLASS__);
+        $titleDesc = String_String::getString("EVENT_TITLE_DESCRIPTION",__CLASS__);
+        $titleDay = String_String::getString("EVENT_TITLE_DAY",__CLASS__);
+        $titleTime = String_String::getString("EVENT_TITLE_TIME",__CLASS__);
+        $titlePrice = String_String::getString("EVENT_TITLE_COST",__CLASS__);
+        $titleLocation = String_String::getString("EVENT_TITLE_LOCATION",__CLASS__);
         $locationOut = new Output_Location_Location($this->data->getLocation());
         $location = $locationOut->to_html_full();
         $social = null;
@@ -155,14 +155,14 @@ HTML;
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_thumb($url, $class = null){
+    public function to_html_thumb($url = "", $class = null){
         $event = $this->data;
         $id = $event->getId();
         $startTime = $this->startTime();
         $eventName = $event->getName();
         $location = $event->getLocation();
         $address = $location->getAddress();
-        $eType = String_String::getString("EVENT_TYPE_" . strtoupper($event::E_TYPE));
+        $eType = String_String::getString("EVENT_TYPE_" . strtoupper($event::E_TYPE),__CLASS__);
         $actors = $this->getPrimaryActorsAsString();
         $price = "$" . $event->getPrice();
 
@@ -225,6 +225,15 @@ HTML;
      */
     public function setData(Event_Event $data){
         $this->data = $data;
+    }
+
+
+    /**
+     * Returns the class name of the top-most ancestor class
+     * @return string
+     */
+    protected final function getTopAncestorClassName(){
+        return __CLASS__;
     }
 
 

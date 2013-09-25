@@ -57,6 +57,7 @@ class Output_Event_Practica extends Output_Event_Event{
     protected function getPrimaryActorsAsString($max = 2){
         $e = $this->data;
         $actorList = $e->getPrimaryActors();
+        $actorName = null;
         //Start with an empty string
         $actors = "";
         $hasMultipleActors = "";
@@ -74,9 +75,9 @@ class Output_Event_Practica extends Output_Event_Event{
             }
         }
         if($e->getInstructors())
-            $actorName = String_String::getString("ACTOR_NAME_TEACHER");
+            $actorName = String_String::getString("ACTOR_NAME_TEACHER",$this->getTopAncestorClassName());
         else if($e->getDJs())
-            $actorName = String_String::getString("ACTOR_NAME_DJ");
+            $actorName = String_String::getString("ACTOR_NAME_DJ",$this->getTopAncestorClassName());
         return "<strong>$actorName:</strong><br />" . $actors;
     }
 }

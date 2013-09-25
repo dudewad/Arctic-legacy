@@ -73,7 +73,7 @@ class Output_Event_Show extends Output_Event_Event{
                 $actors .= $a->getFullName();
             }
         }
-        $actorName = String_String::getString("ACTOR_NAME_PERFORMER");
+        $actorName = String_String::getString("ACTOR_NAME_PERFORMER",$this->getTopAncestorClassName());
         return "<strong>$actorName:</strong><br />" . $actors;
     }
 }

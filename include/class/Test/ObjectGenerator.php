@@ -30,7 +30,7 @@ class Test_ObjectGenerator {
         $this->placeNames = array("Club Sur","Om Culture","China Harbor","Downtown Bar","Mano a Mano","El Levante");
         $this->eventNames = array("El Faro","Purple Haze","China Harbor","Roja","Cafe de la Flor","Los Zarpados","Cachete","Bailarines","La Monita");
         $this->topics = array("Ochos","Crosses","Ochos and Crosses","Caminata","Pasos Chiquitos","Musicality","Ganchos","Boleos","Sistemas de Baile Avanzadas","Walking slowly","Dancing to the Music","El Abrazo");
-        $this->difficulties = array(String_String::getString("EVENT_DIFFICULTY_BEGINNER"),String_String::getString("EVENT_DIFFICULTY_INTERMEDIATE"),String_String::getString("EVENT_DIFFICULTY_ADVANCED"));
+        $this->difficulties = array(String_String::getString("EVENT_DIFFICULTY_BEGINNER","Output_Event_Event"),String_String::getString("EVENT_DIFFICULTY_INTERMEDIATE","Output_Event_Event"),String_String::getString("EVENT_DIFFICULTY_ADVANCED","Output_Event_Event"));
         $this->descriptions = array(
             "Consectetuer in refero vel gemino pala pagus in. Obruo pecus mauris. Camur wisi vel suscipere et quod consequat tamen. Eum jumentum ne nisl quod pecus vel damnum laoreet zelus brevitas imputo. Ullamcorper quidem feugait foras.",
             "Vel suscipere probo tamen dolore tum singularis quidem nisl iriure. Enim mauris gilvus importunus transverbero decet diam vicis. Velit quidem uxor nullus dignissim facilisi eum exputo. Hendrerit suscipit decet comis.",
@@ -144,7 +144,7 @@ class Test_ObjectGenerator {
 
 
 
-    public function getRandomUser(){
+    public function getRandomUser($language = null){
         $randLang = rand(0,1);
 
         $data = array();
@@ -153,7 +153,7 @@ class Test_ObjectGenerator {
         $data['person_id'] = $this->getRandomID();
         $data['user_id'] = $this->getRandomID();
         $data['email'] = $data['first_name'] . "." . $data['last_name'] . "@gmail.com";
-        $data['language'] = $this->languages[$randLang];
+        $data['language'] = isset($language) ? $language : $this->languages[$randLang];
 
         return new Person_User($data);
     }

@@ -13,11 +13,11 @@ class Module_Login{
         $registerURL = Utility_App::getURL("URL_ACCOUNT","a=create");
         $loginSubtitle = String_String::getString("LOGIN_SUBTITLE");
 
-        $createAccountCTA = String_String::getString("CTA_REGISTER");
-        $usernameLabel = String_String::getString("FIELD_USERNAME");
-        $passwordLabel = String_String::getString("FIELD_PASSWORD");
-        $submitText = String_String::getString("FIELD_SUBMIT_LOGIN");
-        $ctaButtonText = String_String::getString("BUTTON_REGISTER");
+        $createAccountCTA = String_String::getString("CTA_REGISTER",__CLASS__);
+        $usernameLabel = String_String::getString("FIELD_USERNAME",__CLASS__);
+        $passwordLabel = String_String::getString("FIELD_PASSWORD",__CLASS__);
+        $submitText = String_String::getString("FIELD_SUBMIT_LOGIN",__CLASS__);
+        $ctaButtonText = String_String::getString("BUTTON_REGISTER",__CLASS__);
 
         $html = <<<HTML
             <div class='login $class'>
