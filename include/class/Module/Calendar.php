@@ -119,7 +119,7 @@ HTML;
 
         //If no event was passed, add the default data that was passed to the beginning of the list.
         if(!$selectedID){
-            $html .= "<li class='c-default-content'>" . $defaultData . "</li>";
+            $html .= "<li class='c-e-disp full'>" . $defaultData . "</li>";
         }
 
         foreach($eventList as $e){

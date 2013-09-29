@@ -168,32 +168,33 @@ HTML;
             <li class='e th $class' data-event-id='$id'>
                 <a href="$url">
                     <div class="container">
-                            <div class="e-content">
-                                <div>
-                                    <div class="col-left">
-                                        <div class="time">
-                                            $startTime -
-                                        </div>
+                        <div class="labels">
+                            <div class="col-time">
+                                <div class="time">
+                                    $startTime -
+                                </div>
+                            </div>
+                            <div class="col-price">
+                                $price
+                            </div>
+                        </div>
+                        <div class="content-padding">
+                            <div class="e-content clearfix">
+                                <div class="col-data">
+                                    <div class="title">
+                                        $eType: $eventName
                                     </div>
-                                    <div class="col-center">
-                                        <div class="title">
-                                            $eType: $eventName
+                                    <div class="details">
+                                        <div class="address">
+                                            $address
                                         </div>
-                                        <div class="details">
-                                            <div class="address">
-                                                $address
-                                            </div>
-                                            <div class="organizer">
-                                                $actors
-                                            </div>
+                                        <div class="organizer">
+                                            $actors
                                         </div>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="price">$price</span>
                                     </div>
                                 </div>
-                                <div class="clear"></div>
                             </div>
+                        </div>
                     </div>
                 </a>
             </li>
