@@ -93,10 +93,10 @@ class Utility_App{
                     <script type='text/javascript' src='POC/js/test.js'></script>
 
 
-                    <link href='css/style.css' media='all' rel='stylesheet' type='text/css' />
-                    <link href='css/tooltip.css' rel='stylesheet' type='text/css' />
-                    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-                    <link rel='stylesheet' type='text/css' href='POC/css/test-min.css' />
+                    <link type='text/css' rel='stylesheet' href='css/style.css' media='all' />
+                    <link type='text/css' rel='stylesheet' href='css/tooltip.css' />
+                    <!--<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' />-->
+                    <link type='text/css' rel='stylesheet' href='POC/css/test-min.css' />
                 </head>";
 
         return $data;

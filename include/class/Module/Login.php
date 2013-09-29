@@ -25,7 +25,7 @@ class Module_Login{
                 <h2>$loginSubtitle</h2>
                 <div class="row">
                     <form action="" method="post">
-                        <div class="row">
+                        <div class="row clearfix">
                             <div class="col-2-5">
                                 <label for="username">$usernameLabel</label>
                             </div>
@@ -33,7 +33,7 @@ class Module_Login{
                                 <input type="text" name="username"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row clearfix">
                             <div class="col-2-5">
                                 <label for="password">$passwordLabel</label>
                             </div>
@@ -41,10 +41,9 @@ class Module_Login{
                                 <input type="password" name="password" />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row clearfix">
                             <input type="submit" name="submit" value="$submitText" class="submit" />
                         </div>
-                        <div class="clear"></div>
                     </form>
                 </div>
                 <hr />

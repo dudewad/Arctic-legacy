@@ -30,6 +30,9 @@ class Module_Calendar{
      * @throws  Exception
      */
     public function to_html_full_day($eventList, $day = null, $event = null, $class = null){
+        $html = "";
+        $default = "";
+        $eObj = null;
         $selectedID = null;
         $dateCheck = date("dmY", $day);
 
@@ -39,7 +42,6 @@ class Module_Calendar{
         }
 
         if(isset($event)){
-            $eObj = null;
             switch(get_class($event)){
                 case "Event_Milonga":
                     $eObj = new Output_Event_Milonga($event);
@@ -54,27 +56,20 @@ class Module_Calendar{
                     $eObj = new Output_Event_Show($event);
                     break;
             }
-            $default = $eObj->to_html_calendar();
             $selectedID = $event->getId();
+            $default = $eObj->to_html_calendar();
         }
         else{
             $login = new Module_Login();
             $default = $login->to_html_full();
         }
 
-        $thumbs = $this->eventListToThumbs($eventList, $selectedID);
+        $thumbs = $this->eventListToThumbs($eventList, $selectedID, $default);
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
             <div class="c full-day $class">
-                <div class="c-e-disp full">
-                    <div class="e-container">
-                        $default
-                    </div>
-                </div>
-                <div class="th-list">
-                    $thumbs
-                </div>
+                $thumbs
             </div>
 HTML;
 
@@ -100,21 +95,32 @@ HTML;
 
     /**
      * Take an event list and turn it into HTML thumbnails and return as an HTML string.
-     * @param $eventList    Array       Required        An array of Event_Event objects
+     * @param $eventList    Array           Required        An array of Event_Event objects
      *
-     * @param $selectedID   Integer     Optional        The ID of the event in the set that is to be rendered with a
-     *                                                  "selected" class. This is for when a user loads a page with an
-     *                                                  event selected, namely with JS disabled.
+     * @param $selectedID   Integer         Optional        The ID of the event in the set that is to be rendered with a
+     *                                                      "selected" class. This is for when a user loads a page with an
+     *                                                      event selected, namely with JS disabled.
+     *
+     * @param $defaultData  String          Optional        An HTML string defining the data to be displayed by default.
+     *                                                      This could be an event, or anything else such as a login dialog
+     *                                                      or an advertisement.
+     *
      * @return string
      * @throws Exception
      */
-    private function eventListToThumbs($eventList, $selectedID = null){
-        $html = "";
+    private function eventListToThumbs($eventList, $selectedID = null, $defaultData = null){
+        $html = "<ul class='th-list clearfix'>";
         $eOut = null;
         $mOut = null;
         $lOut = null;
         $pOut = null;
         $sOut = null;
+        $isSelectedEvent = false;
+
+        //If no event was passed, add the default data that was passed to the beginning of the list.
+        if(!$selectedID){
+            $html .= "<li class='c-default-content'>" . $defaultData . "</li>";
+        }
 
         foreach($eventList as $e){
             //Require events
@@ -151,10 +157,18 @@ HTML;
             }
 
             $id = $e->getID();
+            $isSelectedEvent = $id == $selectedID;
             $url = Utility_App::getURL("URL_MAIN","e=$id");
-            $selected = ($id == $selectedID) ? "selected" : null;
+            $selected = $isSelectedEvent ? "selected" : null;
             $html .= $eOut->to_html_thumb($url, $selected);
+
+            //Add the selected event if there is one
+            if($isSelectedEvent){
+                $html .= "<li class='c-e-disp full'>" . $defaultData . "</li>";
+            }
         }
+
+        $html .= "</ul>";
 
         return $html;
     }

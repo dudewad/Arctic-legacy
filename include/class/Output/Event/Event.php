@@ -50,7 +50,6 @@ HTML;
         $time = $this->data->getTimeRange();
         $price = "$" . $this->data->getPrice();
         $numAttendees = $this->data->getNumAttendees();
-var_dump($numAttendees);
         $titleInfo = String_String::getString("EVENT_TITLE_INFORMATION",__CLASS__);
         $titleDesc = String_String::getString("EVENT_TITLE_DESCRIPTION",__CLASS__);
         $titleDay = String_String::getString("EVENT_TITLE_DAY",__CLASS__);
@@ -75,7 +74,7 @@ HTML;
         }
 
         $html = <<<HTML
-            <div class='$class'>
+            <div class='e $class'>
                 <div class="banner-container">
                     $banner
                 </div>
@@ -87,7 +86,7 @@ HTML;
                     <div class="col-left">
                         <div class="information">
                             <h2>$titleInfo</h2>
-                            <div class="row">
+                            <div class="row clearfix">
                                 <div class="column col-1-2">
                                     <table>
                                         <tr>
@@ -130,13 +129,12 @@ HTML;
 
                                 </div>
                             </div>
-                            <div class="clear"></div>
                         </div>
                         <div class="description">
                             <h2>$titleDesc</h2>
                             <p>$description</p>
                         </div>
-                    </div>s
+                    </div>
                     <div class="col-right">
 
                     </div>
@@ -167,36 +165,38 @@ HTML;
         $price = "$" . $event->getPrice();
 
         $html = <<<HTML
-            <div class='e th $class' data-event-id='$id'>
+            <li class='e th $class' data-event-id='$id'>
                 <a href="$url">
-                    <div class="e-content">
-                        <div>
-                            <div class="col-left">
-                                <div class="time">
-                                    $startTime -
-                                </div>
-                            </div>
-                            <div class="col-center">
-                                <div class="title">
-                                    $eType: $eventName
-                                </div>
-                                <div class="details">
-                                    <div class="address">
-                                        $address
+                    <div class="container">
+                            <div class="e-content">
+                                <div>
+                                    <div class="col-left">
+                                        <div class="time">
+                                            $startTime -
+                                        </div>
                                     </div>
-                                    <div class="organizer">
-                                        $actors
+                                    <div class="col-center">
+                                        <div class="title">
+                                            $eType: $eventName
+                                        </div>
+                                        <div class="details">
+                                            <div class="address">
+                                                $address
+                                            </div>
+                                            <div class="organizer">
+                                                $actors
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-right">
+                                        <span class="price">$price</span>
                                     </div>
                                 </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="col-right">
-                                <span class="price">$price</span>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
                     </div>
                 </a>
-            </div>
+            </li>
 HTML;
 
         return $html;

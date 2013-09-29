@@ -63,7 +63,7 @@ var Tanguer_App;
 
 
     //Initialize the app!
-    $(window).on('load', function(){
+    $(document).ready(function(){
         Tanguer_App = new Tanguer_App();
 
         //Build all required objects via IOC and create extensions
