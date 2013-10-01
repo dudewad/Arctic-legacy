@@ -17,6 +17,7 @@ class Test_ObjectGenerator {
     private $eventNames;
     private $topics;
     private $difficulties;
+    private static $sequencedEventCount = 201300;
 
     public function __construct(){
         $this->firstNames = array("John","Juan","Irene","Melina","Julieta","Paola","Jose","Anita","Leandra","Leonardo","James","Kevin","Patricio","Patricia","Alejandro");
@@ -88,6 +89,75 @@ class Test_ObjectGenerator {
         }
 
         switch($typeNum){
+            case 0:
+                $djs = array();
+                for($i = 0; $i < $numDJs; $i++){
+                    array_push($djs,$this->getRandomPerson());
+                }
+                $e = new Event_Milonga($data,$location,$djs);
+                break;
+            case 1:
+                $instructors = array();
+                for($i = 0; $i < $numInstructors; $i++){
+                    array_push($instructors,$this->getRandomPerson());
+                }
+                $e = new Event_Lesson($data, $location, $instructors);
+                break;
+            case 2:
+                $instructors = array();
+                $djs = array();
+                for($i = 0; $i < $numDJs; $i++){
+                    array_push($djs,$this->getRandomPerson());
+                }
+                for($i = 0; $i < $numInstructors; $i++){
+                    array_push($instructors,$this->getRandomPerson());
+                }
+                $e = new Event_Practica($data, $location, $instructors, $djs);
+                break;
+            case 3:
+                $artists = array();
+                for($i = 0; $i < $numArtists; $i++){
+                    array_push($artists,$this->getRandomPerson());
+                }
+                $e = new Event_Show($data, $location, $artists);
+                break;
+        }
+        return $e;
+    }
+
+
+
+    public function getSequencedEvent(){
+        $se = Test_ObjectGenerator::$sequencedEventCount++;
+
+        $data = array($type = null);
+        $startHour = rand(18,22);
+        $halfHour = rand(0,1) ? "00" : "30";
+        $startTime = $startHour . ":" . $halfHour . ":00";
+        $description = $this->descriptions[rand(0,3)];
+        $e = null;
+        $typeNum = null;
+        $data['name'] = $this->eventNames[rand(0,count($this->eventNames) - 1)];
+        $data['price'] = rand(5,50);
+        $data['topic'] = $this->topics[rand(0,count($this->topics) - 1)];
+        $data['id'] = $se;
+        $data['parent_id'] = $se - 1000;
+        $data['organizer_id'] = $this->getRandomID();
+        $data['confirmed'] = rand(0,1);
+        $data['difficulty'] = $this->difficulties[rand(0,count($this->difficulties) - 1)];
+        $data['date_start'] = strtotime("today " . $startTime);
+        $data['date_end'] = strtotime("today " . $startTime . " + 4 hours");
+        $data['min_age'] = rand(0,1) ? 0 : 18;
+        $data['repeat'] = "weekly";
+        $data['description'] = $description;
+        $data['num_attendees'] = rand(0,50);
+
+        $location = $this->getRandomLocation();
+        $numDJs = rand(1,2);
+        $numInstructors = rand(1,2);
+        $numArtists = rand(2,6);
+
+        switch($se % 4){
             case 0:
                 $djs = array();
                 for($i = 0; $i < $numDJs; $i++){

@@ -15,6 +15,8 @@ $APP = Utility_IOC::build("Utility_App");
 $lang = "ESAR";
 String_String::setLanguage($lang);
 $generator = new Test_ObjectGenerator();
+$selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
+$eventToView = null;
 
 $appUser = $generator->getRandomUser($lang);
 //Languages can be "ESAR" or "ENUS"
@@ -22,14 +24,15 @@ $appUser = $generator->getRandomUser($lang);
 $APP->setUserSession($appUser);
 $cal = new Module_Calendar(time());
 
-$numEvents = rand(4,10);
+$numEvents = 8;//rand(4,10);
 $eList = array();
 for($i = 0; $i < $numEvents; $i++){
-    array_push($eList, $generator->getRandomEvent());
+    array_push($eList, $generator->getSequencedEvent());
+    if($eList[$i]->getId() == $selectedEvent)
+        $eventToView = $eList[$i];
 }
 
 usort($eList, "sortByStartTime");
-$eventToView = isset($_GET['e']) ? $eList[0] : null;
 ?>
 <!DOCTYPE html>
 <html>
