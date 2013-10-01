@@ -9,7 +9,7 @@
  * The different types are listed below - as more are added they should be added here, AND KEPT IN ALPHABETICAL ORDER!!
  * For more information on each request type, see the switch statement below.
  *
- * ei = "event" request
+ * ge = getEvent request
  */
 header("Content-type: application/json");
 define("BASEDIR", __DIR__ . "/");

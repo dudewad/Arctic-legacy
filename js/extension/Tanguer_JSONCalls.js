@@ -6,7 +6,7 @@
  */
 
 function Tanguer_JSONCalls(){
-    this.baseJsonURL = "http://localhost/";
+    this.baseJsonURL = "http://localhost/tanguer/jsonRequest.php";
 }
 
 Tanguer_JSONCalls.prototype = {
@@ -19,8 +19,10 @@ Tanguer_JSONCalls.prototype = {
      */
     getURL:function(url, params){
         switch(url){
+            //Requires:
+            //e         The event id being requested
             case "getEvent":
-                return
+                return this.baseJsonURL + "?t=ge&eid=" + params.e;
                 break;
             default:
                 console.warn("Requested JSONCall URL does not exist.");
@@ -50,7 +52,7 @@ Tanguer_JSONCalls.prototype = {
      * Gets an event with the specified ID
      */
     getEvent:function(data, callback){
-        var url = this.getURL("getEvents");
+        var url = this.getURL("getEvent", data);
         this.makeAjaxCall(url, callback);
     }
      /**

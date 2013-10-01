@@ -3,9 +3,9 @@
  * Define the application object
  * @constructor
  */
-var Tanguer_App;
+var App;
 (function () {
-    function Tanguer_App(){
+    function TANGUER_APP(){
         //Application settings go here
         this.settings = {};
         //Access to other images (error, etc)
@@ -14,7 +14,7 @@ var Tanguer_App;
         this.initialize();
     };
 
-    Tanguer_App.prototype = {
+    TANGUER_APP.prototype = {
 
         /**
          * Any pre-processing
@@ -22,6 +22,8 @@ var Tanguer_App;
         initialize:function(){
             this.ioc = new Tanguer_IOC();
             this.initIOC();
+            //Add JSON call functionality
+            this.extend("JSONCalls", this.ioc.build("JSONCalls"));
         },
 
 
@@ -64,7 +66,7 @@ var Tanguer_App;
 
     //Initialize the app!
     $(document).ready(function(){
-        Tanguer_App = new Tanguer_App();
+        Tanguer_App = new TANGUER_APP();
 
         //Build all required objects via IOC and create extensions
         //Only fire tooltip construction if there are tooltips on the page
