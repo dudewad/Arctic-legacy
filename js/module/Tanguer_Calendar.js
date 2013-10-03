@@ -13,14 +13,26 @@ Tanguer_Calendar.prototype = {
         var scope = this;
         $("body").on("click","div.c .th-list a", function(e){
             var thumb = $(this).closest(".e.th");
+            var eData = {e:thumb.data("event-id")};
             thumb.siblings().removeClass("selected");
             thumb.addClass("selected");
             e.preventDefault();
+            Tanguer_App.JSONCalls.getEvent(eData,scope.ajax_getEventHandler);
             return false;
         });
     },
 
     displayEvent:function(){
 
+    },
+
+
+
+    ajax_getEventHandler:function(e){
+        if(e.error != undefined){
+            //TODO: Handle error here
+        }
+
+        console.log(e);
     }
 };

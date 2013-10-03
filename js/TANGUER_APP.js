@@ -3,7 +3,7 @@
  * Define the application object
  * @constructor
  */
-var App;
+var Tanguer_App;
 (function () {
     function TANGUER_APP(){
         //Application settings go here
@@ -76,9 +76,6 @@ var App;
         //Add calendar to the page, if applicable
         if($(".c").length > 0)
             var cal = Tanguer_App.ioc.build("calendar");
-
-        //Add JSON call functionality
-        //Tanguer_App.extend("JSONCalls", TANG_APP.ioc.build("JSONCalls"));
 
         //Validation additions
         //TODO:Refactor this... this is a sloppy place for this to go

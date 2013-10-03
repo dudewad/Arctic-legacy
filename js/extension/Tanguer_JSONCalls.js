@@ -38,7 +38,9 @@ Tanguer_JSONCalls.prototype = {
      * @param callback      Closure     A callback method to use once the method is complete
      */
     makeAjaxCall:function(url, callback){
+        console.log(url);
         $.getJSON(url + "&callback=?", null, function(data,status){
+            console.log(status);
             if(status != "success"){
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
@@ -55,6 +57,10 @@ Tanguer_JSONCalls.prototype = {
         var url = this.getURL("getEvent", data);
         this.makeAjaxCall(url, callback);
     }
+
+
+
+
      /**
       * TODO: delete this once a real call is in place
       * The following is an example call
