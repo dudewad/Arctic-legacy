@@ -5,10 +5,10 @@
  * Date: 6/6/13
  */
  
-class JSONGenerator {
-    public function __construct(){}
+class Utility_JSONGenerator {
+    private final function __construct(){}
 
-    public function genFromResultSet($set){
+    public static function genFromResultSet($set){
         $json = "{";
         while($row = $set->fetch_assoc()){
             foreach($row as $key => $val){
@@ -22,7 +22,7 @@ class JSONGenerator {
     }
 
     //Currently this is non-recursive. It'll have to be updated before that is a functionality.
-    public function genFromObject($obj){
+    public static function genFromObject($obj){
         $json = "{";
         foreach($obj as $key => $val){
             $json .= '"' . $key . '":"' . $val . '",';
@@ -38,7 +38,7 @@ class JSONGenerator {
      * @param $json
      * @return string
      */
-    public function echoDocument($json){
-        return $_REQUEST['callback'] . "([" . $json . "])";
+    public static function echoDocument($json){
+        return $_REQUEST['cb'] . "([" . $json . "])";
     }
 }

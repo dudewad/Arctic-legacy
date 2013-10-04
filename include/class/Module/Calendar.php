@@ -25,11 +25,12 @@ class Module_Calendar{
      * @param   $day        Integer         Timestamp of the day to be displayed
      * @param   $event      Event_Event     The event to be viewed, if applicable. This typically will only be set if the
      *                                      user has Javascript disabled, as this data is brought in via AJAX otherwise
+     * @param   $domID      String          The DOM ID to be applied to the calendar object, if applicable
      * @param   $class      String          The class of the outer-most HTML container element
      * @return  string                      Render the calendar as HTML
      * @throws  Exception
      */
-    public function to_html_full_day($eventList, $day = null, $event = null, $class = null){
+    public function to_html_full_day($eventList, $day = null, $event = null, $domID = null, $class = null){
         $html = "";
         $default = "";
         $eObj = null;
@@ -68,7 +69,7 @@ class Module_Calendar{
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
-            <div class="c full-day $class">
+            <div class="c full-day $class" id="$domID">
                 $thumbs
             </div>
 HTML;

@@ -40,7 +40,7 @@ usort($eList, "sortByStartTime");
 <body>
 <div class="content">
     <?php
-        echo $cal->to_html_full_day($eList, time(), $eventToView);
+        echo $cal->to_html_full_day($eList, time(), $eventToView, "mainCal");
     ?>
     <div id="debug"></div>
 </div>

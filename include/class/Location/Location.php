@@ -168,4 +168,10 @@ final class Location_Location implements Interface_Displayable{
         $obj->zip = $this->getZip();
         return $obj;
     }
+
+
+
+    public function to_JSON(){
+
+    }
 }

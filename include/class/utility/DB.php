@@ -1,7 +1,6 @@
 <?php
 
-class DB
-{
+class Utility_DB{
     /**
      * @param $target           Assoc       Required    An associative array of connection data divided into:
      *                          ["host"]     - The MySQL host address
@@ -11,7 +10,7 @@ class DB
      *
      * @return mysqli object    The actual connection object
      */
-    function connection($target){
+    public static function connection($target){
 		//Connection vars
 		$mysqli = mysqli_connect($target["host"], $target["user"], $target["password"], $target["name"]);
         if(mysqli_connect_errno($mysqli))

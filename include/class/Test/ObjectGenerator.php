@@ -127,10 +127,9 @@ class Test_ObjectGenerator {
 
 
 
-    public function getSequencedEvent(){
-        $se = Test_ObjectGenerator::$sequencedEventCount++;
-
-        $data = array($type = null);
+    public function getSequencedEvent($id = null){
+        $se = isset($id) ? $id : Test_ObjectGenerator::$sequencedEventCount++;
+        $data = array();
         $startHour = rand(18,22);
         $halfHour = rand(0,1) ? "00" : "30";
         $startTime = $startHour . ":" . $halfHour . ":00";
@@ -140,7 +139,7 @@ class Test_ObjectGenerator {
         $data['name'] = $this->eventNames[rand(0,count($this->eventNames) - 1)];
         $data['price'] = rand(5,50);
         $data['topic'] = $this->topics[rand(0,count($this->topics) - 1)];
-        $data['id'] = $se;
+        $data['id'] = intval($se);
         $data['parent_id'] = $se - 1000;
         $data['organizer_id'] = $this->getRandomID();
         $data['confirmed'] = rand(0,1);

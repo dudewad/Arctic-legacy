@@ -19,7 +19,7 @@ var Tanguer_App;
         /**
          * Any pre-processing
          */
-        initialize:function(){
+        initialize: function () {
             this.ioc = new Tanguer_IOC();
             this.initIOC();
             //Add JSON call functionality
@@ -30,18 +30,18 @@ var Tanguer_App;
         /**
          * Register all IOC items (plugins, etc) here
          */
-        initIOC:function(){
-            this.ioc.register("tooltip", function(){
+        initIOC: function () {
+            this.ioc.register("tooltip", function () {
                 var t = new Tanguer_Tooltip();
                 return t;
             });
 
-            this.ioc.register("JSONCalls", function(){
+            this.ioc.register("JSONCalls", function () {
                 var j = new Tanguer_JSONCalls();
                 return j;
             });
 
-            this.ioc.register("calendar", function(){
+            this.ioc.register("calendar", function () {
                 var c = new Tanguer_Calendar();
                 return c;
             });
@@ -54,14 +54,15 @@ var Tanguer_App;
          * @param name  String      The name that the new property will have
          * @param obj   Object      The object that contains all the desired functionality (must be an object);
          */
-        extend:function(name, obj){
-            if(typeof this[name] != "undefined"){
+        extend: function (name, obj) {
+            if (typeof this[name] != "undefined") {
                 console.warn("Cannot extend application using name " + name + " - it is already in the namespace.");
                 return;
             }
             this[name] = obj;
         }
-    }
+    };
+
 
 
     //Initialize the app!

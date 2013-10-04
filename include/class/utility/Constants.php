@@ -16,6 +16,17 @@ class Utility_Constants {
 
 
 
+    /**
+     * Error constants
+     */
+    //Ajax errors are 1200 range
+    //Error 1200: Invalid JSON request type specified.
+    const E_1200 = "Invalid t value.";
+    //Error 1201: A valid event ID must be passed.
+    const E_1201 = "EID required";
+
+
+
     private final function __construct(){}
     private final function __clone(){}
 }
