@@ -31,7 +31,7 @@ $config['path']['pageView'] = "/include/view/page/";
 ________________________MySQL Settings________________________*/
 
 //MySQL database location
-$config['db']['tanguer']['host'] = "127.0.0.1";
+$config['db']['tanguer']['host'] = "10.0.0.17";
 
 //MySQL database name
 $config['db']['tanguer']['name'] = "tanguer";

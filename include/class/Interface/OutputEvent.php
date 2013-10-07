@@ -11,5 +11,5 @@ interface Interface_OutputEvent {
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_calendar($class);
+    public function to_html_quick_view($class);
 }

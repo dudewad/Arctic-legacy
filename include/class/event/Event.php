@@ -162,13 +162,6 @@ abstract class Event_Event implements Interface_Displayable{
 
 
     /**
-     * @return Array
-     */
-    abstract public function getPrimaryActors();
-
-
-
-    /**
      * @return mixed
      */
     public function getDescription(){
@@ -178,8 +171,7 @@ abstract class Event_Event implements Interface_Displayable{
     /**
      * @return mixed
      */
-    public function getNumAttendees()
-    {
+    public function getNumAttendees(){
         return $this->num_attendees;
     }
 
@@ -304,6 +296,8 @@ abstract class Event_Event implements Interface_Displayable{
         $this->repeat = $repeat;
     }
 
+
+
     /**
      * @param mixed $description
      */
@@ -337,5 +331,21 @@ abstract class Event_Event implements Interface_Displayable{
         $obj->repeats = $this->getRepeat();
         $obj->numAttendees = $this->getNumAttendees();
         return $obj;
+    }
+
+
+
+    /**
+     * @return Array
+     */
+    abstract public function getPrimaryActors();
+
+
+
+    /**
+     * @return Array
+     */
+    public function to_JSON(){
+        return json_encode($this->to_object());
     }
 }

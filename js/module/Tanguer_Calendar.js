@@ -12,14 +12,18 @@ var Tanguer_Calendar = function(){
 Tanguer_Calendar.prototype = {
     init:function(){
         var scope = this;
+        /**
+         * Set up thumbnail click functionality
+         */
         this.body.on("click","div.c .th-list a", function(e){
             e.preventDefault();
             var thumb = $(this).closest(".e.th");
+            var eventID = thumb.data("event-id");
             if(thumb.hasClass("selected"))
                 return false;
             var instance = $(this).closest(".c").attr("id");
-            var data = {e:thumb.data("event-id")};
-            var ref = {scope:scope,instanceID:instance}
+            var data = {e:eventID};
+            var ref = {scope:scope,instanceID:instance,eventID:eventID};
 
             thumb.siblings().removeClass("selected");
             thumb.addClass("selected");
@@ -30,40 +34,21 @@ Tanguer_Calendar.prototype = {
 
 
 
-    createQuickEvent:function(e){
-        '<li class="e th lesson selected" data-event-id=" ' + e.id + '">
-            <a href="#">
-                <div class="container">
-                    <div class="labels">
-                        <div class="col-time">
-                            <div class="time">
-                            18:30 -
-                            </div>
-                        </div>
-                        <div class="col-price">
-                        $47
-                        </div>
-                    </div>
-                    <div class="content-padding">
-                        <div class="e-content clearfix">
-                            <div class="col-data">
-                                <div class="title">
-                                Clase: Purple Haze
-                                </div>
-                                <div class="details">
-                                    <div class="address">
-                                    6143 45th Street
-                                    </div>
-                                    <div class="organizer">
-                                        <strong>Profesor:</strong><br>Irene Jaime, Leandra Perón
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>';
+    createQuickEvent:function(e, data){
+        var html = e.html;
+        var calendar = $("#" + data.instanceID);
+        var thumb = $("li.e.th[data-event-id=" + data.eventID + "]");
+        this.body.trigger("Tanguer_Calendar_Quick_Event_Load", this);
+        var li = calendar.find("li.c-e-disp.full[data-event-id=" + data.eventID + "]");
+        if(li.length > 0){
+            li.show();
+            return;
+        }
+        li = $("<li>");
+        li.addClass("c-e-disp full");
+        li.data("event-id",data.eventID);
+        li.html(html);
+        thumb.after(li);
     },
 
 
@@ -81,6 +66,6 @@ Tanguer_Calendar.prototype = {
         }
         var that = ref.scope;
         that.hideCurrentQuickEvent(ref.instanceID);
-        that.createQuickEvent(e);
+        that.createQuickEvent(e,ref);
     }
 };

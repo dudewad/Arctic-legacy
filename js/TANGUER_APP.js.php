@@ -1,3 +1,11 @@
+<?php
+define("BASEDIR", __DIR__ . "/../");
+require_once(BASEDIR . "/include/script/Autoloader.php");
+
+//Application JS contants
+$urlJSONBase = constant("Utility_Constants::URL_JSON_BASE");
+
+$js = <<<JS
 ;
 /**
  * Define the application object
@@ -8,6 +16,7 @@ var Tanguer_App;
     function TANGUER_APP(){
         //Application settings go here
         this.settings = {};
+        this.settings.URL_JSON_BASE = "$urlJSONBase";
         //Access to other images (error, etc)
         this.settings.baseImageDir = "images/";
         //Set up the app object (auto-constructor)
@@ -24,6 +33,7 @@ var Tanguer_App;
             this.initIOC();
             //Add JSON call functionality
             this.extend("JSONCalls", this.ioc.build("JSONCalls"));
+            this.JSONCalls.setBaseJsonURL(this.settings.URL_JSON_BASE);
         },
 
 
@@ -87,3 +97,6 @@ var Tanguer_App;
         }, "Please specify a valid phone number");
     });
 }());
+JS;
+header("Content-type: text/javascript");
+echo $js;

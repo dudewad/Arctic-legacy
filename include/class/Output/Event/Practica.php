@@ -43,8 +43,8 @@ class Output_Event_Practica extends Output_Event_Event{
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_calendar($class = "practica"){
-        return parent::to_html_calendar($class);
+    public function to_html_quick_view($class = "practica"){
+        return parent::to_html_quick_view($class);
     }
 
 

@@ -58,7 +58,7 @@ class Module_Calendar{
                     break;
             }
             $selectedID = $event->getId();
-            $default = $eObj->to_html_calendar();
+            $default = $eObj->to_html_quick_view();
         }
         else{
             $login = new Module_Login();
@@ -66,6 +66,8 @@ class Module_Calendar{
         }
 
         $thumbs = $this->eventListToThumbs($eventList, $selectedID, $default);
+        $templates = "";
+
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
@@ -79,11 +81,11 @@ HTML;
 
 
 
+    /**
+     * @param $class    String      The class of the outer-most HTML container element
+     * @return string   Render the calendar as HTML
+     */
     public function to_html_list($class = null){
-        /**
-         * @param $class    String      The class of the outer-most HTML container element
-         * @return string   Render the calendar as HTML
-         */
     }
 
 
@@ -165,7 +167,7 @@ HTML;
 
             //Add the selected event if there is one
             if($isSelectedEvent){
-                $html .= "<li class='c-e-disp full'>" . $defaultData . "</li>";
+                $html .= "<li class='c-e-disp full' data-event-id='" . $e->getId() . "'>" . $defaultData . "</li>";
             }
         }
 

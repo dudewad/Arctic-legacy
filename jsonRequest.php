@@ -11,7 +11,6 @@
  *
  * gqe = getQuickEvent request
  */
-//header("Content-type: application/json");
 define("BASEDIR", __DIR__ . "/");
 require_once(BASEDIR . "/include/config.php");
 require_once(BASEDIR . "/include/script/Autoloader.php");
@@ -36,7 +35,11 @@ switch($_REQUEST['t']){
         if(!isset($_REQUEST['eid']))
             error(1201);
         $e = $generator->getSequencedEvent($_REQUEST['eid']);
-        exit(Utility_JSONGenerator::echoDocument($e->to_JSON()));
+        $class = "Output_" . get_class($e);
+        $output = new $class($e);
+        $data = new stdClass();
+        $data->html = $output->to_html_quick_view();
+        exit(Utility_JSONGenerator::echoDocument($data));
         break;
     //Errors out by default
     default:
@@ -45,5 +48,8 @@ switch($_REQUEST['t']){
 }
 
 function error($e){
-    exit(Utility_JSONGenerator::echoDocument("{'error':'" . constant("Utility_Constants::E_$e") . '",errno:"E_' . $e . '"}'));
+    $error = new stdClass();
+    $error->error = constant("Utility_Constants::E_$e");
+    $error->errno = "E_" . $e;
+    exit(Utility_JSONGenerator::echoDocument($error));
 }

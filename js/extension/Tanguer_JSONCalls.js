@@ -5,9 +5,7 @@
  * Time: 12:26 PM
  */
 
-function Tanguer_JSONCalls(){
-    this.baseJsonURL = "http://localhost/tanguer/jsonRequest.php";
-}
+function Tanguer_JSONCalls(){}
 
 Tanguer_JSONCalls.prototype = {
 
@@ -48,7 +46,7 @@ Tanguer_JSONCalls.prototype = {
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
             }
-            callback(data, ref);
+            callback(data[0], ref);
         });
     },
 
@@ -65,5 +63,11 @@ Tanguer_JSONCalls.prototype = {
     getQuickEvent:function(data, callback, ref){
         var url = this.getURL("getQuickEvent", data);
         this.makeAjaxCall(url, callback, ref);
+    },
+
+
+
+    setBaseJsonURL:function(url){
+        this.baseJsonURL = url;
     }
 };

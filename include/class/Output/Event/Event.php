@@ -43,7 +43,7 @@ HTML;
      * @param $class    String      The class of the outer-most HTML container element
      * @return string
      */
-    public function to_html_calendar($class = null){
+    public function to_html_quick_view($class = null){
         $eventName = $this->data->getName();
         $banner = "<img src='" . Utility_AssetManager::getEventBanner($this->data->getID()) . "' alt='$eventName' class='banner' />";
         $description = $this->data->getDescription();
