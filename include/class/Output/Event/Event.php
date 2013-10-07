@@ -60,19 +60,6 @@ HTML;
         $location = $locationOut->to_html_full();
         $social = null;
 
-        if(Utility_App::hasUserSession()){
-            $social = <<<HTML
-            <div class="social">
-                <div class="button">
-                    Going?
-                </div>
-                <div class="">
-                    $numAttendees people RSVP'd this event.
-                </div>
-            </div>
-HTML;
-        }
-
         $html = <<<HTML
             <div class='e $class'>
                 <div class="banner-container">
@@ -81,7 +68,6 @@ HTML;
                 <div class="title">
                     <h2>$eventName</h2>
                 </div>
-                $social
                 <div class="e-data">
                     <div class="col-left">
                         <div class="information">
