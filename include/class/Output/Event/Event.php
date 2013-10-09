@@ -59,6 +59,16 @@ HTML;
         $locationOut = new Output_Location_Location($this->data->getLocation());
         $location = $locationOut->to_html_full();
         $social = null;
+        $actors = "";
+        if($this->data->hasDJs()){
+            $actors .= "";
+        }
+        if($this->data->hasInstructors()){
+            $actors .= "";
+        }
+        if($this->data->hasPerformers()){
+            $actors .= "";
+        }
 
         $html = <<<HTML
             <div class='e $class'>
@@ -68,7 +78,7 @@ HTML;
                 <div class="title">
                     <h2>$eventName</h2>
                 </div>
-                <div class="e-data">
+                <div class="e-data clearfix">
                     <div class="col-left">
                         <div class="information">
                             <h2>$titleInfo</h2>

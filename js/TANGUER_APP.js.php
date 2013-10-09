@@ -4,6 +4,7 @@ require_once(BASEDIR . "/include/script/Autoloader.php");
 
 //Application JS contants
 $urlJSONBase = constant("Utility_Constants::URL_JSON_BASE");
+$jsBreakpointTabletPortrait = constant("Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT");
 
 $js = <<<JS
 ;
@@ -16,7 +17,10 @@ var Tanguer_App;
     function TANGUER_APP(){
         //Application settings go here
         this.settings = {};
-        this.settings.URL_JSON_BASE = "$urlJSONBase";
+        this.settings.url = {};
+        this.settings.url.URL_JSON_BASE = "$urlJSONBase";
+        this.settings.display = {};
+        this.settings.display.BREAKPOINT_TABLET_PORTRAIT = "$jsBreakpointTabletPortrait";
         //Access to other images (error, etc)
         this.settings.baseImageDir = "images/";
         //Set up the app object (auto-constructor)
@@ -33,7 +37,7 @@ var Tanguer_App;
             this.initIOC();
             //Add JSON call functionality
             this.extend("JSONCalls", this.ioc.build("JSONCalls"));
-            this.JSONCalls.setBaseJsonURL(this.settings.URL_JSON_BASE);
+            this.JSONCalls.setBaseJsonURL(this.settings.url.URL_JSON_BASE);
         },
 
 

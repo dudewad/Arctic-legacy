@@ -568,10 +568,12 @@ and (min-width:768px){
     .c-e-disp.full .e-data .col-left{
         width:73%;
         margin-right:2%;
+        float:left;
     }
 
     .c-e-disp.full .e-data .col-right{
         width:25%;
+        float:right;
     }
 
     .c .th-list .c-e-disp.full{

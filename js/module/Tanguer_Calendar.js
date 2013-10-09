@@ -23,21 +23,39 @@ Tanguer_Calendar.prototype = {
             var data = {e:eventID};
             var ref = {scope:scope,instanceID:instance,eventID:eventID};
             var li = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eventID + "']");
-            //Don't allow clicks on the presently selected element.
-            if(thumb.hasClass("selected"))
+            //Hide currently selected element on mobile, otherwise return false
+            if(thumb.hasClass("selected")){
+                if($(window).outerWidth(true) < Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT){
+                    li.slideUp();
+                }
                 return false;
+            }
             thumb.siblings().removeClass("selected");
             thumb.addClass("selected");
             //If the newly selected thumb has been selected already, show it and don't make a request.
             if(li.length > 0){
                 scope.hideCurrentQuickEvent(instance);
-                li.show();
+                scope.openQuickEvent(instance, eventID);
                 return false;
             }
             //All checks passed, we have to make the call.
             Tanguer_App.JSONCalls.getQuickEvent(data,scope.ajax_getQuickEventHandler,ref);
             return false;
         });
+    },
+
+
+
+    openQuickEvent:function(instance, eid){
+        var content = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eid + "']").eq(0);
+        var thumb = $("#" + instance).find("li.th[data-event-id='" + eid + "']").eq(0);
+        var offsetTop = thumb.offset().top;
+        //Animate in tablet mode and snap to the item
+        if($(window).outerWidth(true) < Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT){
+            $("body,html").animate({'scrollTop':offsetTop}, 400);
+            content.slideDown();
+        }
+        else content.show();
     },
 
 
@@ -52,6 +70,8 @@ Tanguer_Calendar.prototype = {
         li.attr("data-event-id",data.eventID);
         li.html(html);
         thumb.after(li);
+        li.hide();
+        data.scope.openQuickEvent(data.instanceID, data.eventID);
     },
 
 
