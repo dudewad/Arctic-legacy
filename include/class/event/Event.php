@@ -348,4 +348,22 @@ abstract class Event_Event implements Interface_Displayable{
     public function to_JSON(){
         return json_encode($this->to_object());
     }
+
+
+
+    public function hasInstructors(){
+        return property_exists(__CLASS__, "instructors");
+    }
+
+
+
+    public function hasDJs(){
+        return property_exists(__CLASS__, "djs");
+    }
+
+
+
+    public function hasPerformers(){
+        return property_exists(__CLASS__, "performers");
+    }
 }

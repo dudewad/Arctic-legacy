@@ -10,7 +10,7 @@ class Utility_Constants {
     const URL_MAIN = "http://10.0.0.17/tanguer/";
     const URL_ACCOUNT = "http://10.0.0.17/tanguer/test";
     const URL_JSON_BASE = "http://10.0.0.17/tanguer/jsonRequest.php";
-    */
+*/
 
     /*For local testing:*/
     const URL_MAIN = "http://localhost/tanguer/";
@@ -23,6 +23,11 @@ class Utility_Constants {
     //DIRECTORY CONSTANTS
     const DIR_EVENT_BANNER = "asset/image/event/banner/";
 
+
+    /**
+     * Javascript Constants
+     */
+    const JS_BREAKPOINT_TABLET_PORTRAIT = 768;
 
 
     /**
