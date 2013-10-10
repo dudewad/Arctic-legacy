@@ -26,7 +26,10 @@ Tanguer_Calendar.prototype = {
             //Hide currently selected element on mobile, otherwise return false
             if(thumb.hasClass("selected")){
                 if($(window).outerWidth(true) < Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT){
-                    li.slideUp();
+                    if(li.is(":visible"))
+                        li.slideUp();
+                    else
+                        li.slideDown();
                 }
                 return false;
             }
