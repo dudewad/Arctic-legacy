@@ -65,7 +65,7 @@ var Tanguer_App;
         /**
          * Extending the actual prototype at runtime is not possible in a safe cross-browser way so we are simply
          * assigning functionality to object properties.
-         * @param name  String      The name that the new property will have
+         * @param name  String      The name that the new property will havez
          * @param obj   Object      The object that contains all the desired functionality (must be an object);
          */
         extend: function (name, obj) {

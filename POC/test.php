@@ -17,6 +17,7 @@ String_String::setLanguage($lang);
 $generator = new Test_ObjectGenerator();
 $selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;
+$mainCalID = "mainCal";
 
 $appUser = $generator->getRandomUser($lang);
 //Languages can be "ESAR" or "ENUS"
@@ -40,7 +41,7 @@ usort($eList, "sortByStartTime");
 <body>
 <div class="content">
     <?php
-        echo $cal->to_html_full_day($eList, time(), $eventToView, "mainCal");
+        echo $cal->to_html_full_day($eList, time(), $eventToView, $mainCalID);
     ?>
     <div id="debug"></div>
 </div>

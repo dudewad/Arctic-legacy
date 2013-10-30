@@ -36,7 +36,7 @@ class Module_Calendar{
         $eObj = null;
         $selectedID = null;
         $dateCheck = date("dmY", $day);
-        $sortAction = Utility_App::getCurrentPageURL();
+        //$sortAction = Utility_App::getCurrentPageURL();
 
         //Use today by default
         if(!$day){
@@ -74,8 +74,11 @@ class Module_Calendar{
         $html = <<<HTML
             <div class="c full-day $class" id="$domID">
                 <div class="sort">
-                    <form action="$sortAction">
+                    <form action="">
+                        <a href="" class="button"></a>
+                        <div class="">
 
+                        </div>
                     </form>
                 </div>
                 $thumbs
