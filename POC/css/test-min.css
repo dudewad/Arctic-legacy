@@ -11,6 +11,7 @@ body{
     color:#09f;
     font-family:Lato, Arial, sans-serif;
     background:#FFF;
+    font-size:10px;
 }
 
 input{
@@ -26,7 +27,7 @@ p{
 }
 
 table{
-    font-size:12px;
+    font-size:1.2em;
 }
 
 .content{
@@ -84,11 +85,34 @@ table{
     display:block;
 }
 
+/* Calendar Sort Tool*/
+.sort{
+    border:1px solid #333;
+    border-left:none;
+    border-right:none;
+    padding:20px 0;
+}
+
+.c .sort{
+    margin-bottom:20px;
+}
+
+.c .sort .advanced{
+    font-weight:700;
+    font-size:1.2em;
+    background:#333;
+    color:#FFF;
+}
+
 /* Calendar event full display styles */
 
-.c-e-disp.full .title{
+.c-e-disp.full h3{
+    font-size:1.8em;
+}
+
+.c-e-disp.full h2{
     font-family:Vollkorn,Lato,Arial,sans-serif;
-    font-size:24px;
+    font-size:2.4em;
     font-style:oblique;
     font-weight:bold;
     padding:30px 20px;
@@ -194,9 +218,14 @@ table{
 .e.th a{
     display:block;
     color:inherit;
-    font-size:13px;
     font-weight:700;
     font-style:italic;
+}
+
+.e.th h3,
+.e.th .time,
+.e.th .col-price{
+    font-size:1.3em;
 }
 
 .e.th .container{
@@ -241,7 +270,7 @@ table{
 .e.th .details{
     padding-top:2px;
     clear:both;
-    font-size:11px;
+    font-size:1.1em;
     font-weight:400;
     font-style:italic;
 }
@@ -367,7 +396,7 @@ table{
     display:block;
     padding:8px;
     height:16px;
-    font-size:13px;
+    font-size:1.3em;
     font-style:italic;
 }
 
@@ -461,12 +490,33 @@ and (min-width:360px){
         min-width:0;
         max-width:100%;
     }
+
+}
+
+
+
+@media only screen and ( min-width:480px ){
+    .e.th.lesson .container{
+        border:1px solid #1f79e5;
+    }
+
+    .e.th.milonga .container{
+        border:1px solid #b12f2c;
+    }
+
+    .e.th.practica .container{
+        border:1px solid #299428;
+    }
+
+    .e.th.show .container{
+        border:1px solid #bf7b16;
+    }
 }
 
 
 
 /**
- * Tablet down to large phone
+ * Large phone to tablet portrait
  */
 @media only screen
 and (min-width:480px)
@@ -509,22 +559,6 @@ and (min-width:768px){
         cursor:pointer;
         margin-bottom:10px;
         width:auto;
-    }
-
-    .e.th.lesson .container{
-        border:1px solid #1f79e5;
-    }
-
-    .e.th.milonga .container{
-        border:1px solid #b12f2c;
-    }
-
-    .e.th.practica .container{
-        border:1px solid #299428;
-    }
-
-    .e.th.show .container{
-        border:1px solid #bf7b16;
     }
 
     .c .th-list .e.th .container{
@@ -668,7 +702,7 @@ and (min-width:1024px){
     clear:both;
     padding-top:50px;
     color:#666;
-    font-size:12px;
+    font-size:1.2em;
 }
 
 
