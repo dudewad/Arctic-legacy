@@ -75,13 +75,13 @@ HTML;
                 <div class="banner-container">
                     $banner
                 </div>
-                <div class="title">
+                <div>
                     <h2>$eventName</h2>
                 </div>
                 <div class="e-data clearfix">
                     <div class="col-left">
                         <div class="information">
-                            <h2>$titleInfo</h2>
+                            <h3>$titleInfo</h3>
                             <div class="row clearfix">
                                 <div class="column col-1-2">
                                     <table>
@@ -127,7 +127,7 @@ HTML;
                             </div>
                         </div>
                         <div class="description">
-                            <h2>$titleDesc</h2>
+                            <h3>$titleDesc</h3>
                             <p>$description</p>
                         </div>
                     </div>
@@ -177,8 +177,8 @@ HTML;
                         <div class="content-padding">
                             <div class="e-content clearfix">
                                 <div class="col-data">
-                                    <div class="title">
-                                        $eType: $eventName
+                                    <div>
+                                        <h3>$eType: $eventName</h3>
                                     </div>
                                     <div class="details">
                                         <div class="address">
