@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+
+test{
+    display:block;
+    background-color:#F90;
+    width:100px;
+    height:100px;
+}

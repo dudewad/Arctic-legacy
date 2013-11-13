@@ -33,10 +33,12 @@ for($i = 0; $i < $numEvents; $i++){
         $eventToView = $eList[$i];
 }
 
+echo $cal->calendarPickerToHTML();
+
 usort($eList, "sortByStartTime");
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <?php echo $APP->head(); ?>
 <body>
 <div class="content">

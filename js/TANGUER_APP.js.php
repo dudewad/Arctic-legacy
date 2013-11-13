@@ -25,7 +25,7 @@ var Tanguer_App;
         this.settings.baseImageDir = "images/";
         //Set up the app object (auto-constructor)
         this.initialize();
-    };
+    }
 
     TANGUER_APP.prototype = {
 
@@ -35,9 +35,12 @@ var Tanguer_App;
         initialize: function () {
             this.ioc = new Tanguer_IOC();
             this.initIOC();
+            //Upgrade GUI when JS capable
+            this.extend("gui", this.ioc.build("gui"));
             //Add JSON call functionality
             this.extend("JSONCalls", this.ioc.build("JSONCalls"));
             this.JSONCalls.setBaseJsonURL(this.settings.url.URL_JSON_BASE);
+            this.jqueryModPrototype();
         },
 
 
@@ -46,34 +49,56 @@ var Tanguer_App;
          */
         initIOC: function () {
             this.ioc.register("tooltip", function () {
-                var t = new Tanguer_Tooltip();
-                return t;
+                return new Tanguer_Tooltip();
             });
 
             this.ioc.register("JSONCalls", function () {
-                var j = new Tanguer_JSONCalls();
-                return j;
+                return new Tanguer_JSONCalls();
             });
 
             this.ioc.register("calendar", function () {
-                var c = new Tanguer_Calendar();
-                return c;
+                return new Tanguer_Calendar();
+            });
+
+            this.ioc.register("gui", function () {
+                return new Tanguer_GUI();
             });
         },
+
 
 
         /**
          * Extending the actual prototype at runtime is not possible in a safe cross-browser way so we are simply
          * assigning functionality to object properties.
-         * @param name  String      The name that the new property will havez
+         * @param name  String      The name that the new property will have
          * @param obj   Object      The object that contains all the desired functionality (must be an object);
          */
         extend: function (name, obj) {
+            //Don't allow overrides
             if (typeof this[name] != "undefined") {
                 console.warn("Cannot extend application using name " + name + " - it is already in the namespace.");
                 return;
             }
             this[name] = obj;
+        },
+
+
+
+        /**
+        * Upgrade jQuery to allow us to do extra things that weren't initially possible
+        */
+        jqueryModPrototype:function(){
+            //Disables text selection on an element. Good for fixing double-click form element selection, etc.
+            $.fn.disableSelection = function() {
+                return this.attr('unselectable', 'on').css('user-select', 'none').on('selectstart', false);
+            };
+
+            //Validator for checking of us phone numbers
+            $.validator.addMethod("phoneUS", function(phone_number, element) {
+                phone_number = phone_number.replace(/\s+/g, "");
+                return this.optional(element) || phone_number.length > 9 &&
+                    phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+            }, "Please specify a valid phone number");
         }
     };
 
@@ -90,15 +115,7 @@ var Tanguer_App;
 
         //Add calendar to the page, if applicable
         if($(".c").length > 0)
-            var cal = Tanguer_App.ioc.build("calendar");
-
-        //Validation additions
-        //TODO:Refactor this... this is a sloppy place for this to go
-        $.validator.addMethod("phoneUS", function(phone_number, element) {
-            phone_number = phone_number.replace(/\s+/g, "");
-            return this.optional(element) || phone_number.length > 9 &&
-                phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
-        }, "Please specify a valid phone number");
+            Tanguer_App.ioc.build("calendar");
     });
 }());
 JS;

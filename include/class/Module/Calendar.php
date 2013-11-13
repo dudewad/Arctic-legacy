@@ -36,7 +36,7 @@ class Module_Calendar{
         $eObj = null;
         $selectedID = null;
         $dateCheck = date("dmY", $day);
-        //$sortAction = Utility_App::getCurrentPageURL();
+        $sort = $this->sorterToHTML(Utility_App::getCurrentPageURL());
 
         //Use today by default
         if(!$day){
@@ -72,17 +72,10 @@ class Module_Calendar{
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
-            <div class="c full-day $class" id="$domID">
-                <div class="sort">
-                    <form action="">
-                        <a href="" class="button"></a>
-                        <div class="">
-
-                        </div>
-                    </form>
+                <div class="c full-day $class" id="$domID">
+                    $sort
+                    $thumbs
                 </div>
-                $thumbs
-            </div>
 HTML;
 
         return $html;
@@ -182,6 +175,134 @@ HTML;
 
         $html .= "</ul>";
 
+        return $html;
+    }
+
+
+
+    /**
+     * @param null $month
+     * @param null $year
+     * @return string
+     * @throws Exception_ModuleCalendarException
+     */
+    public function calendarPickerToHTML($month = null, $year = null){
+        //Require month, if passed, to be a number between 1 and 12
+        if(isset($month) && (!is_int($month) || $month < 1 || $month > 12))
+            throw(new Exception_ModuleCalendarException(utf8_encode("Error in " . __METHOD__ . ': $month must be an integer between 1 and 12.')));
+        //Require year, if passed, to be four digit number
+        if(isset($year) && (!is_int($year) || strlen((string)$year) !== 4))
+            throw(new Exception_ModuleCalendarException(utf8_encode("Error in " . __METHOD__ . ': $year must be a four digit integer.')));
+        //Target month for calendar
+        $month = isset($month) ? $month : date("n");
+        //Target year for calendar
+        $year = isset($year) ? $year : date("Y");
+        //Number of days in the target month
+        $daysInMonth = date("t", strtotime($month . "/1/" . $year));
+        //Localized days (textual values)
+        $days = array(String_String::getString("DAY_SUNDAY",__CLASS__),
+            String_String::getString("DAY_MONDAY",__CLASS__),
+            String_String::getString("DAY_TUESDAY",__CLASS__),
+            String_String::getString("DAY_WEDNESDAY",__CLASS__),
+            String_String::getString("DAY_THURSDAY",__CLASS__),
+            String_String::getString("DAY_FRIDAY",__CLASS__),
+            String_String::getString("DAY_SATURDAY",__CLASS__)
+        );
+        $cells = "";
+        $html = "";
+
+        //Build table header
+        $cells .= "<tr>";
+        for($i = 0; $i < count($days); $i++){
+            $cells .= "<th>" . substr($days[$i],0,1) . "</th>";
+        }
+
+        //Build the table body
+        $daysListed = 0;
+        $i = 0;
+        $firstDayInMonth = date("w", strtotime($month . "/1/" . $year));
+        $calStartDate = $this->getCalendarStartDay($month, $year);
+        while($daysListed < $daysInMonth){
+            if($i % 7 === 0){
+                $cells .= "</tr><tr>";
+            }
+            $i++;
+            $daysListed++;
+        }
+        $cells .= "</tr>";
+
+        $html = <<<HTML
+                <div class="visualizer month">
+                    <div class="controls">
+                        <a href="" class="previous"></a>
+                        <a href="" class="next"></a>
+                    </div>
+                    <table>
+                        $cells
+                    </table>
+                </div>
+HTML;
+
+        return $html;
+    }
+
+
+    /**
+     * Returns the date as a string (M/D/YYYY) for a calendar beginning on a sunday for the passed month/year
+     * @param $month
+     * @param $year
+     * @return bool|string
+     */
+    private function getCalendarStartDay($month, $year){
+        //TODO : Create error handling for when prevMonthYear is less than 4 digit - this needs to be handled in calling methods as well
+        $firstDayInMonth = date("w", strtotime($month . "/1/" . $year));
+        $prevMonth = $month > 1 ? $month - 1 : 12;
+        $prevMonthYear = $month < 12 ? $year : $year - 1;
+        $startDay = date("t", strtotime($prevMonth . "/1/" . $prevMonthYear)) - $firstDayInMonth + 1;
+        return $startDay . "/" . $prevMonth . "/" . $prevMonthYear;
+    }
+
+
+
+    private function getNextCalendarDay($date){
+
+    }
+
+
+
+    private function sorterToHTML(){
+        $advancedSort = $this->advancedSortModalToHTML();
+        $html = <<<HTML
+                <form action='#' method='post' class="sort">
+                    <a href="" class="button advanced"><span>Sort Options</span></a>
+                    <label class="milonga checked hasIndicator">
+                        <input type='checkbox' name='milonga' checked/>
+                        Milonga
+                    </label>
+                    <label class="lesson checked hasIndicator">
+                        <input type='checkbox' name='lesson' checked/>
+                        Lesson
+                    </label>
+                    <label class="practica checked hasIndicator">
+                        <input type='checkbox' name='practica' checked/>
+                        Practica
+                    </label>
+                    <label class="show checked hasIndicator">
+                        <input type='checkbox' name='show' checked/>
+                        Show
+                    </label>
+                    <input type="submit" class="button" value="Sort"/>
+                </form>
+                $advancedSort
+HTML;
+        return $html;
+    }
+
+
+    private function advancedSortModalToHTML(){
+        $html = <<<HTML
+                <div class="sort advanced" style="display:none;"></div>
+HTML;
         return $html;
     }
 }

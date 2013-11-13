@@ -19,6 +19,7 @@ input{
     color:#DEDEDE;
     padding:8px;
     border:0;
+    margin:0
 }
 
 p{
@@ -65,6 +66,46 @@ table{
 
 
 /**
+ * GUI STYLES
+ */
+.button{
+    font-weight:700;
+    font-size:1.2em;
+    color:#FFF;
+    position:relative;
+}
+
+.button:hover{
+    cursor:pointer;
+}
+
+input.button:hover{
+    background-color:#b12f2c;
+}
+
+.button span{
+    background:#333;
+    padding:10px;
+}
+
+input.button{
+    padding:10px;
+    margin:0;
+}
+
+.js a.button span{
+    padding-right:30px;
+    display:inline-block;
+}
+
+.js .button .js-indicator{
+    padding:0;
+    background:none;
+}
+
+
+
+/**
  * CALENDAR STYLES
  */
 .c{
@@ -86,22 +127,83 @@ table{
 }
 
 /* Calendar Sort Tool*/
-.sort{
+.c .sort{
     border:1px solid #333;
     border-left:none;
     border-right:none;
     padding:20px 0;
-}
-
-.c .sort{
     margin-bottom:20px;
 }
 
-.c .sort .advanced{
-    font-weight:700;
+.c .sort a.button{
+    padding-right:20px;
+    border-right:1px solid #333;
+    margin-right:20px;
+}
+
+.js .sort .button.advanced .js-indicator{
+    background:url("../../asset/image/gui/gui-sprite-ui-elements-72x12.png") no-repeat;
+    background-position:0 0;
+    width:12px;
+    height:7px;
+    display:block;
+    position:absolute;
+    right:30px;
+    top:50%;
+    margin-top:-4px;
+}
+
+.c .sort input.button{
+    float:right;
+}
+
+.c .sort label{
+    padding:10px;
+    cursor:pointer;
+    display: inline-block;
     font-size:1.2em;
-    background:#333;
-    color:#FFF;
+    font-weight:700;
+    margin-right:20px;
+}
+
+.js .c .sort input{
+    display:none;
+}
+
+.c .sort label .js-indicator{
+    background:url("../../asset/image/gui/gui-sprite-ui-elements-72x12.png") no-repeat;
+    width:12px;
+    height:12px;
+    display:inline-block;
+    margin-right:10px;
+    position:relative;
+    top:2px;
+}
+
+.c .sort label{
+    background:#dedede;
+    border:1px solid #999;
+    color:#999999;
+}
+
+.c .sort label .js-indicator{
+    background-position:-60px 0;
+}
+
+.c .sort label.milonga.checked .js-indicator{
+    background-position:-12px 0;
+}
+
+.c .sort label.lesson.checked .js-indicator{
+    background-position:-24px 0;
+}
+
+.c .sort label.practica.checked .js-indicator{
+    background-position:-36px 0;
+}
+
+.c .sort label.show.checked .js-indicator{
+    background-position:-48px 0;
 }
 
 /* Calendar event full display styles */
@@ -279,10 +381,10 @@ table{
     padding-top:2px;
 }
 
-.e.th.lesson .container{
+.e.th.lesson .container,
+.sort label.lesson.checked{
     background-color:#ccefff;
     border:1px solid #1f79e5;
-    border-top:0;
     color:#333;
 }
 
@@ -294,10 +396,10 @@ table{
     border-left:8px solid #ccefff;
 }
 
-.e.th.milonga .container{
+.e.th.milonga .container,
+.sort label.milonga.checked{
     background-color: #ffd2d2;
     border:1px solid #b12f2c;
-    border-top:0;
     color:#333;
 }
 
@@ -309,10 +411,10 @@ table{
     border-left:8px solid #f7cccc;
 }
 
-.e.th.practica .container{
+.e.th.practica .container,
+.sort label.practica.checked{
     background-color:#dbf7cc;
     border:1px solid #299428;
-    border-top:0;
     color:#333;
 }
 
@@ -324,10 +426,10 @@ table{
     border-left:8px solid #dbf7cc;
 }
 
-.e.th.show .container{
+.e.th.show .container,
+.sort label.show.checked{
     background-color:#fdeacc;
     border:1px solid #bf7b16;
-    border-top:0;
     color:#333;
 }
 
@@ -337,6 +439,29 @@ table{
 
 .e.th.show.selected .e-content{
     border-left:8px solid #fdeacc;
+}
+
+.e.th.milonga .container,
+.e.th.practica .container,
+.e.th.lesson .container,
+.e.th.show .container{
+    border-bottom:0;
+}
+
+.c .th-list .e.th.milonga:last-child .container{
+    border-bottom:1px solid #b12f2c;
+}
+
+.c .th-list .e.th.lesson:last-child .container{
+    border-bottom:1px solid #1f79e5;
+}
+
+.c .th-list .e.th.practica:last-child .container{
+    border-bottom:1px solid #299428;
+}
+
+.c .th-list .e.th.show:last-child .container{
+    border-bottom:1px solid #bf7b16;
 }
 
 
@@ -351,7 +476,6 @@ table{
     background-color:#dfdfdf;
     padding:30px 20px;
     border:1px solid #333;
-    border-top:none;
 }
 
 .c .login .logo{
@@ -371,6 +495,7 @@ table{
 .c .login h2,
 .c .login h3{
     color:#b12f2c;
+    background-color:transparent;
 }
 
 .c .login h2{
@@ -403,6 +528,7 @@ table{
 .c .login .submit{
     cursor:pointer;
     font-weight:900;
+    font-size: 1.4em;
 }
 
 .c .login .submit:hover,
@@ -421,6 +547,7 @@ table{
     font-weight:900;
     padding:8px;
     display:block;
+    font-size: 1.4em;
 }
 
 
@@ -572,10 +699,6 @@ and (min-width:768px){
 
     .c .th-list .e.th.selected .col-price{
         margin-right:16px;
-    }
-
-    .c .login{
-        border-top:1px solid #333;
     }
 
     /* Calendar Event styles */

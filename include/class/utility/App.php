@@ -88,6 +88,7 @@ class Utility_App{
                     <script src='js/Tanguer_App.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_IOC.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
+                    <script src='js/extension/Tanguer_GUI.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
                     <script type='text/javascript' src='POC/js/test.js'></script>
@@ -111,6 +112,23 @@ class Utility_App{
     public function getCurrentPageName(){
         return $this->currentPage;
     } //End getCurrentPageName()
+
+
+
+    public static function getCurrentPageURL() {
+        $pageURL = 'http';
+        if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+            $pageURL .= "s";
+        }
+        $pageURL .= "://";
+        if ($_SERVER["SERVER_PORT"] != "80"){
+            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        }
+        else{
+            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        return $pageURL;
+    }
 
 
 

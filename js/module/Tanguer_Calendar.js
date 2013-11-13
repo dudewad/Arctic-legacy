@@ -5,7 +5,7 @@
  */
 
 var Tanguer_Calendar = function(){
-    this.body = $("body");
+    this._body = $("body");
     this.tabletBreakpoint = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
     this.displayMode = null;
     this.init();
@@ -20,7 +20,7 @@ Tanguer_Calendar.prototype = {
         /**
          * Set up thumbnail click functionality
          */
-        this.body.on("click","div.c .th-list a", function(e){
+        this._body.on("click","div.c .th-list a", function(e){
             e.preventDefault();
             var thumb = $(this).closest(".e.th");
             var eventID = thumb.data("event-id");
@@ -61,6 +61,36 @@ Tanguer_Calendar.prototype = {
             }
             scope.setDisplayMode();
         });
+
+        //Add click events to the js version of the sorts
+        this._body.on("click",".c .sort label",function(e){
+                if(e.target.tagName.toLowerCase() !== 'input') {
+                    var label = $(this);
+                    label.hasClass("checked") ? label.removeClass("checked") : label.addClass("checked");
+
+                    if(label.hasClass("milonga")){
+                        label.closest(".c").find(".e.milonga").toggle();
+                    }
+                    else if(label.hasClass("lesson")){
+                        label.closest(".c").find(".e.lesson").toggle();
+                    }
+                    else if(label.hasClass("practica")){
+                        label.closest(".c").find(".e.practica").toggle();
+                    }
+                    else if(label.hasClass("show")){
+                        label.closest(".c").find(".e.show").toggle();
+                    }
+                }
+        });
+
+        //Advanced sort options modal
+        this._body.on("click",".c .sort .button.advanced", function(){
+            Tanguer_App.modal($(this).closest("c").find(".sort.advanced"));
+            return false;
+        });
+
+        //Disable selection of sort options for aesthetic purposes
+        $(".sort").disableSelection();
     },
 
 
@@ -82,9 +112,8 @@ Tanguer_Calendar.prototype = {
 
     createQuickEvent:function(e, data){
         var html = e.html;
-        var calendar = $("#" + data.instanceID);
         var thumb = $("li.e.th[data-event-id=" + data.eventID + "]");
-        this.body.trigger("Tanguer_Calendar_Quick_Event_Load", this);
+        this._body.trigger("Tanguer_Calendar_Quick_Event_Load", this);
         var li = $("<li>");
         li.addClass("c-e-disp full");
         li.attr("data-event-id",data.eventID);
