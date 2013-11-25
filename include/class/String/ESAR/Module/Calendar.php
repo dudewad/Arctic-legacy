@@ -13,4 +13,18 @@ class String_ESAR_Module_Calendar {
     const DAY_THURSDAY = "Jueves";
     const DAY_FRIDAY = "Viernes";
     const DAY_SATURDAY = "Sábado";
+
+    //Months
+    const MONTH_JANUARY = "Enero";
+    const MONTH_FEBRUARY = "Febrero";
+    const MONTH_MARCH = "Marzo";
+    const MONTH_APRIL = "Abril";
+    const MONTH_MAY = "Mayo";
+    const MONTH_JUNE = "Junio";
+    const MONTH_JULY = "Julio";
+    const MONTH_AUGUST = "Agosto";
+    const MONTH_SEPTEMBER = "Septiembre";
+    const MONTH_OCTOBER = "Octubre";
+    const MONTH_NOVEMBER = "Noviembre";
+    const MONTH_DECEMBER = "Diciembre";
 }

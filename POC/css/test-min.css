@@ -8,9 +8,7 @@ html{
 
 body{
     padding:0;
-    color:#09f;
     font-family:Lato, Arial, sans-serif;
-    background:#FFF;
     font-size:10px;
 }
 
@@ -142,7 +140,7 @@ input.button{
 }
 
 .js .sort .button.advanced .js-indicator{
-    background:url("../../asset/image/gui/gui-sprite-ui-elements-72x12.png") no-repeat;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
     background-position:0 0;
     width:12px;
     height:7px;
@@ -171,7 +169,7 @@ input.button{
 }
 
 .c .sort label .js-indicator{
-    background:url("../../asset/image/gui/gui-sprite-ui-elements-72x12.png") no-repeat;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
     width:12px;
     height:12px;
     display:inline-block;
@@ -206,6 +204,194 @@ input.button{
     background-position:-48px 0;
 }
 
+/* Calendar Picker styles */
+.c.picker{
+    display:inline-block;
+    width:auto;
+    line-height:0; /* Fixes spacing issue because of inline-block display setting*/
+}
+
+.c.picker .cell.rowStart{
+    clear:left;
+}
+
+.c.picker .preview{
+    display:inline-block;
+    line-height:1.2; /* Fixes spacing issue because of inline-block display setting*/
+    cursor:pointer;
+}
+
+.c.picker .preview .cell{
+    background:#CCC;
+    border:1px solid #CCC;
+    width:10px;
+    height:10px;
+    float:left;
+    margin:0 1px 1px 0;
+}
+
+.c.picker .preview .cell.selected{
+    border:2px solid #333;
+    width:8px;
+    height:8px;
+}
+
+.c.picker .preview .othMon{
+    background:#FFF;
+}
+
+.c.picker .preview div span{
+    display:none;
+}
+
+.c.picker .visualizer{
+    display:none;
+    position:absolute;
+    z-index:2;
+    background:#fff;
+    border:1px solid #333;
+    padding:10px 29px;
+    margin-top:10px;
+    font-style:italic;
+    font-size:1.3em;
+    color:#333;
+    line-height:1.25; /* Fixes spacing issue because of inline-block display setting*/
+}
+
+.c.picker:hover .visualizer{
+    display:block;
+}
+
+.c.picker .visualizer h3{
+    margin:0 0 10px 0;
+    font-size:1.6em;
+    text-align:center;
+    font-weight:700;
+}
+
+.c.picker .visualizer .cell{
+    text-align:center;
+    width:25px;
+    height:20px;
+    padding-top:4px !important;
+    display:inline-block;
+    vertical-align:middle;
+    float:left;
+}
+
+.c.picker .visualizer .header{
+    background:#333;
+    color:#CCC;
+    padding:0;
+    font-weight:700;
+    border-bottom:1px solid #FFF;
+}
+
+.c.picker .visualizer .header .cell{
+    border:1px solid #333;
+    padding:1px;
+}
+
+.c.picker .visualizer .body{
+    border-spacing:2px;
+}
+
+.c.picker .visualizer .body .cell{
+    cursor:pointer;
+    border:1px solid #CCC;
+    margin:1px;
+    color:#333;
+}
+
+.c.picker .visualizer .body .cell:hover{
+    border:1px solid #333;
+    background:#333 !important;
+    color:#FFF;
+}
+
+.c.picker .visualizer .body .cell.selected{
+    border:2px solid #333;
+    width:23px;
+    height:19px;
+    padding-top:3px !important;
+    margin:1px;
+}
+
+.c.picker .visualizer .body .cell.selected:hover{
+    border:2px solid #333;
+}
+
+.c.picker .visualizer .body .cell.curMon{
+    background:#CCC;
+}
+
+.c.picker .visualizer .body .othMonContainer:hover .cell{
+    background:#333;
+    border:1px solid #333;
+}
+
+.c.picker .visualizer .body .cell.othMon:hover span{
+    visibility:visible;
+}
+
+.c.picker .visualizer .body .cell.othMon span{
+    visibility:hidden;
+}
+
+.c.picker .visualizer .body .othMonContainer{
+    height:26px;
+    float:left;
+}
+
+.c.picker .visualizer .indicator{
+    position:absolute;
+    /* Extra padding and negative top position alleviates ghost-pixel spacing in IE, which drops the hover state if
+    you move the mouse too slowly between the calendar preview and the visualizer. Since the preview presently has
+    no functionality this is a great solution. */
+    top:-20px;
+    padding:10px 35px 0 35px;
+    left:0;
+}
+
+.c.picker .visualizer .controls{
+    position:absolute;
+    left:0;
+    top:0;
+    height:0;
+    width:100%;
+}
+
+.c.picker .visualizer .controls .previous,
+.c.picker .visualizer .controls .next{
+    display:block;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat center #333;
+    top:57px;
+    width:16px;
+    height:16px;
+}
+
+.c.picker .visualizer .controls .previous{
+    position:absolute;
+    left:10px;
+    background-position:-26px -15px
+}
+
+.c.picker .visualizer .controls .previous:hover{
+    background-position:-38px -15px
+}
+
+.c.picker .visualizer .controls .next{
+    position:absolute;
+    right:10px;
+    background-position:0 -15px;
+}
+
+.c.picker .visualizer .controls .next:hover{
+    background-position:-12px -15px;
+}
+
+
+
 /* Calendar event full display styles */
 
 .c-e-disp.full h3{
@@ -216,7 +402,7 @@ input.button{
     font-family:Vollkorn,Lato,Arial,sans-serif;
     font-size:2.4em;
     font-style:oblique;
-    font-weight:bold;
+    font-weight:700;
     padding:30px 20px;
     color:#FFF;
     background-color:#333;
@@ -666,7 +852,6 @@ and (max-width:767px){
 @media only screen
 and (min-width:768px){
     body{
-        color:#09F;
         font-family:Lato, Arial, sans-serif;
         width:auto;
         padding:0 1%;
@@ -744,7 +929,7 @@ and (min-width:768px){
 
 
 /**
- * Tablet portrait ONLY (above 768 but below 1024
+ * Tablet landscape ONLY (above 768 but below 1024
  */
 @media only screen
 and (min-width:768px)

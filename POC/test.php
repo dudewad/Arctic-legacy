@@ -4,7 +4,6 @@
  * Date: 6/19/13
  */
 //Destroy user session in test environment
-
 @session_destroy();
 define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/config.php");
@@ -33,9 +32,9 @@ for($i = 0; $i < $numEvents; $i++){
         $eventToView = $eList[$i];
 }
 
-echo $cal->calendarPickerToHTML();
-
 usort($eList, "sortByStartTime");
+
+$date = isset($_GET['d']) ? $_GET['d'] : time();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +42,7 @@ usort($eList, "sortByStartTime");
 <body>
 <div class="content">
     <?php
+        echo $cal->calendarPickerMonthToHTML($date);
         echo $cal->to_html_full_day($eList, time(), $eventToView, $mainCalID);
     ?>
     <div id="debug"></div>
