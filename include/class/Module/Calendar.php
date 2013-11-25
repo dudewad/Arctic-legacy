@@ -181,27 +181,23 @@ HTML;
 
 
     /**
-     * @param null $day     The day to mark as "selected". Defaults to today.
      * @param null $month   The month to be viewed. Defaults to the current month.
+     * @param null $day     The day to mark as "selected". Defaults to today.
      * @param null $year    The year to be viewed. Defaults to the current year.
      * @return string
      * @throws Exception_ModuleCalendarException
      */
-    public function calendarPickerMonthToHTML($day = null, $month = null, $year = null){
-        //Require month, if passed, to be a number between 1 and 12
-        if(isset($month) && (!is_int($month) || $month < 1 || $month > 12))
-            throw(new Exception_ModuleCalendarException(utf8_encode("Error in " . __METHOD__ . ': $month must be an integer between 1 and 12.')));
-        //Require year, if passed, to be four digit number
-        if(isset($year) && (!is_int($year) || strlen((string)$year) !== 4))
-            throw(new Exception_ModuleCalendarException(utf8_encode("Error in " . __METHOD__ . ': $year must be a four digit integer.')));
+    public function calendarPickerMonthToHTML($date = null){
+        if(!isset($date))
+            $date = time();
         //Selected date
-        $day = isset($day) ? $day : date("j");
+        $day = date("j", $date);
         //Target month for calendar
-        $month = isset($month) ? $month : date("n");
+        $month = date("n", $date);
         //Target year for calendar
-        $year = isset($year) ? $year : date("Y");
+        $year = date("Y", $date);
         //First day of the month as a timestamp
-        $firstDayTimestamp = strtotime("$month/1/$year");
+        $firstDayTimestamp = mktime(0,0,0,$month,1,$year);
         //The first day in the month in question as an integer from 0-6
         $firstDayInMonth = date("w", $firstDayTimestamp);
         //The date that the calendar starts on as a unix timestamp
@@ -211,12 +207,22 @@ HTML;
         //Number of days from the beginning of the calendar to the last day of the month - for displaying days that
         //aren't part of this month
         $lastDayInMonth = $firstDayInMonth + $daysInMonth;
-        $prevMonth = $month > 1 ? $month - 1 : 12;
-        $nextMonth = $month < 12 ? $month + 1 : 1;
         //CSS class - Sets whether or not a date picker box is from the current month, or the previous/next month
         $dateClass = "othMon";
         $selected = null;
+        //The date that is currently selected. Takes into account days showing from the previous month
         $selectedDate = $day + $firstDayInMonth - 1;
+        //Controls and GUI items. Start by calculating the timestamp for both the next and previous months, and
+        //generating the applicable URL strings to arrive at that calendar system.
+        $prevMonth = $month > 1 ? $month - 1 : 12;
+        $prevMonthYear = $prevMonth == 12 ? $year - 1 : $year;
+        $nextMonth = $month < 12 ? $month + 1 : 1;
+        $nextMonthYear = $nextMonth == 1 ? $year + 1 : $year;
+        $indicator = Utility_App::getURL("URL_MAIN") . "asset/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
+        $prevMonthTS = mktime(0,0,0,$prevMonth,1,$prevMonthYear);
+        $nextMonthTS = mktime(0,0,0,$nextMonth,1,$nextMonthYear);
+        $nextMonthURL = Utility_App::getURL("URL_MAIN","d=$nextMonthTS");
+        $previousMonthURL = Utility_App::getURL("URL_MAIN","d=$prevMonthTS");
         //Localized days (textual values)
         $days = array(String_String::getString("DAY_SUNDAY",__CLASS__),
             String_String::getString("DAY_MONDAY",__CLASS__),
@@ -226,7 +232,7 @@ HTML;
             String_String::getString("DAY_FRIDAY",__CLASS__),
             String_String::getString("DAY_SATURDAY",__CLASS__)
         );
-
+        //Localized months (textual values)
         $months = array(String_String::getString("MONTH_JANUARY",__CLASS__),
             String_String::getString("MONTH_FEBRUARY",__CLASS__),
             String_String::getString("MONTH_MARCH",__CLASS__),
@@ -252,52 +258,73 @@ HTML;
         //Build the table body
         $daysListed = 0;
         $isLastWeek = false;
-        $calDay = date("j", $calStartDate);
-        $calMonth = date("j", $calStartDate);
-        $calYear = date("j", $calStartDate);
+        $calDay = null;
+        $calMonth = null;
+        $calYear = null;
 
         $generating = true;
         $previewCells = "<div class='body'>";
         $visualizerCells = "<div class='body'>";
+
+        if($firstDayInMonth > 0){
+            $visualizerCells .= "<div class='othMonContainer'>";
+        }
+
+        $hasOthMonContainer = false;
+        $currentDate = $calStartDate;
+        //Generate the body of the calendar
         while($generating){
             if($daysListed == $firstDayInMonth){
                 $dateClass = "curMon";
-                $calDay = 1;
+                //Close 'previous month' container div
+                if($firstDayInMonth > 0)
+                    $visualizerCells .= "</div>";
+                //Update month and year
+                $calMonth = date("n", $currentDate);
+                $calYear = date("Y", $currentDate);
             }
             else if($daysListed == $lastDayInMonth){
                 $dateClass = "othMon";
-                $calDay = 1;
+                $visualizerCells .= "<div class='othMonContainer'>";
+                $hasOthMonContainer = true;
+                //Update month and year
+                $calMonth = date("n", $currentDate);
+                $calYear = date("Y", $currentDate);
             }
+            $calDay = date("j", $currentDate);
             $selected = $daysListed == $selectedDate ? "selected" : null;
             //New rows every 7 days
             $clearClass = $daysListed % 7 ? null : "rowStart";
+            $url = Utility_App::getURL("URL_MAIN","d=$currentDate");
 
             //Generate the cell
             $previewCells .= "<div class='cell $dateClass $selected $clearClass'></div>";
-            $visualizerCells .= "<div class='cell $dateClass $selected $clearClass' data-month='$calMonth' data-day='$calDay' data-year='$calYear'><span>$calDay</span></div>";
+            $visualizerCells .= "<a href='?d=$currentDate' class='cell $dateClass $selected $clearClass' data-month='$calMonth' data-day='$calDay' data-year='$calYear'><span>$calDay</span></a>";
             $daysListed++;
-            $calDay++;
+            $currentDate += 86400;
             if($daysListed > $lastDayInMonth - 1)
                 $isLastWeek = true;
             if($isLastWeek && !($daysListed % 7)){
                 $generating = false;
+                //Close 'previous month' container div
+                if($hasOthMonContainer)
+                    $visualizerCells .= "</div>";
             }
         }
         $previewCells .= "</div>";
         $visualizerCells .= "</div>";
 
-        $indicator = Utility_App::getURL("URL_MAIN") . "asset/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
         $html = <<<HTML
                 <div class="c picker month">
-                    <div class="controls">
-                        <a href="" class="previous"></a>
-                        <a href="" class="next"></a>
-                    </div>
                     <div class="preview">
                         $previewCells
                     </div>
                     <div class="visualizer">
                         <img class="indicator" src="$indicator" alt="" />
+                        <div class="controls">
+                            <a href="$previousMonthURL" class="previous"></a>
+                            <a href="$nextMonthURL" class="next"></a>
+                        </div>
                         <h3>$monthName</h3>
                         $header
                         $visualizerCells
@@ -318,9 +345,9 @@ HTML;
     private function getCalendarStartDay($month, $year){
         $prevMonth = $month > 1 ? $month - 1 : 12;
         $prevMonthYear = $month < 12 ? $year : $year - 1;
-        $firstDayInMonth = date("w", strtotime("$month/1/$year"));
-        $startDay = date("t", strtotime("$prevMonth/1/$prevMonthYear")) - $firstDayInMonth + 1;
-        return strtotime("$prevMonth/$startDay/$prevMonthYear");
+        $firstDayInMonth = date("w", mktime(0,0,0,$month,1,$year));
+        $startDay = date("t", mktime(0,0,0,$prevMonth,1,$prevMonthYear)) - $firstDayInMonth + 1;
+        return mktime(0,0,0,$prevMonth,$startDay,$prevMonthYear);
     }
 
 
