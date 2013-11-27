@@ -14,6 +14,8 @@ class Utility_App{
     private $currentPageContent;
     //Will contain tooltips for the page
     private $tooltips;
+    //Whether or not the current App instance has set a timezone
+    private static $hasTimezoneSet = false;
 
 
 
@@ -132,6 +134,81 @@ class Utility_App{
 
 
 
+    public static function hasTimezoneSet(){
+        return Utility_App::$hasTimezoneSet;
+    }
+
+
+    /**
+     * Returns the user's timezone
+     */
+    public static function setDefaultTimezone(){
+        $case = null;
+        $fail = false;
+
+        //Set IP if we can get it
+        if(Utility_Constants::APP_ENVIRONMENT == "test"){
+            $ip = "50.159.48.157";
+            //date_default_timezone_set("America/Los_Angeles");
+            //Utility_App::$hasTimezoneSet = true;
+            //turn;
+        }
+        else{
+            $ip = Utility_App::getUserIP();
+        }
+
+        //Priority 1: check user's settings (session) for timezone
+        if(Utility_App::hasUserSession() && isset($_SESSION['timezone']) && strlen($_SESSION['timezone']) > 0){
+            date_default_timezone_set($_SESSION['timezone']);
+            echo "Used user session to set default timezone.";
+        }
+        //Priority 2: Use IP-based timezone guessing using the IPInfoDB service
+        //Note: for the start build this is merely a guess and will not take DST into account.
+        else if($ip){
+            //Use the API key to hit the ipinfodb server for ip timezone information
+            $key = constant("Utility_Constants::API_IPINFODB_API_KEY");
+            $cr = curl_init("http://api.ipinfodb.com/v3/ip-city/?key=" . $key . "&ip=" . $ip . "&format=json");
+            curl_setopt($cr,CURLOPT_CONNECTTIMEOUT,1);
+            curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+            $data = curl_exec($cr);
+            curl_close($cr);
+            $data = json_decode($data);
+            $t = $data->timeZone;
+            //The API returns "-" for the timezone setting for invalid IPs. Break here if IP is invalid and move to
+            //next fallback.
+            if($data->timeZone != "-" || empty($data->timeZone)){
+                $arr = explode(':',$t);
+                //Parse returned timezone to numeric value
+                $hours = (int)$arr[0];
+                $min = (int)$arr[1] / 60;
+                if($hours < 0)
+                $min = $min * -1;
+                $timeOffset = ($hours + $min) * 3600;
+                $timezone = timezone_name_from_abbr(null, $timeOffset, true);
+                //Set timezone
+                date_default_timezone_set($timezone);
+                $_SESSION['timezone'] = $timezone;
+            }
+            else
+                $fail = true;
+        }
+        //Priority 3: Use selected city's timezone, if available
+        //TODO: Once the database is up and running, get this implemented. Uncomment the setting of {$fail = false} so the final if statement won't get tripped when this succeeds.
+        if($fail){
+            //$fail = false;
+            //echo "Used the timezone of the selected city.";
+        }
+        //Priority Default: No other timezone data is available. We'll default to using Buenos Aires.
+        if($fail){
+            date_default_timezone_set("America/Buenos_Aires");
+            echo "Used system default of Buenos Aires for the timezone settings.";
+        }
+
+        Utility_App::$hasTimezoneSet = true;
+    }
+
+
+
     /**
      * @param $page     String      The page to be linked to
      *
@@ -169,6 +246,23 @@ class Utility_App{
 
     public static function getUserSession(){
         return $_SESSION['user'];
+    }
+
+
+
+    public static function getUserIP(){
+        //Check ip from share internet
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        //to check ip is pass from proxy
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else{
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
 
 
