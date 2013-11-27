@@ -190,11 +190,11 @@ HTML;
     public function calendarPickerMonthToHTML($date = null){
         if(!isset($date))
             $date = time();
-        //Selected date
+        //Selected date - numeric value, no leading zeros
         $day = date("j", $date);
-        //Target month for calendar
+        //Target month for calendar - numeric value, no leading zeros
         $month = date("n", $date);
-        //Target year for calendar
+        //Target year for calendar - Four-digit numeric value
         $year = date("Y", $date);
         //First day of the month as a timestamp
         $firstDayTimestamp = mktime(0,0,0,$month,1,$year);
@@ -210,7 +210,8 @@ HTML;
         //CSS class - Sets whether or not a date picker box is from the current month, or the previous/next month
         $dateClass = "othMon";
         $selected = null;
-        //The date that is currently selected. Takes into account days showing from the previous month
+        //The date that is currently selected as a number from the start date of the calendar. Takes into account days
+        //showing from the previous month
         $selectedDate = $day + $firstDayInMonth - 1;
         //Controls and GUI items. Start by calculating the timestamp for both the next and previous months, and
         //generating the applicable URL strings to arrive at that calendar system.
@@ -313,9 +314,11 @@ HTML;
         }
         $previewCells .= "</div>";
         $visualizerCells .= "</div>";
+        $day = $days[date('w',$date)];
+        $fullDisplayDate = date(String_String::getString("SETTING_DATE_FORMAT",__CLASS__),$date);
 
         $html = <<<HTML
-                <div class="c picker month">
+                <div class="c picker month clearfix">
                     <div class="preview">
                         $previewCells
                     </div>
@@ -328,6 +331,16 @@ HTML;
                         <h3>$monthName</h3>
                         $header
                         $visualizerCells
+                    </div>
+                </div>
+                <div class="c d-disp">
+                    <div class="controls">
+                        <a href="$previousMonthURL" class="previous"></a>
+                        <a href="$nextMonthURL" class="next"></a>
+                    </div>
+                    <div class="d-content">
+                        <h2>$day</h2>
+                        <h3>$fullDisplayDate</h3>
                     </div>
                 </div>
 HTML;

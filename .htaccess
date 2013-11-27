@@ -1,7 +1,5 @@
 RewriteEngine On
-RewriteRule ^test/?$ POC/test.php [NC]
-RewriteRule ^/?$ POC/test.php [NC]
-RewriteRule ^test2/?$ POC/test2.php [NC]
+RewriteRule ^index.php$ POC/test.php [NC]
 
 #e.g. Rewrite a url with a string of numbers and letters to a processing script
 #RewriteRule ^([0-9a-zA-Z]+)$ number.php?number=$1 [NC,L]

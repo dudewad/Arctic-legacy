@@ -207,8 +207,8 @@ input.button{
 /* Calendar Picker styles */
 .c.picker{
     display:inline-block;
-    width:auto;
     line-height:0; /* Fixes spacing issue because of inline-block display setting*/
+    width:100px;
 }
 
 .c.picker .cell.rowStart{
@@ -388,6 +388,23 @@ input.button{
 
 .c.picker .visualizer .controls .next:hover{
     background-position:-12px -15px;
+}
+
+.c.d-disp{
+    display:inline-block;
+    vertical-align: top;
+    line-height:normal;
+    width:300px;
+}
+
+.c.d-disp .d-content{
+    text-align:center;
+}
+
+
+
+.c.d-disp h2{
+    font-size:5em;
 }
 
 

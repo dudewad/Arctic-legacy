@@ -5,6 +5,9 @@
  */
 
 class Utility_Constants {
+    /* Specify "test" or "production" for application behavior switching in applicable areas*/
+    const APP_ENVIRONMENT = "test";
+
     //URL CONSTANTS
     /* For remote testing:
     const URL_MAIN = "http://10.0.0.17/tanguer/";
@@ -13,10 +16,16 @@ class Utility_Constants {
 */
 
     /*For local testing:*/
-    const URL_MAIN = "http://localhost/tanguer/";
+    /*const URL_MAIN = "http://localhost/tanguer/";
     const URL_ACCOUNT = "http://localhost/tanguer/test";
-    const URL_JSON_BASE = "http://localhost/tanguer/jsonRequest.php";
+    const URL_JSON_BASE = "http://localhost/tanguer/jsonRequest.php";*/
 
+
+
+    /* Production server */
+    const URL_MAIN = "http://www.tanguer.net/";
+    const URL_ACCOUNT = "http://www.tanguer.net/";
+    const URL_JSON_BASE = "http://www.tanguer.net/jsonRequest.php";
 
 
 
@@ -24,10 +33,17 @@ class Utility_Constants {
     const DIR_EVENT_BANNER = "asset/image/event/banner/";
 
 
+
     /**
      * Javascript Constants
      */
     const JS_BREAKPOINT_TABLET_PORTRAIT = 768;
+
+
+
+    //API constants
+    const API_IPINFODB_API_KEY = "14985c7991a26fcb7c4becc0274dacbc15fc63f7aa02e1da1eb825cf6099ab7b";
+
 
 
     /**

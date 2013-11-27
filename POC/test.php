@@ -4,15 +4,16 @@
  * Date: 6/19/13
  */
 //Destroy user session in test environment
-@session_destroy();
+//@session_destroy();
+session_start();
 define("BASEDIR", __DIR__ . "/../");
-require_once(BASEDIR . "/include/config.php");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
 $APP = Utility_IOC::build("Utility_App");
 $lang = "ESAR";
 String_String::setLanguage($lang);
+Utility_App::setDefaultTimezone();
 $generator = new Test_ObjectGenerator();
 $selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;

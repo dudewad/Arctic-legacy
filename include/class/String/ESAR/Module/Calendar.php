@@ -5,6 +5,9 @@
  */
  
 class String_ESAR_Module_Calendar {
+    //Technical strings
+    const SETTING_DATE_FORMAT = "d/m/Y";
+
     //Days of the week
     const DAY_SUNDAY = "Domingo";
     const DAY_MONDAY = "Lunes";

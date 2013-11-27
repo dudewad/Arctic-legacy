@@ -17,4 +17,7 @@ class String_ESAR_Utility_App {
     const V_2P_PRES_ATTENDING = "Vas";
     const V_3P_PRES_S_ATTENDING = "Va";
     const V_3P_PRES_PL_ATTENDING = "Van";
+
+    //Date format for this language
+    const DATE_FORMAT = "j/n/Y";
 }
