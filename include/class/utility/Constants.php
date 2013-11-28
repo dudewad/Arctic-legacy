@@ -16,17 +16,17 @@ class Utility_Constants {
 */
 
     /*For local testing:*/
-    /*const URL_MAIN = "http://localhost/tanguer/";
+    const URL_MAIN = "http://localhost/tanguer/";
     const URL_ACCOUNT = "http://localhost/tanguer/test";
-    const URL_JSON_BASE = "http://localhost/tanguer/jsonRequest.php";*/
+    const URL_JSON_BASE = "http://localhost/tanguer/jsonRequest.php";
 
 
 
-    /* Production server */
+    /* Production server
     const URL_MAIN = "http://www.tanguer.net/";
     const URL_ACCOUNT = "http://www.tanguer.net/";
     const URL_JSON_BASE = "http://www.tanguer.net/jsonRequest.php";
-
+*/
 
 
     //DIRECTORY CONSTANTS
