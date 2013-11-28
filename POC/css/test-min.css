@@ -209,6 +209,7 @@ input.button{
     display:inline-block;
     line-height:0; /* Fixes spacing issue because of inline-block display setting*/
     width:100px;
+    margin-top:5em;
 }
 
 .c.picker .cell.rowStart{
@@ -395,6 +396,7 @@ input.button{
     vertical-align: top;
     line-height:normal;
     width:300px;
+    margin-top:5em;
 }
 
 .c.d-disp .d-content{
@@ -756,6 +758,49 @@ input.button{
 
 
 /**
+ * Alert styles
+ */
+.alerts{
+    background:#b12f2c;
+    color:#ffd2d2;
+    font-size:1.4em;
+    padding:1em 0;
+}
+
+.alerts .content{
+    width:96%;
+    padding:0 2%;
+}
+
+.alerts .alert .icon{
+    display:inline-block;
+    width:13px;
+    height:13px;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
+    background-position:0 -34px;
+    margin-right:.35em;
+    position:relative;
+    top:1px;
+}
+
+.alerts .alert .dismiss{
+    margin-left:.5em;
+    color:#FFF;
+    text-decoration:underline;
+    font-size:.8em;
+}
+
+.alerts .dismiss{
+    display:none;
+}
+
+.js .alerts .dismiss{
+    display:inline-block;
+}
+
+
+
+/**
  * TABLET STYLES ( width > 360 )
  */
 @media only screen
@@ -871,13 +916,13 @@ and (min-width:768px){
     body{
         font-family:Lato, Arial, sans-serif;
         width:auto;
-        padding:0 1%;
     }
 
     .content{
-        width:100%;
+        width:98%;
         max-width:1200px;
         margin:0 auto;
+        padding:0 1%;
     }
 
 
