@@ -47,6 +47,10 @@ table{
     text-align:center;
 }
 
+.offscreen{
+    text-indent:-9999px;
+}
+
 
 
 /**
@@ -104,6 +108,52 @@ input.button{
 
 
 /**
+ * HEADER STYLES
+ */
+#header{
+    padding:2em 0 3em 0;
+    background-color:#333;
+    color:#FFF;
+}
+
+#header .location{
+    margin-top:1em;
+    font-size:1.3em;
+    font-weight:900;
+    font-style:italic;
+    font-family:"Volkorn","Times New Roman",serif;
+    color:#CCC;
+}
+
+#header .location .change-location{
+    font-size:1em;
+}
+
+#header .change-location a{
+    color:#CCC;
+}
+
+#header .change-location .indicator{
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat -14px -38px;
+    width:7px;
+    height:4px;
+    display:inline-block;
+    position:relative;
+    top:-1px;
+    left:1px;
+}
+
+.header-decoration{
+    margin-top: 3px;
+    color: #333;
+    height: 2px;
+    background-color: #333;
+    border: 0;
+}
+
+
+
+/**
  * CALENDAR STYLES
  */
 .c{
@@ -140,8 +190,7 @@ input.button{
 }
 
 .js .sort .button.advanced .js-indicator{
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
-    background-position:0 0;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat 0 0;
     width:12px;
     height:7px;
     display:block;
@@ -206,10 +255,10 @@ input.button{
 
 /* Calendar Picker styles */
 .c.picker{
-    display:inline-block;
-    line-height:0; /* Fixes spacing issue because of inline-block display setting*/
-    width:100px;
+    width:95px;
     margin-top:5em;
+    float:left;
+    margin-right: 30px;
 }
 
 .c.picker .cell.rowStart{
@@ -218,7 +267,6 @@ input.button{
 
 .c.picker .preview{
     display:inline-block;
-    line-height:1.2; /* Fixes spacing issue because of inline-block display setting*/
     cursor:pointer;
 }
 
@@ -256,7 +304,6 @@ input.button{
     font-style:italic;
     font-size:1.3em;
     color:#333;
-    line-height:1.25; /* Fixes spacing issue because of inline-block display setting*/
 }
 
 .c.picker:hover .visualizer{
@@ -392,21 +439,54 @@ input.button{
 }
 
 .c.d-disp{
-    display:inline-block;
     vertical-align: top;
     line-height:normal;
-    width:300px;
     margin-top:5em;
+    padding:0 2em;
+    text-align:center;
+    width:auto;
+    float:left;
+    color:#333;
 }
 
 .c.d-disp .d-content{
-    text-align:center;
+    float:left;
 }
 
+.c.d-disp h2,
+.c.d-disp h3{
+    margin-top:-.2em;
+    font-size:4em;
+    font-weight:700;
+}
 
+.c.d-disp h3{
+    font-size:2em;
+    font-weight:100;
+}
 
-.c.d-disp h2{
-    font-size:5em;
+.c.d-disp .controls{
+    position:relative;
+    width:100%
+}
+
+.c.d-disp .controls .next,
+.c.d-disp .controls .previous{
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat -55px -12px;
+    width:10px;
+    height:19px;
+    display:block;
+    position:absolute;
+    top:.75em;
+}
+
+.c.d-disp .controls .next{
+    right:-20px;
+}
+
+.c.d-disp .controls .previous{
+    background-position: -65px -12px;
+    left:-2em;
 }
 
 
@@ -776,8 +856,7 @@ input.button{
     display:inline-block;
     width:13px;
     height:13px;
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
-    background-position:0 -34px;
+    background:url("../../asset/image/gui/gui-sprite.png") no-repeat 0 -34px;
     margin-right:.35em;
     position:relative;
     top:1px;

@@ -109,6 +109,33 @@ class Utility_App{
 
 
 
+    public static function printHeader(){
+        $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-header.png";
+        $city = isset($_SESSION['location']['city']) ? $_SESSION['location']['city'] : null;
+        $country = isset($_SESSION['location']['country']) ? $_SESSION['location']['country'] : null;
+        $changeLocationString = String_String::getString("CHANGE_LOCATION","Module_Location");
+        $html = <<<HTML
+            <div id="header">
+                <div class="content">
+                    <div class="logo-block">
+                        <h2><a href="/" class="logo"><img src="$logo" alt="Tánguer" /></a></h2>
+                        <div class="location">$city, $country</div>
+                        <div class="change-location">
+                            <a href="">
+                                $changeLocationString
+                                <span class="indicator"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="header-decoration" />
+HTML;
+        return $html;
+    }
+
+
+
     /**
      * Return the name of the current page
      * @return string The name of the current page
@@ -142,15 +169,11 @@ class Utility_App{
                         <div class='content'>";
             for($i = 0; $i < count(Utility_App::$alerts); $i++){
                 $alert = Utility_App::$alerts[$i];
-                $ao = new Output_Alert_Alert($alert);
-                switch(get_class($alert)){
-                    case "Alert_Timezone":
-                        $class = "alert-timezone";
-                        break;
-                    default:
-                        $class = null;
-                        break;
+                if(isset($_SESSION['alert']['dismissed']) && in_array($alert->getAlertCode(),$_SESSION['alert']['dismissed'])){
+                    continue;
                 }
+                $ao = new Output_Alert_Alert($alert);
+                $class = str_replace("_","-",strtolower(get_class($alert)));
                 $html .= $ao->to_html_full($class);
             }
             $html .= "</div></div>";
@@ -180,9 +203,6 @@ class Utility_App{
         //Set IP if we can get it
         if(Utility_Constants::APP_ENVIRONMENT == "test"){
             $ip = "50.159.48.157";
-            //date_default_timezone_set("America/Los_Angeles");
-            //Utility_App::$hasTimezoneSet = true;
-            //turn;
         }
         else{
             $ip = Utility_App::getUserIP();
@@ -296,6 +316,19 @@ class Utility_App{
             $ip=$_SERVER['REMOTE_ADDR'];
         }
         return $ip;
+    }
+
+
+
+    /**
+     * Set the user location in both the session and the DB
+     * @param $data stdClass    REQUIRED        The data to set the user's location to.
+     *                                          Takes city and country fields
+     */
+    public static function setUserLocation($data){
+        $_SESSION['location']['city'] = isset($data->city) ? $data->city : null;
+        $_SESSION['location']['country'] = isset($data->country) ? $data->country : null;
+        //TODO: Set the user session in the DB
     }
 
 

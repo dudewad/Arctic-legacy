@@ -6,7 +6,7 @@
  
 class String_ENUS_Module_Calendar {
     //Technical strings
-    const SETTING_DATE_FORMAT = "d/m/Y";
+    const SETTING_DATE_FORMAT = "m/d/Y";
 
     //Days of the week
     const DAY_SUNDAY = "Sunday";

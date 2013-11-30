@@ -16,9 +16,10 @@ class Utility_Constants {
 */
 
     /*For local testing:*/
-    const URL_MAIN = "http://localhost/tanguer/";
-    const URL_ACCOUNT = "http://localhost/tanguer/test";
-    const URL_JSON_BASE = "http://localhost/tanguer/jsonRequest.php";
+    const URL_MAIN = "http://10.0.0.17/tanguer/";
+    const URL_ACCOUNT = "http://10.0.0.17/tanguer/test";
+    const URL_JSON_BASE = "http://10.0.0.17/tanguer/jsonRequest.php";
+    const URL_ASSET_BASE = "http://10.0.0.17/tanguer/asset/";
 
 
 

@@ -34,9 +34,10 @@ class Output_Alert_Alert implements Interface_OutputBase{
      */
     public function to_html_full($class = ""){
         $message = $this->data->getMessage();
+        $code = $this->data->getAlertCode();
         $html = <<<HTML
                 <div class="alert $class">
-                    <span class="icon"></span>$message <a class="dismiss" href="">Dismiss</a>
+                    <span class="icon"></span>$message <a class="dismiss" href="?ald=$code">Dismiss</a>
                 </div>
 HTML;
         return $html;

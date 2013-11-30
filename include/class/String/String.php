@@ -22,7 +22,7 @@ class String_String {
         return constant("$class::$str");
     }
 
-    public static function setLanguage($language = null){
+    public static function setLanguage($language = "ESAR"){
         //Default to Argentine Spanish
         self::$language = file_exists(__DIR__ . "/" . $language) ? $language : "ESAR";
     }

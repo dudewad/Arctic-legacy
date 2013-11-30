@@ -14,6 +14,10 @@ $APP = Utility_IOC::build("Utility_App");
 $lang = "ESAR";
 String_String::setLanguage($lang);
 Utility_App::setDefaultTimezone();
+$location = new stdClass();
+$location->city = "Rosario";
+$location->country = "Argentina";
+Utility_App::setUserLocation($location);
 $generator = new Test_ObjectGenerator();
 $selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;
@@ -41,7 +45,10 @@ $date = isset($_GET['d']) ? $_GET['d'] : time();
     <html lang="en">
     <?php echo $APP->head(); ?>
     <body>
-    <?php echo Utility_App::alertsToHTML(); ?>
+        <?php
+        echo Utility_App::alertsToHTML();
+        echo Utility_App::printHeader();
+        ?>
     <div class="content">
         <?php
         echo $cal->calendarPickerMonthToHTML($date);

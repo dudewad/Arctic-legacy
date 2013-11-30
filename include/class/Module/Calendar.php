@@ -7,16 +7,9 @@ require_once("Login.php");
  
 class Module_Calendar{
 
-    //Timezone offset will be relative to the city that the user has selected
-    private $timezoneOffset;
 
 
-
-    /**
-     * @param $timezoneOffset   Integer     Timestamp of the user's registered city's timezone offset from GMT
-     */
-    public function __construct($timezoneOffset){
-        $this->timezoneOffset = $timezoneOffset;
+    public function __construct(){
     }
 
     /**
@@ -40,7 +33,7 @@ class Module_Calendar{
 
         //Use today by default
         if(!$day){
-            $day = time() + $this->timezoneOffset;
+            $day = time();
         }
 
         if(isset($event)){
@@ -224,6 +217,11 @@ HTML;
         $nextMonthTS = mktime(0,0,0,$nextMonth,1,$nextMonthYear);
         $nextMonthURL = Utility_App::getURL("URL_MAIN","d=$nextMonthTS");
         $previousMonthURL = Utility_App::getURL("URL_MAIN","d=$prevMonthTS");
+        //Get URLS for "tomorrow" and "yesterday" as well
+        $tomorrow = $date + 86400;
+        $yesterday = $date - 86400;
+        $tomorrowURL = Utility_App::getURL("URL_MAIN","d=$tomorrow");
+        $yesterdayURL = Utility_App::getURL("URL_MAIN","d=$yesterday");
         //Localized days (textual values)
         $days = array(String_String::getString("DAY_SUNDAY",__CLASS__),
             String_String::getString("DAY_MONDAY",__CLASS__),
@@ -300,9 +298,21 @@ HTML;
 
             //Generate the cell
             $previewCells .= "<div class='cell $dateClass $selected $clearClass'></div>";
-            $visualizerCells .= "<a href='?d=$currentDate' class='cell $dateClass $selected $clearClass' data-month='$calMonth' data-day='$calDay' data-year='$calYear'><span>$calDay</span></a>";
+            $visualizerCells .= "<a href='$url' class='cell $dateClass $selected $clearClass' data-month='$calMonth' data-day='$calDay' data-year='$calYear'><span>$calDay</span></a>";
             $daysListed++;
-            $currentDate += 86400;
+            //We have to check for the two days a year that DST rolls over
+            $dstOffset = date("G", $currentDate + 86400);
+            //Means we lost an hour
+            if($dstOffset == 1){
+                $currentDate += 82800;
+            }
+            //Means we gained an hour
+            else if($dstOffset == 23){
+                $currentDate += 90000;
+            }
+            else{
+                $currentDate += 86400;
+            }
             if($daysListed > $lastDayInMonth - 1)
                 $isLastWeek = true;
             if($isLastWeek && !($daysListed % 7)){
@@ -314,33 +324,35 @@ HTML;
         }
         $previewCells .= "</div>";
         $visualizerCells .= "</div>";
-        $day = $days[date('w',$date)];
+        $dayOfWeek = $days[date('w',$date)];
         $fullDisplayDate = date(String_String::getString("SETTING_DATE_FORMAT",__CLASS__),$date);
 
         $html = <<<HTML
-                <div class="c picker month clearfix">
-                    <div class="preview">
-                        $previewCells
-                    </div>
-                    <div class="visualizer">
-                        <img class="indicator" src="$indicator" alt="" />
-                        <div class="controls">
-                            <a href="$previousMonthURL" class="previous"></a>
-                            <a href="$nextMonthURL" class="next"></a>
+                <div class="c-picker-wrapper clearfix">
+                    <div class="c picker month">
+                        <div class="preview">
+                            $previewCells
                         </div>
-                        <h3>$monthName</h3>
-                        $header
-                        $visualizerCells
+                        <div class="visualizer">
+                            <img class="indicator" src="$indicator" alt="" />
+                            <div class="controls">
+                                <a href="$previousMonthURL" class="previous"></a>
+                                <a href="$nextMonthURL" class="next"></a>
+                            </div>
+                            <h3>$monthName</h3>
+                            $header
+                            $visualizerCells
+                        </div>
                     </div>
-                </div>
-                <div class="c d-disp">
-                    <div class="controls">
-                        <a href="$previousMonthURL" class="previous"></a>
-                        <a href="$nextMonthURL" class="next"></a>
-                    </div>
-                    <div class="d-content">
-                        <h2>$day</h2>
-                        <h3>$fullDisplayDate</h3>
+                    <div class="c d-disp">
+                        <div class="controls">
+                            <a href="$yesterdayURL" class="previous"></a>
+                            <a href="$tomorrowURL" class="next"></a>
+                        </div>
+                        <div class="d-content">
+                            <h2>$dayOfWeek</h2>
+                            <h3>$fullDisplayDate</h3>
+                        </div>
                     </div>
                 </div>
 HTML;

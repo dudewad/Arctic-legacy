@@ -8,7 +8,7 @@ class Module_Login{
 
 
     public function to_html_full($class = null){
-        $logo = Utility_App::getURL("URL_MAIN") . "asset/image/gui/logo/logo-tanguer-gray-410x76.png";
+        $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-large-gray.png";
         $loginURL = Utility_App::getURL("URL_CURRENT","a=login");
         $registerURL = Utility_App::getURL("URL_ACCOUNT","a=create");
         $loginSubtitle = String_String::getString("LOGIN_SUBTITLE");
