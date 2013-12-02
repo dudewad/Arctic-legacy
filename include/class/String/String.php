@@ -22,8 +22,9 @@ class String_String {
         return constant("$class::$str");
     }
 
-    public static function setLanguage($language = "ESAR"){
+    public static function setLanguage($language = "es_AR"){
+        $lang = strtoupper(str_replace("_","",$language));
         //Default to Argentine Spanish
-        self::$language = file_exists(__DIR__ . "/" . $language) ? $language : "ESAR";
+        self::$language = file_exists(__DIR__ . "/" . $lang) ? $lang : "ESAR";
     }
 }

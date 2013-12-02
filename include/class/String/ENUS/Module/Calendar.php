@@ -8,6 +8,9 @@ class String_ENUS_Module_Calendar {
     //Technical strings
     const SETTING_DATE_FORMAT = "m/d/Y";
 
+    //Misc Strings
+    const DAY_TODAY = "Today";
+
     //Days of the week
     const DAY_SUNDAY = "Sunday";
     const DAY_MONDAY = "Monday";
@@ -30,4 +33,8 @@ class String_ENUS_Module_Calendar {
     const MONTH_OCTOBER = "October";
     const MONTH_NOVEMBER = "November";
     const MONTH_DECEMBER = "December";
+
+    //Sorter strings
+    const SORT_SORT_SUBMIT = "Sort";
+    const SORT_SORT_OPTIONS = "Sort Options";
 }

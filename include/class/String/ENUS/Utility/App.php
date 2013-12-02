@@ -20,4 +20,8 @@ class String_ENUS_Utility_App {
 
     //Date format for this language
     const DATE_FORMAT = "n/j/Y";
+
+    //Country names
+    const COUNTRY_ARGENTINA = "Argentina";
+    const COUNTRY_UNITED_STATES = "United States";
 }

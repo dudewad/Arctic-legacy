@@ -183,6 +183,9 @@ HTML;
     public function calendarPickerMonthToHTML($date = null){
         if(!isset($date))
             $date = time();
+        //If today is the day, this sets the calendar's "Day of the week" to say "Today" in the applicable language
+        if(date("jnY") == date("jnY",$date))
+            $dayOfWeek = mb_strtoupper(String_String::getString("DAY_TODAY",__CLASS__),"UTF-8");
         //Selected date - numeric value, no leading zeros
         $day = date("j", $date);
         //Target month for calendar - numeric value, no leading zeros
@@ -212,7 +215,7 @@ HTML;
         $prevMonthYear = $prevMonth == 12 ? $year - 1 : $year;
         $nextMonth = $month < 12 ? $month + 1 : 1;
         $nextMonthYear = $nextMonth == 1 ? $year + 1 : $year;
-        $indicator = Utility_App::getURL("URL_MAIN") . "asset/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
+        $indicator = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
         $prevMonthTS = mktime(0,0,0,$prevMonth,1,$prevMonthYear);
         $nextMonthTS = mktime(0,0,0,$nextMonth,1,$nextMonthYear);
         $nextMonthURL = Utility_App::getURL("URL_MAIN","d=$nextMonthTS");
@@ -246,6 +249,9 @@ HTML;
             String_String::getString("MONTH_DECEMBER",__CLASS__),
         );
         $monthName = $months[$month - 1];
+        //Date display strings
+        $dayOfWeek = isset($dayOfWeek) ? $dayOfWeek : mb_strtoupper($days[date('w',$date)],"UTF-8");
+        $fullDisplayDate = date(String_String::getString("SETTING_DATE_FORMAT",__CLASS__),$date);
 
         //Build table header
         $header = "<div class='header clearfix'>";
@@ -324,8 +330,6 @@ HTML;
         }
         $previewCells .= "</div>";
         $visualizerCells .= "</div>";
-        $dayOfWeek = $days[date('w',$date)];
-        $fullDisplayDate = date(String_String::getString("SETTING_DATE_FORMAT",__CLASS__),$date);
 
         $html = <<<HTML
                 <div class="c-picker-wrapper clearfix">
@@ -379,26 +383,32 @@ HTML;
 
     private function sorterToHTML(){
         $advancedSort = $this->advancedSortModalToHTML();
+        $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
+        $sortOptionsText = String_String::getString("SORT_SORT_OPTIONS",__CLASS__);
+        $milongaDisplay = String_String::getString("EVENT_TYPE_MILONGA","Output_Event_Event");
+        $lessonDisplay = String_String::getString("EVENT_TYPE_LESSON","Output_Event_Event");
+        $practicaDisplay = String_String::getString("EVENT_TYPE_PRACTICA","Output_Event_Event");
+        $showDisplay = String_String::getString("EVENT_TYPE_SHOW","Output_Event_Event");
         $html = <<<HTML
                 <form action='#' method='post' class="sort">
-                    <a href="" class="button advanced"><span>Sort Options</span></a>
+                    <a href="" class="button advanced"><span>$sortOptionsText</span></a>
                     <label class="milonga checked hasIndicator">
                         <input type='checkbox' name='milonga' checked/>
-                        Milonga
+                        $milongaDisplay
                     </label>
                     <label class="lesson checked hasIndicator">
                         <input type='checkbox' name='lesson' checked/>
-                        Lesson
+                        $lessonDisplay
                     </label>
                     <label class="practica checked hasIndicator">
                         <input type='checkbox' name='practica' checked/>
-                        Practica
+                        $practicaDisplay
                     </label>
                     <label class="show checked hasIndicator">
                         <input type='checkbox' name='show' checked/>
-                        Show
+                        $showDisplay
                     </label>
-                    <input type="submit" class="button" value="Sort"/>
+                    <input type="submit" class="button" value="$submitButtonText"/>
                 </form>
                 $advancedSort
 HTML;

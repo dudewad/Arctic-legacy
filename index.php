@@ -11,7 +11,7 @@ require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
 $APP = Utility_IOC::build("Utility_App");
-$lang = "ESAR";
+$lang = "en_US";
 String_String::setLanguage($lang);
 Utility_App::setDefaultTimezone();
 $location = new stdClass();
@@ -22,6 +22,12 @@ $generator = new Test_ObjectGenerator();
 $selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;
 $mainCalID = "mainCal";
+
+if(isset($_REQUEST['lsel'])){
+    $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->city;
+    $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->country;
+    Utility_App::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
+}
 
 $appUser = $generator->getRandomUser($lang);
 //Languages can be "ESAR" or "ENUS"

@@ -1,3 +1,9 @@
+<?php
+define("BASEDIR", __DIR__ . "/../../");
+require_once(BASEDIR . "/include/script/Autoloader.php");
+$baseAssetURL = Utility_Constants::URL_ASSET_BASE;
+
+$css = <<<CSS
 @charset "utf-8";
 /* CSS Document */
 
@@ -17,7 +23,7 @@ input{
     color:#DEDEDE;
     padding:8px;
     border:0;
-    margin:0
+    margin:0;
 }
 
 p{
@@ -105,42 +111,22 @@ input.button{
     background:none;
 }
 
+.submit:hover,
+.cta{
+    background-color:#b12f2c;
+    color:#FFF;
+    cursor:pointer;
+}
+
 
 
 /**
  * HEADER STYLES
  */
 #header{
-    padding:2em 0 3em 0;
+    padding:20px 10px 30px 10px;
     background-color:#333;
     color:#FFF;
-}
-
-#header .location{
-    margin-top:1em;
-    font-size:1.3em;
-    font-weight:900;
-    font-style:italic;
-    font-family:"Volkorn","Times New Roman",serif;
-    color:#CCC;
-}
-
-#header .location .change-location{
-    font-size:1em;
-}
-
-#header .change-location a{
-    color:#CCC;
-}
-
-#header .change-location .indicator{
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat -14px -38px;
-    width:7px;
-    height:4px;
-    display:inline-block;
-    position:relative;
-    top:-1px;
-    left:1px;
 }
 
 .header-decoration{
@@ -176,6 +162,7 @@ input.button{
 
 /* Calendar Sort Tool*/
 .c .sort{
+    display:none;
     border:1px solid #333;
     border-left:none;
     border-right:none;
@@ -190,7 +177,7 @@ input.button{
 }
 
 .js .sort .button.advanced .js-indicator{
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat 0 0;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 0;
     width:12px;
     height:7px;
     display:block;
@@ -218,7 +205,7 @@ input.button{
 }
 
 .c .sort label .js-indicator{
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat;
     width:12px;
     height:12px;
     display:inline-block;
@@ -259,6 +246,7 @@ input.button{
     margin-top:5em;
     float:left;
     margin-right: 30px;
+    display:none;
 }
 
 .c.picker .cell.rowStart{
@@ -412,7 +400,7 @@ input.button{
 .c.picker .visualizer .controls .previous,
 .c.picker .visualizer .controls .next{
     display:block;
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat center #333;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat center #333;
     top:57px;
     width:16px;
     height:16px;
@@ -421,11 +409,11 @@ input.button{
 .c.picker .visualizer .controls .previous{
     position:absolute;
     left:10px;
-    background-position:-26px -15px
+    background-position:-26px -15px;
 }
 
 .c.picker .visualizer .controls .previous:hover{
-    background-position:-38px -15px
+    background-position:-38px -15px;
 }
 
 .c.picker .visualizer .controls .next{
@@ -441,38 +429,40 @@ input.button{
 .c.d-disp{
     vertical-align: top;
     line-height:normal;
-    margin-top:5em;
     padding:0 2em;
     text-align:center;
-    width:auto;
-    float:left;
+    margin:20px auto 0 auto;
+    width: 220px;
+    text-align:center;
     color:#333;
+    font-size:.8em;
 }
 
 .c.d-disp .d-content{
     float:left;
+    width:100%;
 }
 
-.c.d-disp h2,
-.c.d-disp h3{
-    margin-top:-.2em;
+.c.d-disp h2{
+    font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+    margin-top: -.2em;
     font-size:4em;
-    font-weight:700;
 }
 
 .c.d-disp h3{
-    font-size:2em;
+    margin-top:-.5em;
+    font-size:1.75em;
     font-weight:100;
 }
 
 .c.d-disp .controls{
     position:relative;
-    width:100%
+    width:100%;
 }
 
 .c.d-disp .controls .next,
 .c.d-disp .controls .previous{
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat -55px -12px;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -55px -12px;
     width:10px;
     height:19px;
     display:block;
@@ -498,10 +488,9 @@ input.button{
 }
 
 .c-e-disp.full h2{
-    font-family:Vollkorn,Lato,Arial,sans-serif;
+    font-family:"Vollkorn Bold Italic",Lato,Arial,sans-serif;
     font-size:2.4em;
-    font-style:oblique;
-    font-weight:700;
+    line-height:1;
     padding:30px 20px;
     color:#FFF;
     background-color:#333;
@@ -816,11 +805,6 @@ input.button{
     font-size: 1.4em;
 }
 
-.c .login .submit:hover,
-.c .login .cta{
-    background-color:#b12f2c;
-}
-
 .c .login .cta-container{
     padding:2px;
     border:1px solid #b12f2c;
@@ -856,7 +840,7 @@ input.button{
     display:inline-block;
     width:13px;
     height:13px;
-    background:url("../../asset/image/gui/gui-sprite.png") no-repeat 0 -34px;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 -34px;
     margin-right:.35em;
     position:relative;
     top:1px;
@@ -875,6 +859,69 @@ input.button{
 
 .js .alerts .dismiss{
     display:inline-block;
+}
+
+/* LOCATION SELECTOR MODULE */
+.lsel .location{
+    margin-top:1em;
+    font-size:1.3em;
+    font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+    color:#CCC;
+}
+
+.lsel .selector,
+.js .lsel .change-location:hover .selector{
+    display:none;
+    position:absolute;
+    background:#FFF;
+    padding:10px;
+    border:1px solid #333;
+    margin-top:13px;
+}
+
+.lsel .change-location:hover .selector{
+    display:block;
+}
+
+.js .lsel .selector .submit{
+    display:none;
+}
+
+.lsel .change-location{
+    font-size:1em;
+    line-height:1;
+    float:left;
+    cursor:pointer;
+}
+
+.lsel .change-location a{
+    color:#CCC;
+}
+
+.lsel .indicator{
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -14px -38px;
+    width:7px;
+    height:4px;
+    display:inline-block;
+    position:relative;
+    top:-1px;
+    left:1px;
+    cursor:pointer;
+}
+
+.lsel .selector .indicator{
+    background:none;
+    position: absolute;
+    top: -20px;
+    padding: 10px 35px 0 35px;
+    left: 0;
+    width:19px;
+    height:10px;
+}
+
+.lsel .submit{
+    display:block;
+    margin-top:10px;
 }
 
 
@@ -945,10 +992,19 @@ and (min-width:360px){
         max-width:100%;
     }
 
+    /* Calendar Date Display module*/
+    .c.d-disp{
+        font-size:1em;
+        width:255px;
+    }
+
 }
 
 
 
+/**
+ * Phone Portrait
+ */
 @media only screen and ( min-width:480px ){
     .e.th.lesson .container{
         border:1px solid #1f79e5;
@@ -997,11 +1053,14 @@ and (min-width:768px){
         width:auto;
     }
 
+    #header{
+        padding:20px 0 30px 0;
+    }
+
     .content{
-        width:98%;
         max-width:1200px;
         margin:0 auto;
-        padding:0 1%;
+        padding:0 10px;
     }
 
 
@@ -1027,7 +1086,7 @@ and (min-width:768px){
         margin-right:16px;
     }
 
-    /* Calendar Event styles */
+    /* CALENDAR EVENT STYLES */
 
     .c .th-list{
         min-height:650px;
@@ -1064,6 +1123,22 @@ and (min-width:768px){
         position:absolute;
         top:0;
         right:0;
+    }
+
+    /* CALENDAR PICKER */
+    .c.picker{
+        display:block;
+    }
+
+    .c.d-disp{
+        width:auto;
+        float:left;
+        margin-top:5em;
+    }
+
+    /* CALENDAR SORT TOOL*/
+    .c .sort{
+        display:block;
     }
 }
 
@@ -1178,3 +1253,6 @@ and (min-width:1024px){
     clear: both;
     visibility: hidden;
 }
+CSS;
+header("Content-type: text/css");
+echo $css;

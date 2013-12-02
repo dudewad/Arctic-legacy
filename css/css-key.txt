@@ -3,3 +3,4 @@ disp                    Display
 e                       Event
 f                       Full
 th                      Thumb
+lsel                    Location Selector

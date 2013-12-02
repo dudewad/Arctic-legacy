@@ -8,11 +8,14 @@ class String_ESAR_Module_Calendar {
     //Technical strings
     const SETTING_DATE_FORMAT = "d/m/Y";
 
+    //Misc Strings
+    const DAY_TODAY = "Hoy";
+
     //Days of the week
     const DAY_SUNDAY = "Domingo";
     const DAY_MONDAY = "Lunes";
     const DAY_TUESDAY = "Martes";
-    const DAY_WEDNESDAY = "Miercoles";
+    const DAY_WEDNESDAY = "Miércoles";
     const DAY_THURSDAY = "Jueves";
     const DAY_FRIDAY = "Viernes";
     const DAY_SATURDAY = "Sábado";
@@ -30,4 +33,8 @@ class String_ESAR_Module_Calendar {
     const MONTH_OCTOBER = "Octubre";
     const MONTH_NOVEMBER = "Noviembre";
     const MONTH_DECEMBER = "Diciembre";
+
+    //Sorter strings
+    const SORT_SORT_SUBMIT = "Actualizar";
+    const SORT_SORT_OPTIONS = "Opciones de búsqueda";
 }

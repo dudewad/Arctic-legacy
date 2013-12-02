@@ -63,6 +63,10 @@ var Tanguer_App;
             this.ioc.register("gui", function () {
                 return new Tanguer_GUI();
             });
+
+            this.ioc.register("locationSelector", function () {
+                return new Tanguer_LocationSelector();
+            });
         },
 
 
@@ -116,6 +120,10 @@ var Tanguer_App;
         //Add calendar to the page, if applicable
         if($(".c").length > 0)
             Tanguer_App.ioc.build("calendar");
+
+        //If any location selector modules are present, add them to the page
+        if($(".lsel").length > 0)
+            Tanguer_App.ioc.build("locationSelector");
     });
 }());
 JS;
