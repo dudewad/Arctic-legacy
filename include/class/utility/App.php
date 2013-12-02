@@ -95,6 +95,7 @@ class Utility_App{
                     <script src='js/extension/Tanguer_GUI.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
+                    <script src='js/module/Tanguer_LocationSelector.js' type='text/javascript' ></script>
                     <script type='text/javascript' src='POC/js/test.js'></script>
 
 
@@ -111,21 +112,14 @@ class Utility_App{
 
     public static function printHeader(){
         $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-header.png";
-        $city = isset($_SESSION['location']['city']) ? $_SESSION['location']['city'] : null;
-        $country = isset($_SESSION['location']['country']) ? $_SESSION['location']['country'] : null;
-        $changeLocationString = String_String::getString("CHANGE_LOCATION","Module_Location");
+        $locationSelector = new Module_LocationSelector();
+        $locSelectorMarkup = $locationSelector->to_html_full();
         $html = <<<HTML
             <div id="header">
                 <div class="content">
                     <div class="logo-block">
                         <h2><a href="/" class="logo"><img src="$logo" alt="Tánguer" /></a></h2>
-                        <div class="location">$city, $country</div>
-                        <div class="change-location">
-                            <a href="">
-                                $changeLocationString
-                                <span class="indicator"></span>
-                            </a>
-                        </div>
+                        $locSelectorMarkup
                     </div>
                 </div>
             </div>
@@ -158,7 +152,8 @@ HTML;
         else{
             $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
         }
-        return $pageURL;
+        $url = explode("?",$pageURL);
+        return $url[0];
     }
 
 
@@ -211,7 +206,6 @@ HTML;
         //Priority 1: check user's settings (session) for timezone
         if(Utility_App::hasUserSession() && isset($_SESSION['timezone']) && strlen($_SESSION['timezone']) > 0){
             date_default_timezone_set($_SESSION['timezone']);
-            Utility_App::setAlert(new Alert_Timezone("Used user session to set default timezone. Timezone is set to: <strong>" . date_default_timezone_get() . "</strong>"));
         }
         //Priority 2: Use IP-based timezone guessing using the IPInfoDB service
         //Note: for the start build this is merely a guess and will not take DST into account.

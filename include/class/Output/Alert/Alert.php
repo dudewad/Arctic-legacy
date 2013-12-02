@@ -35,9 +35,10 @@ class Output_Alert_Alert implements Interface_OutputBase{
     public function to_html_full($class = ""){
         $message = $this->data->getMessage();
         $code = $this->data->getAlertCode();
+        $dismissURL = Utility_App::getCurrentPageURL() . "?ald=$code";
         $html = <<<HTML
                 <div class="alert $class">
-                    <span class="icon"></span>$message <a class="dismiss" href="?ald=$code">Dismiss</a>
+                    <span class="icon"></span>$message <a class="dismiss" href="$dismissURL">Dismiss</a>
                 </div>
 HTML;
         return $html;
