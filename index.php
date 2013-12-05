@@ -11,7 +11,7 @@ require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
 $APP = Utility_IOC::build("Utility_App");
-$lang = "en_US";
+$lang = "es_AR";
 String_String::setLanguage($lang);
 Utility_App::setDefaultTimezone();
 $location = new stdClass();

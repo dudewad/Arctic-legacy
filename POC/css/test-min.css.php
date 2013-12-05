@@ -26,6 +26,11 @@ input{
     margin:0;
 }
 
+select{
+    background:#333;
+    color:#DEDEDE;
+}
+
 p{
     padding-bottom:0;
     margin-bottom:0;
@@ -79,12 +84,13 @@ table{
 .button{
     font-weight:700;
     font-size:1.2em;
-    color:#FFF;
+    color:#DEDEDE;
     position:relative;
 }
 
 .button:hover{
     cursor:pointer;
+    color:#FFF;
 }
 
 input.button:hover{
@@ -281,7 +287,8 @@ input.button{
     display:none;
 }
 
-.c.picker .visualizer{
+.c.picker .visualizer,
+.js .c.picker:hover .visualizer{
     display:none;
     position:absolute;
     z-index:2;
@@ -862,6 +869,10 @@ input.button{
 }
 
 /* LOCATION SELECTOR MODULE */
+.lsel{
+    color:#333;
+}
+
 .lsel .location{
     margin-top:1em;
     font-size:1.3em;
@@ -877,6 +888,7 @@ input.button{
     padding:10px;
     border:1px solid #333;
     margin-top:13px;
+    z-index:9999;
 }
 
 .lsel .change-location:hover .selector{
@@ -919,7 +931,32 @@ input.button{
     height:10px;
 }
 
-.lsel .submit{
+.lsel .selector h3{
+    font-family:"Vollkorn Italic","Times New Roman",serif;
+    font-size:1.8em;
+}
+
+.lsel .selector label{
+    font-size:1.4em;
+    display:block;
+    padding:7px 0 2px 5px;
+}
+
+.lsel .selector select{
+    display:block;
+    width:100%;
+    padding:5px;
+}
+
+.lsel .selector option{
+    padding:2px;
+}
+
+.lsel .selector select.city{
+    margin-top:10px;
+}
+
+.lsel .selector .submit{
     display:block;
     margin-top:10px;
 }

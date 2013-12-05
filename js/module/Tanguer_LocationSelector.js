@@ -6,6 +6,15 @@
 
 var Tanguer_LocationSelector = function(){
     this._body = $("body");
+    //Set up hiding on body click
+    $("body").on("click",function(e){
+        var el = $(e.target);
+        //If the user clicked inside a selector element we won't want to hide that one.
+        $(".lsel .selector:visible").each(function(){
+            if(!el.hasClass("selector") && el.closest(".selector").length == 0)
+                $(this).hide();
+        })
+    });
     this.init();
 };
 
@@ -14,7 +23,8 @@ Tanguer_LocationSelector.prototype = {
         var scope = this;
         $("body").on("click", ".lsel .change", function(e){
             e.preventDefault();
-            $(this).closest(".change-location").find(".selector").toggle();
+            var selector = $(this).closest(".change-location").find(".selector");
+            selector.toggle();
             return false;
         });
 
@@ -23,4 +33,6 @@ Tanguer_LocationSelector.prototype = {
             $(this).closest("form").submit();
         });
     }
+
+
 };

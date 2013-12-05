@@ -8,6 +8,17 @@ var Tanguer_Calendar = function(){
     this._body = $("body");
     this.tabletBreakpoint = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
     this.displayMode = null;
+
+    //Set up hiding on body click
+    $("body").on("click",function(e){
+        var el = $(e.target);
+        //If the user clicked inside a picker element we won't want to hide that one.
+        $(".c.picker .visualizer:visible").each(function(){
+            if(!el.hasClass(".c.picker") && el.closest(".c.picker").length == 0)
+                $(this).hide();
+        })
+    });
+
     this.init();
 };
 
@@ -87,6 +98,12 @@ Tanguer_Calendar.prototype = {
         this._body.on("click",".c .sort .button.advanced", function(){
             Tanguer_App.modal($(this).closest("c").find(".sort.advanced"));
             return false;
+        });
+
+        $("body").on("click", ".c.picker .preview", function(){
+            var visualizer = $(this).closest(".c.picker").find(".visualizer");
+            console.log(visualizer);
+            visualizer.toggle();
         });
 
         //Disable selection of sort options for aesthetic purposes
