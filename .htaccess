@@ -3,3 +3,8 @@
 
 #e.g. Rewrite a url with a string of numbers and letters to a processing script
 #RewriteRule ^([0-9a-zA-Z]+)$ number.php?number=$1 [NC,L]
+
+AuthType Basic
+AuthName "Se requiere nombre de usuario y contraseña para seguir."
+AuthUserFile /home2/desmillc/.htpasswds/.htpasswd-tanguer
+Require valid-user

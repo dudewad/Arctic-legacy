@@ -61,6 +61,7 @@ $date = isset($_GET['d']) ? $_GET['d'] : time();
         echo $cal->to_html_full_day($eList, time(), $eventToView, $mainCalID);
         ?>
         <div id="debug"></div>
+        Tánguer piensa que la hora donde estás son: <?php echo date("H:i d/n/Y"); ?> | Tánguer ve tu IP como: <?php echo Utility_App::getUserIP(); ?>
     </div>
     </body>
     </html>

@@ -451,7 +451,9 @@ input.button{
 }
 
 .c.d-disp h2{
-    font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+    font-family:"Vollkorn","Times New Roman",serif;
+    font-style:italic;
+    font-weight:bold;
     margin-top: -.2em;
     font-size:4em;
 }
@@ -495,7 +497,9 @@ input.button{
 }
 
 .c-e-disp.full h2{
-    font-family:"Vollkorn Bold Italic",Lato,Arial,sans-serif;
+    font-family:"Vollkorn",Lato,Arial,sans-serif;
+    font-style:italic;
+    font-weight:bold;
     font-size:2.4em;
     line-height:1;
     padding:30px 20px;
@@ -876,7 +880,9 @@ input.button{
 .lsel .location{
     margin-top:1em;
     font-size:1.3em;
-    font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+    font-family:"Vollkorn","Times New Roman",serif;
+    font-style:italic;
+    font-weight:bold;
     color:#CCC;
 }
 
@@ -932,8 +938,9 @@ input.button{
 }
 
 .lsel .selector h3{
-    font-family:"Vollkorn Italic","Times New Roman",serif;
+    font-family:"Vollkorn","Times New Roman",serif;
     font-size:1.8em;
+    font-style:italic;
 }
 
 .lsel .selector label{

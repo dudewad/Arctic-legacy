@@ -93,14 +93,12 @@ class Utility_App{
                     <script src='js/extension/Tanguer_IOC.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_GUI.js' type='text/javascript' ></script>
-                    <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_LocationSelector.js' type='text/javascript' ></script>
-                    <script type='text/javascript' src='POC/js/test.js'></script>
-
 
                     <link type='text/css' rel='stylesheet' href='css/style.css' media='all' />
-                    <!--<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' />-->
+                    <link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' />
+                    <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
                     <link type='text/css' rel='stylesheet' href='POC/css/test-min.css' />
                 </head>";
 
