@@ -9,21 +9,6 @@ class Utility_Constants {
     const APP_ENVIRONMENT = "production";
 
     //URL CONSTANTS
-    /* For remote testing:
-    const URL_MAIN = "http://10.0.0.17/tanguer/";
-    const URL_ACCOUNT = "http://10.0.0.17/tanguer/test";
-    const URL_JSON_BASE = "http://10.0.0.17/tanguer/jsonRequest.php";
-*/
-
-    /*For local testing:
-    const URL_MAIN = "http://10.0.0.17/tanguer/";
-    const URL_ACCOUNT = "http://10.0.0.17/tanguer/test";
-    const URL_JSON_BASE = "http://10.0.0.17/tanguer/jsonRequest.php";
-    const URL_ASSET_BASE = "http://10.0.0.17/tanguer/asset/";*/
-
-
-
-    /* Production server*/
     const URL_MAIN = "http://www.tanguer.net/";
     const URL_ACCOUNT = "http://www.tanguer.net/";
     const URL_JSON_BASE = "http://www.tanguer.net/jsonRequest.php";
