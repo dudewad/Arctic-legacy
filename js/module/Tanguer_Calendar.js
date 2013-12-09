@@ -5,12 +5,17 @@
  */
 
 var Tanguer_Calendar = function(){
+    if(!Tanguer_App){
+        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module. Exiting now...");
+        return;
+    }
     this._body = $("body");
-    this.tabletBreakpoint = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
+    this._window = $(window);
+    this.breakpointTabletPortrait = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
     this.displayMode = null;
 
     //Set up hiding on body click
-    $("body").on("click",function(e){
+    this._body.on("click",function(e){
         var el = $(e.target);
         //If the user clicked inside a picker element we won't want to hide that one.
         $(".c.picker .visualizer:visible").each(function(){
@@ -41,7 +46,7 @@ Tanguer_Calendar.prototype = {
             var li = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eventID + "']");
             //Hide currently selected element on mobile, otherwise return false
             if(thumb.hasClass("selected")){
-                if($(window).innerWidth() < scope.tabletBreakpoint){
+                if(scope._window.innerWidth() < scope.breakpointTabletPortrait){
                     if(li.is(":visible"))
                         li.slideUp();
                     else
@@ -57,15 +62,21 @@ Tanguer_Calendar.prototype = {
                 scope.openQuickEvent(instance, eventID);
                 return false;
             }
+
             //All checks passed, we have to make the call.
+            //Needs to create and fill a "loading" area for the new event
+            scope.hideCurrentQuickEvent(instance);
+            scope.createQuickEventLoadingPlaceholder(thumb,eventID);
+            scope.openQuickEvent(instance,eventID);
+            //Test environment is too fast. Add 1 second delay for "ajax simulation" purposes
             Tanguer_App.JSONCalls.getQuickEvent(data,scope.ajax_getQuickEventHandler,ref);
             return false;
         });
 
         //Window resize event needs to have a few modifications
-        $(window).resize(function(){
+        this._window.resize(function(){
             //Handle any tasks associated from mobile to desktop version switch
-            if($(window).innerWidth() >= scope.tabletBreakpoint && scope.displayMode == "mobile"){
+            if(scope._window.innerWidth() >= scope.breakpointTabletPortrait && scope.displayMode == "mobile"){
                 var selectedEID = $(".c .th.selected").eq(0).data("event-id");
                 var selectedEvent = $(".c .c-e-disp.full[data-event-id='" + selectedEID + "']");
                 selectedEvent.show();
@@ -100,9 +111,8 @@ Tanguer_Calendar.prototype = {
             return false;
         });
 
-        $("body").on("click", ".c.picker .preview", function(){
+        this._body.on("click", ".c.picker .preview", function(){
             var visualizer = $(this).closest(".c.picker").find(".visualizer");
-            console.log(visualizer);
             visualizer.toggle();
         });
 
@@ -112,32 +122,49 @@ Tanguer_Calendar.prototype = {
 
 
 
-    openQuickEvent:function(instance, eid){
-        var cal = $("#" + instance);
-        var content = cal.find("li.c-e-disp.full[data-event-id='" + eid + "']").eq(0);
-        var thumb = cal.find("li.th[data-event-id='" + eid + "']").eq(0);
-        var offsetTop = thumb.offset().top;
-        //Animate in tablet mode and snap to the item
-        if($(window).outerWidth(true) < this.tabletBreakpoint){
-            $("body,html").animate({'scrollTop':offsetTop}, 400);
-            content.slideDown();
+    ajax_getQuickEventHandler:function(e,ref){
+        if(e.error != undefined){
+            //TODO: Handle error here
+            console.log("getQuickEvent error in Tanguer_Calendar.js. Error handler not specified...")
         }
-        else content.show();
+        var that = ref.scope;
+        that.hideCurrentQuickEvent(ref.instanceID);
+        that.createQuickEvent(e,ref);
+    },
+
+
+
+    createQuickEventLoadingPlaceholder:function(thumb,eventID){
+        var li = $("<li>");
+        li.addClass("c-e-disp full loading");
+        li.attr("data-event-id",eventID);
+        thumb.after(li);
+        li.hide();
     },
 
 
 
     createQuickEvent:function(e, data){
         var html = e.html;
-        var thumb = $("li.e.th[data-event-id=" + data.eventID + "]");
-        this._body.trigger("Tanguer_Calendar_Quick_Event_Load", this);
-        var li = $("<li>");
-        li.addClass("c-e-disp full");
-        li.attr("data-event-id",data.eventID);
+        var li = $("li.c-e-disp.full[data-event-id=" + data.eventID + "]");
+        li.removeClass("loading");
         li.html(html);
-        thumb.after(li);
-        li.hide();
         data.scope.openQuickEvent(data.instanceID, data.eventID);
+    },
+
+
+
+    openQuickEvent:function(instance, eid){
+        var cal = $("#" + instance);
+        var content = cal.find("li.c-e-disp.full[data-event-id='" + eid + "']").eq(0);
+        var thumb = cal.find("li.th[data-event-id='" + eid + "']").eq(0);
+        //Animate in tablet mode and snap to the item
+        if(this._window.outerWidth(true) < this.breakpointTabletPortrait){
+            var offsetTop = thumb.offset().top;
+            $("body,html").animate({'scrollTop':offsetTop}, 400);
+            content.slideDown();
+        }
+        else content.fadeIn(200);
     },
 
 
@@ -149,18 +176,7 @@ Tanguer_Calendar.prototype = {
 
 
 
-    ajax_getQuickEventHandler:function(e,ref){
-        if(e.error != undefined){
-            //TODO: Handle error here
-        }
-        var that = ref.scope;
-        that.hideCurrentQuickEvent(ref.instanceID);
-        that.createQuickEvent(e,ref);
-    },
-
-
-
     setDisplayMode:function(){
-        this.displayMode = $(window).innerWidth() < this.tabletBreakpoint ? "mobile" : "desktop";
+        this.displayMode = this._window.innerWidth() < this.breakpointTabletPortrait ? "mobile" : "desktop";
     }
 };

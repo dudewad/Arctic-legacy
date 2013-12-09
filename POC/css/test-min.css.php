@@ -489,6 +489,10 @@ input.button{
 
 
 /* Calendar event full display styles */
+.c-e-disp.full.loading{
+    height:50px;
+    background:url("$baseAssetURL/image/gui/gui-loading-333-16x16.gif") no-repeat center #333;
+}
 
 .c-e-disp.full h3{
     font-size:1.8em;
@@ -1112,15 +1116,6 @@ and (min-width:768px){
 
     .c .th-list .e.th .container{
         margin-right:10px;
-    }
-
-    .c .th-list .e.th.selected .container{
-        margin-right:0;
-        border-right:0;
-    }
-
-    .c .th-list .e.th.selected .col-price{
-        margin-right:16px;
     }
 
     /* CALENDAR EVENT STYLES */

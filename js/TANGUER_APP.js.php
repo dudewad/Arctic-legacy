@@ -5,6 +5,7 @@ require_once(BASEDIR . "/include/script/Autoloader.php");
 //Application JS contants
 $urlJSONBase = constant("Utility_Constants::URL_JSON_BASE");
 $jsBreakpointTabletPortrait = constant("Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT");
+$appEnvironment = constant("Utility_Constants::APP_ENVIRONMENT");
 
 $js = <<<JS
 ;
@@ -19,6 +20,8 @@ var Tanguer_App;
         this.settings = {};
         this.settings.url = {};
         this.settings.url.URL_JSON_BASE = "$urlJSONBase";
+        this.settings.app = {};
+        this.settings.app.environment = "$appEnvironment";
         this.settings.display = {};
         this.settings.display.BREAKPOINT_TABLET_PORTRAIT = "$jsBreakpointTabletPortrait";
         //Access to other images (error, etc)

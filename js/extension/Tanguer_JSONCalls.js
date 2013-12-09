@@ -46,7 +46,16 @@ Tanguer_JSONCalls.prototype = {
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
             }
-            callback(data[0], ref);
+
+            //Tanguer in test mode will add a 1 second delay to simulate ajax calls happening.
+            if(Tanguer_App.settings.app.environment == "test"){
+                setTimeout(function(){
+                    callback(data[0], ref);
+                },1000);
+            }
+            else{
+                callback(data[0], ref);
+            }
         });
     },
 
