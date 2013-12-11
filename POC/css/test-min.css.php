@@ -143,6 +143,13 @@ input.button{
     border: 0;
 }
 
+#header .logo-block .logo{
+    display:block;
+    height:35px;
+    width:42px;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") -188px -47px no-repeat;
+}
+
 
 
 /**
@@ -1193,6 +1200,21 @@ and (max-width:1023px){
         text-align:left;
         margin-right:0;
         margin-left:18px;
+    }
+}
+
+
+
+/**
+ * Tablet landscape and above
+ */
+@media only screen
+and (min-width:768px){
+    #header .logo-block .logo{
+        display:block;
+        width:188px;
+        height:35px;
+        background:url("$baseAssetURL/image/gui/gui-sprite.png") 0 -47px;
     }
 }
 

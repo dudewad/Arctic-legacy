@@ -174,9 +174,7 @@ HTML;
 
 
     /**
-     * @param null $month   The month to be viewed. Defaults to the current month.
-     * @param null $day     The day to mark as "selected". Defaults to today.
-     * @param null $year    The year to be viewed. Defaults to the current year.
+     * @param null $date    Integer     A Unix Timestamp representing the day/month to be displayed
      * @return string
      * @throws Exception_ModuleCalendarException
      */
