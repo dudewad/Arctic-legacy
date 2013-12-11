@@ -110,7 +110,6 @@ class Utility_App{
 
 
     public static function printHeader(){
-        $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-header.png";
         $logoURL = Utility_Constants::URL_MAIN;
         $locationSelector = new Module_LocationSelector();
         $locSelectorMarkup = $locationSelector->to_html_full();
@@ -118,7 +117,7 @@ class Utility_App{
             <div id="header">
                 <div class="content">
                     <div class="logo-block">
-                        <h2><a href="$logoURL" class="logo"><img src="$logo" alt="Tánguer" /></a></h2>
+                        <h2><a href="$logoURL" class="logo"></a></h2>
                         $locSelectorMarkup
                     </div>
                 </div>
@@ -196,11 +195,11 @@ HTML;
         $fail = false;
 
         //Set IP if we can get it
-        if(Utility_Constants::APP_ENVIRONMENT == "test"){
-            $ip = "50.159.48.157";
-        }
-        else if(Utility_Constants::APP_ENVIRONMENT == "production"){
+        if(Utility_Constants::APP_ENVIRONMENT == "production"){
             $ip = Utility_App::getUserIP();
+        }
+        else{
+            $ip = "50.159.48.157";
         }
 
         //Priority 1: check user's settings (session) for timezone
