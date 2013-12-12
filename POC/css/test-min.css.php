@@ -130,7 +130,7 @@ input.button{
  * HEADER STYLES
  */
 #header{
-    padding:20px 10px 30px 10px;
+    padding:20px 10px;
     background-color:#333;
     color:#FFF;
 }
@@ -144,10 +144,7 @@ input.button{
 }
 
 #header .logo-block .logo{
-    display:block;
-    height:35px;
-    width:42px;
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") -188px -47px no-repeat;
+    width:100px;
 }
 
 
@@ -176,10 +173,8 @@ input.button{
 /* Calendar Sort Tool*/
 .c .sort{
     display:none;
-    border:1px solid #333;
-    border-left:none;
-    border-right:none;
-    padding:20px 0;
+    border-top:1px solid #333;
+    padding:20px 0 0 0;
     margin-bottom:20px;
 }
 
@@ -254,9 +249,12 @@ input.button{
 }
 
 /* Calendar Picker styles */
+.c-picker-wrapper{
+    margin-top:20px;
+}
+
 .c.picker{
     width:95px;
-    margin-top:5em;
     float:left;
     margin-right: 30px;
     display:none;
@@ -445,7 +443,7 @@ input.button{
     line-height:normal;
     padding:0 2em;
     text-align:center;
-    margin:20px auto 0 auto;
+    margin:0 auto;
     width: 220px;
     text-align:center;
     color:#333;
@@ -882,13 +880,17 @@ input.button{
 /* LOCATION SELECTOR MODULE */
 .lsel{
     color:#333;
+    float:right
 }
 
 .lsel .location{
-    margin-top:1em;
     font-size:1.3em;
     font-family:"Vollkorn Bold Italic","Times New Roman",serif;
-    color:#CCC;
+    color:#333;
+}
+
+.lsel .location h3{
+    font-size:1.2em;
 }
 
 .lsel .selector,
@@ -900,6 +902,8 @@ input.button{
     border:1px solid #333;
     margin-top:13px;
     z-index:9999;
+    right:0;
+    width:200px;
 }
 
 .lsel .change-location:hover .selector{
@@ -913,16 +917,17 @@ input.button{
 .lsel .change-location{
     font-size:1em;
     line-height:1;
-    float:left;
+    float:right;
     cursor:pointer;
+    position:relative;
 }
 
 .lsel .change-location a{
-    color:#CCC;
+    color:#333;
 }
 
 .lsel .indicator{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -14px -38px;
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -21px -38px;
     width:7px;
     height:4px;
     display:inline-block;
@@ -937,7 +942,8 @@ input.button{
     position: absolute;
     top: -20px;
     padding: 10px 35px 0 35px;
-    left: 0;
+    right:0;
+    left:auto;
     width:19px;
     height:10px;
 }
@@ -975,7 +981,7 @@ input.button{
 
 
 /**
- * TABLET STYLES ( width > 360 )
+ * Phone portrait small, and smaller phones in landscape ( width > 360 )
  */
 @media only screen
 and (min-width:360px){
@@ -1046,14 +1052,26 @@ and (min-width:360px){
         width:255px;
     }
 
+    /* Location selector module */
+    .lsel .location h3{
+        font-size:1.4em;
+    }
 }
 
 
 
 /**
- * Phone Portrait
+ * Phone Landscape
  */
-@media only screen and ( min-width:480px ){
+@media only screen
+and ( min-width:480px ){
+
+    /* Header styles */
+    #header .logo-block .logo{
+        width:auto;
+    }
+
+    /* Event styles */
     .e.th.lesson .container{
         border:1px solid #1f79e5;
     }
@@ -1068,6 +1086,20 @@ and (min-width:360px){
 
     .e.th.show .container{
         border:1px solid #bf7b16;
+    }
+}
+
+
+
+/**
+ * Small tablet to tablet portriat
+ */
+@media only screen
+and ( min-width:540px ){
+
+    /* Location selector module */
+    .lsel .location h3{
+        font-size:1.6em;
     }
 }
 
@@ -1102,7 +1134,7 @@ and (min-width:768px){
     }
 
     #header{
-        padding:20px 0 30px 0;
+        padding:20px 0;
     }
 
     .content{
@@ -1172,7 +1204,6 @@ and (min-width:768px){
     .c.d-disp{
         width:auto;
         float:left;
-        margin-top:5em;
     }
 
     /* CALENDAR SORT TOOL*/
@@ -1210,11 +1241,17 @@ and (max-width:1023px){
  */
 @media only screen
 and (min-width:768px){
-    #header .logo-block .logo{
-        display:block;
-        width:188px;
-        height:35px;
-        background:url("$baseAssetURL/image/gui/gui-sprite.png") 0 -47px;
+
+    /* Calendar Picker Styles*/
+    .c-picker-wrapper.clearfix{
+        clear:none;
+    }
+
+    .c-picker-wrapper.clearfix:after {
+        content: none;
+        display: none;
+        height: 0;
+        clear: none;
     }
 }
 
@@ -1263,6 +1300,11 @@ and (min-width:1024px){
     .e.th.show:hover .e-content{
         border-left:8px solid #fdeacc;
     }
+
+    /* Location selector module */
+    .lsel .location h3{
+        font-size:1.8em;
+    }
 }
 
 
@@ -1270,7 +1312,8 @@ and (min-width:1024px){
 /**
  * Desktop styles (above 1212)
  */
-@media only screen and (min-width:1212px){
+@media only screen
+and (min-width:1212px){
     body{
         padding:0;
     }

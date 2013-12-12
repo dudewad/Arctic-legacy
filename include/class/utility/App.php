@@ -94,6 +94,7 @@ class Utility_App{
                     <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_GUI.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
+                    <script src='js/module/Tanguer_Alert.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_LocationSelector.js' type='text/javascript' ></script>
                     <script type='text/javascript' src='POC/js/test.js'></script>
@@ -111,14 +112,12 @@ class Utility_App{
 
     public static function printHeader(){
         $logoURL = Utility_Constants::URL_MAIN;
-        $locationSelector = new Module_LocationSelector();
-        $locSelectorMarkup = $locationSelector->to_html_full();
+        $logo = Utility_Constants::URL_ASSET_BASE . "/image/gui/logo/logo-tanguer-header.png";
         $html = <<<HTML
             <div id="header">
                 <div class="content">
                     <div class="logo-block">
-                        <h2><a href="$logoURL" class="logo"></a></h2>
-                        $locSelectorMarkup
+                        <h2><a href="$logoURL" class="logo"><img class="logo" src="$logo" alt="Tánguer" /></a></h2>
                     </div>
                 </div>
             </div>

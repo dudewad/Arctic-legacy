@@ -70,6 +70,10 @@ var Tanguer_App;
             this.ioc.register("locationSelector", function () {
                 return new Tanguer_LocationSelector();
             });
+
+            this.ioc.register("alert", function () {
+                return new Tanguer_Alert();
+            });
         },
 
 
@@ -127,6 +131,10 @@ var Tanguer_App;
         //If any location selector modules are present, add them to the page
         if($(".lsel").length > 0)
             Tanguer_App.ioc.build("locationSelector");
+
+        //All alerts should be handled; we may want to add alerts dynamically
+        //so this needs to be on the page in any case.
+        Tanguer_App.ioc.build("alert");
     });
 }());
 JS;

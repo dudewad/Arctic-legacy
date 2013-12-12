@@ -45,6 +45,10 @@ for($i = 0; $i < $numEvents; $i++){
 
 usort($eList, "sortByStartTime");
 
+$locationSelector = new Module_LocationSelector();
+
+Utility_App::setAlert(new Alert_Standard("Test"));
+
 $date = isset($_GET['d']) ? $_GET['d'] : time();
 ?>
     <!DOCTYPE html>
@@ -56,8 +60,13 @@ $date = isset($_GET['d']) ? $_GET['d'] : time();
         echo Utility_App::printHeader();
         ?>
     <div class="content">
+        <div class="clearfix">
+            <?php
+            echo $cal->calendarPickerMonthToHTML($date);
+            echo $locationSelector->to_html_full();
+            ?>
+        </div>
         <?php
-        echo $cal->calendarPickerMonthToHTML($date);
         echo $cal->to_html_full_day($eList, time(), $eventToView, $mainCalID);
         ?>
         <div id="debug"></div>

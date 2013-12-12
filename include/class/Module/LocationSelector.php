@@ -26,7 +26,7 @@ class Module_LocationSelector{
         $moduleID = $this->getNextFormID();
         $formAction = Utility_App::getCurrentPageURL();
         $html = <<<HTML
-                <div class="lsel" id="lsel$moduleID">
+                <div class="lsel clearfix" id="lsel$moduleID">
                     <div class="location">
                         <h3>$city, $country</h3>
                     </div>

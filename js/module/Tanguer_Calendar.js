@@ -2,11 +2,14 @@
 /**
  * Author: Ghost
  * Date: 7/21/13
+ *
+ * This module handles all calendar functionality for the Tánguer Calendar system
  */
 
 var Tanguer_Calendar = function(){
+    //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module. Exiting now...");
+        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
         return;
     }
     this._body = $("body");
@@ -28,14 +31,16 @@ var Tanguer_Calendar = function(){
 };
 
 Tanguer_Calendar.prototype = {
+
+    /**
+     * Init method- functionality comments are inline
+     */
     init:function(){
         var scope = this;
         //Set current display mode (mobile or desktop)
         this.displayMode = this.setDisplayMode();
 
-        /**
-         * Set up thumbnail click functionality
-         */
+        //Set up thumbnail click functionality
         this._body.on("click","div.c .th-list a", function(e){
             e.preventDefault();
             var thumb = $(this).closest(".e.th");
@@ -121,7 +126,12 @@ Tanguer_Calendar.prototype = {
     },
 
 
-
+    /**
+     * Handles data returned when a "quick event" is requested
+     * @param e     Object      An object representation of the event, containing HTML of the object for viewing
+     * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
+     *                          data such as scope and any other reference variables needed by the receiving method.
+     */
     ajax_getQuickEventHandler:function(e,ref){
         if(e.error != undefined){
             //TODO: Handle error here
@@ -134,6 +144,12 @@ Tanguer_Calendar.prototype = {
 
 
 
+    /**
+     * Creates a placeholder "event" that displays "loading" while the currently selected event is coming in via AJAX,
+     * if this is applicable. Events that have already loaded will skip this entirely.
+     * @param thumb     jQuery Selection        A jQuery selection of the original thumb that was clicked
+     * @param eventID   Integer                 The event ID of the thumbnail that was clicked
+     */
     createQuickEventLoadingPlaceholder:function(thumb,eventID){
         var li = $("<li>");
         li.addClass("c-e-disp full loading");
@@ -143,19 +159,30 @@ Tanguer_Calendar.prototype = {
     },
 
 
-
-    createQuickEvent:function(e, data){
+    /**
+     * Adds a full event to the calendar view system. A "quick event" is an event that lives in the single-day view
+     * calendar and is intended to be quickly retrieved/viewed.
+     * @param e     Object      The object containing the quick event data, under a e.html variable
+     * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
+     *                          data such as scope and any other reference variables needed by the receiving method.
+     */
+    createQuickEvent:function(e, ref){
         var html = e.html;
-        var li = $("li.c-e-disp.full[data-event-id=" + data.eventID + "]");
+        var li = $("li.c-e-disp.full[data-event-id=" + ref.eventID + "]");
         li.removeClass("loading");
         li.html(html);
-        data.scope.openQuickEvent(data.instanceID, data.eventID);
+        ref.scope.openQuickEvent(ref.instanceID, ref.eventID);
     },
 
 
-
-    openQuickEvent:function(instance, eid){
-        var cal = $("#" + instance);
+    /**
+     * Once a quick event has loaded it needs to be opened for display. This method handles that, along with any special
+     * handling required across layout sizes (mobile vs desktop, etc)
+     * @param instanceID    String      The DOM ID of the calendar instance that is being targeted
+     * @param eid           String      The event ID of the event that is being opened
+     */
+    openQuickEvent:function(instanceID, eid){
+        var cal = $("#" + instanceID);
         var content = cal.find("li.c-e-disp.full[data-event-id='" + eid + "']").eq(0);
         var thumb = cal.find("li.th[data-event-id='" + eid + "']").eq(0);
         //Animate in tablet mode and snap to the item
@@ -169,6 +196,10 @@ Tanguer_Calendar.prototype = {
 
 
 
+    /**
+     * Hides the currently displaying quick event so that the space can be used to display something else
+     * @param instanceID    String      The DOM ID of the quick event being displayed
+     */
     hideCurrentQuickEvent:function(instanceID){
         var c = $("#" + instanceID);
         c.find(".c-e-disp.full").hide();
@@ -176,6 +207,9 @@ Tanguer_Calendar.prototype = {
 
 
 
+    /**
+     * Sets whether or not the display mode is "mobile" or "desktop" so that quick events know how to act
+     */
     setDisplayMode:function(){
         this.displayMode = this._window.innerWidth() < this.breakpointTabletPortrait ? "mobile" : "desktop";
     }
