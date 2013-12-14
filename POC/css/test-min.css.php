@@ -29,6 +29,7 @@ input{
 select{
     background:#333;
     color:#DEDEDE;
+    padding:5px;
 }
 
 p{
@@ -143,8 +144,16 @@ input.button{
     border: 0;
 }
 
+#header .logo-block{
+    float:left;
+}
+
 #header .logo-block .logo{
     width:100px;
+}
+
+#header .nav-right{
+    float:right;
 }
 
 
@@ -166,7 +175,7 @@ input.button{
 }
 
 .c-e-disp .banner{
-    width:100%;
+    width:150%;
     display:block;
 }
 
@@ -178,13 +187,25 @@ input.button{
     margin-bottom:20px;
 }
 
+.c .sort .sort-advanced{
+    display:inline-block;
+}
+
+.c .sort .e-sort{
+    display:inline-block;
+}
+
 .c .sort a.button{
     padding-right:20px;
     border-right:1px solid #333;
     margin-right:20px;
 }
 
-.js .sort .button.advanced .js-indicator{
+.c .sort .button.advanced{
+    display:block;
+}
+
+.js .c .sort .button.advanced .js-indicator{
     background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 0;
     width:12px;
     height:7px;
@@ -208,7 +229,7 @@ input.button{
     margin-right:20px;
 }
 
-.js .c .sort input{
+.js .c .e-sort input{
     display:none;
 }
 
@@ -447,7 +468,7 @@ input.button{
     width: 220px;
     text-align:center;
     color:#333;
-    font-size:.8em;
+    font-size:.6em;
 }
 
 .c.d-disp .d-content{
@@ -761,11 +782,13 @@ input.button{
  */
 
 /* Calendar login styles */
+/* Calendar login is hidden on the mobile view */
 .c .login{
     text-align:center;
     background-color:#dfdfdf;
     padding:30px 20px;
     border:1px solid #333;
+    display:none;
 }
 
 .c .login .logo{
@@ -848,8 +871,7 @@ input.button{
 }
 
 .alerts .content{
-    width:96%;
-    padding:0 2%;
+    padding:0 10px;
 }
 
 .alerts .alert .icon{
@@ -870,17 +892,14 @@ input.button{
 }
 
 .alerts .dismiss{
-    display:none;
-}
-
-.js .alerts .dismiss{
     display:inline-block;
 }
 
 /* LOCATION SELECTOR MODULE */
 .lsel{
     color:#333;
-    float:right
+    float:right;
+    display:none;
 }
 
 .lsel .location{
@@ -890,7 +909,7 @@ input.button{
 }
 
 .lsel .location h3{
-    font-size:1.2em;
+    font-size:.8em;
 }
 
 .lsel .selector,
@@ -926,6 +945,14 @@ input.button{
     color:#333;
 }
 
+.lsel .change-location:hover a{
+    color:#000;
+}
+
+.lsel .change-location:hover .indicator{
+    background-position:-21px -42px;
+}
+
 .lsel .indicator{
     background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -21px -38px;
     width:7px;
@@ -938,7 +965,7 @@ input.button{
 }
 
 .lsel .selector .indicator{
-    background:none;
+    background:none !important;
     position: absolute;
     top: -20px;
     padding: 10px 35px 0 35px;
@@ -962,7 +989,6 @@ input.button{
 .lsel .selector select{
     display:block;
     width:100%;
-    padding:5px;
 }
 
 .lsel .selector option{
@@ -976,6 +1002,29 @@ input.button{
 .lsel .selector .submit{
     display:block;
     margin-top:10px;
+}
+
+/* Header location selector styles*/
+
+#header .lsel{
+    display:block;
+}
+
+#header .lsel .location,
+#header .lsel .change-location a{
+    color:#dedede;
+}
+
+#header .lsel .indicator{
+    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -14px -38px;
+}
+
+#header .lsel .change-location:hover a{
+    color:#FFF;
+}
+
+#header .lsel .change-location:hover .indicator{
+    background-position:-14px -34px;
 }
 
 
@@ -1048,13 +1097,8 @@ and (min-width:360px){
 
     /* Calendar Date Display module*/
     .c.d-disp{
-        font-size:1em;
+        font-size:.8em;
         width:255px;
-    }
-
-    /* Location selector module */
-    .lsel .location h3{
-        font-size:1.4em;
     }
 }
 
@@ -1065,10 +1109,33 @@ and (min-width:360px){
  */
 @media only screen
 and ( min-width:480px ){
+}
+
+
+
+/**
+ * Small tablet to tablet portriat
+ */
+@media only screen
+and ( min-width:540px ){
 
     /* Header styles */
+    #header{
+        padding:20px 10px 25px 10px;
+    }
+
     #header .logo-block .logo{
         width:auto;
+    }
+
+    /* Location selector module */
+    .lsel .location h3{
+        font-size:1em;
+    }
+
+    /* Quick event styles */
+    .c-e-disp .banner-container .banner{
+        width:100%;
     }
 
     /* Event styles */
@@ -1087,29 +1154,19 @@ and ( min-width:480px ){
     .e.th.show .container{
         border:1px solid #bf7b16;
     }
-}
 
-
-
-/**
- * Small tablet to tablet portriat
- */
-@media only screen
-and ( min-width:540px ){
-
-    /* Location selector module */
-    .lsel .location h3{
-        font-size:1.6em;
+    .c.d-disp{
+        font-size:1em;
     }
 }
 
 
 
 /**
- * Large phone to tablet portrait
+ * Large phone to tablet portrait - These styles will not propagate past these parameters
  */
 @media only screen
-and (min-width:480px)
+and (min-width:540px)
 and (max-width:767px){
     .e.th,
     .c-e-disp.full{
@@ -1128,13 +1185,13 @@ and (max-width:767px){
  */
 @media only screen
 and (min-width:768px){
+
     body{
-        font-family:Lato, Arial, sans-serif;
         width:auto;
     }
 
     #header{
-        padding:20px 0;
+        padding:20px 0 25px 0;
     }
 
     .content{
@@ -1209,6 +1266,24 @@ and (min-width:768px){
     /* CALENDAR SORT TOOL*/
     .c .sort{
         display:block;
+    }
+
+    /* Calendar Login Styles*/
+    .c .login{
+        display:block;
+    }
+
+    /* Location selector styles */
+    .lsel{
+        display:block;
+    }
+
+    #header .lsel{
+        display:none;
+    }
+
+    .lsel .location h3{
+        font-size:1.6em;
     }
 }
 

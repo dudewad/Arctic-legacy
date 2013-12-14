@@ -6,11 +6,19 @@
 require_once("Login.php");
  
 class Module_Calendar{
+    //A prefix for all form IDs to help guarantee unique DOM IDs
+    const formIDPrefix = "c";
+    //The Calendar module will give each form a unique numeric ID
+    public static $formID = 0;
 
 
 
-    public function __construct(){
-    }
+    /**
+     * Constructor
+     */
+    public function __construct(){}
+
+
 
     /**
      * Formats the calendar to it's full HTML view for a single day
@@ -378,46 +386,80 @@ HTML;
     }
 
 
-
+    /**
+     * Prints the calendar sorter to HTML
+     * @return string
+     */
     private function sorterToHTML(){
-        $advancedSort = $this->advancedSortModalToHTML();
         $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $sortOptionsText = String_String::getString("SORT_SORT_OPTIONS",__CLASS__);
         $milongaDisplay = String_String::getString("EVENT_TYPE_MILONGA","Output_Event_Event");
         $lessonDisplay = String_String::getString("EVENT_TYPE_LESSON","Output_Event_Event");
         $practicaDisplay = String_String::getString("EVENT_TYPE_PRACTICA","Output_Event_Event");
         $showDisplay = String_String::getString("EVENT_TYPE_SHOW","Output_Event_Event");
+        $formID = "eTypeSort" . $this->getNextFormID();
+        $advancedSort = $this->advancedSortModalToHTML();
         $html = <<<HTML
-                <form action='#' method='post' class="sort">
-                    <a href="" class="button advanced"><span>$sortOptionsText</span></a>
-                    <label class="milonga checked hasIndicator">
-                        <input type='checkbox' name='milonga' checked/>
-                        $milongaDisplay
-                    </label>
-                    <label class="lesson checked hasIndicator">
-                        <input type='checkbox' name='lesson' checked/>
-                        $lessonDisplay
-                    </label>
-                    <label class="practica checked hasIndicator">
-                        <input type='checkbox' name='practica' checked/>
-                        $practicaDisplay
-                    </label>
-                    <label class="show checked hasIndicator">
-                        <input type='checkbox' name='show' checked/>
-                        $showDisplay
-                    </label>
-                    <input type="submit" class="button" value="$submitButtonText"/>
-                </form>
-                $advancedSort
+                <div class="sort">
+                    <div class="sort-advanced">
+                        <a href="" class="button advanced"><span>$sortOptionsText</span></a>
+                        $advancedSort
+                    </div>
+                    <form action='#' method='post' class="e-sort" id="$formID">
+                        <label class="milonga checked hasIndicator">
+                            <input type='checkbox' name='milonga' checked/>
+                            $milongaDisplay
+                        </label>
+                        <label class="lesson checked hasIndicator">
+                            <input type='checkbox' name='lesson' checked/>
+                            $lessonDisplay
+                        </label>
+                        <label class="practica checked hasIndicator">
+                            <input type='checkbox' name='practica' checked/>
+                            $practicaDisplay
+                        </label>
+                        <label class="show checked hasIndicator">
+                            <input type='checkbox' name='show' checked/>
+                            $showDisplay
+                        </label>
+                        <input type="submit" class="button" value="$submitButtonText"/>
+                    </form>
+                </div>
 HTML;
         return $html;
     }
 
 
+    /**
+     * Returns and HTML string for an advanced sort form for the calendar
+     * @return string
+     */
     private function advancedSortModalToHTML(){
+        $formID = "eAdvSort" . $this->getNextFormID();
         $html = <<<HTML
-                <div class="sort advanced" style="display:none;"></div>
+            <form action='#' method='post' class="e-adv-sort" id="$formID">
+                <select>
+                    <option>Time</option>
+                    <option>Price</option>
+                    <option>Event Type</option>
+                </select>
+                <input type="radio" name="sO" value="asc" />
+                <input type="radio" name="sO" value="desc" />
+            </form>
 HTML;
         return $html;
+    }
+
+
+
+    /**
+     * Retrieves an ID for the form for a calendar form element that is being output to HTML. Auto-increments the
+     * local static variable self::$formID
+     * @return int
+     */
+    private function getNextFormID(){
+        $id = self::$formID;
+        self::$formID++;
+        return constant("self::formIDPrefix") . $id;
     }
 }

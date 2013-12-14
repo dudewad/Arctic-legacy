@@ -47,7 +47,9 @@ usort($eList, "sortByStartTime");
 
 $locationSelector = new Module_LocationSelector();
 
-Utility_App::setAlert(new Alert_Standard("Test"));
+Utility_App::setAlert(new Alert_Standard("TESTING1"));
+Utility_App::setAlert(new Alert_Standard("TESTING2"));
+Utility_App::setAlert(new Alert_Standard("TESTING3"));
 
 $date = isset($_GET['d']) ? $_GET['d'] : time();
 ?>

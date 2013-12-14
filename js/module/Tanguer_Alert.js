@@ -11,7 +11,6 @@ var Tanguer_Alert = function(){
         console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
         return;
     }
-    this.lastClosedAlert = null;
     this.init();
 };
 
@@ -25,25 +24,12 @@ Tanguer_Alert.prototype = {
         //Disable all dismiss anchor links, and
         $(".alerts").on("click","a.dismiss",function(e){
             e.preventDefault();
-            var parent = $(this).closest(".alert");
-            parent.addClass("dismissed");
-            scope.lastClosedAlert = parent;
-            var callback = function(){scope.close();};
-            parent.slideUp(400,callback);
-        });
-    },
-
-
-
-    /**
-     * Checks all alert groupings to see if all of their alert objects are collapsed.
-     * If they are, it will collapse the entire grouping as well.
-     */
-    close:function(){
-        $(".alerts").each(function(){
-            var parentContainer = $(this);
-            if(parentContainer.find(".alert.dismissed").length == parentContainer.find(".alert").length){
-                parentContainer.slideUp();
+            var alert = $(this).closest(".alert");
+            var parent = alert.closest(".alerts");
+            alert.addClass("dismissed");
+            alert.slideUp();
+            if(parent.find(".alert.dismissed").length == parent.find(".alert").length){
+                parent.slideUp();
             }
         });
     }

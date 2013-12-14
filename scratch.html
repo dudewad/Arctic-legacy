@@ -1,28 +1,31 @@
-<html>
-<head>
-    <link type="text/css" rel="stylesheet" href="/css/scratch.css" />
-</head>
-<body onload="test();">
-
-<form action='' method='post'>
-    <label>
-        <input type='checkbox' name='milonga' />
-        Milonga
-    </label>
-    <label>
-        <input type='checkbox' name='lesson' />
-        Lesson
-    </label>
-    <label>
-        <input type='checkbox' name='practica' />
-        Practica
-    </label>
-    <label>
-        <input type='checkbox' name='show' />
-        Show
-    </label>
-</form>
-
-</body>
-
-</html>
+<div class="nav-right">
+    <div class="lsel clearfix" id="lsel0">
+        <div class="location">
+            <h3>Rosario, Argentina</h3>
+        </div>
+        <div class="change-location">
+            <a href="" class="change">
+                Cambiar Ubicación
+                <span class="indicator"></span>
+            </a>
+            <div class="selector">
+                <img class="indicator" src="http://10.0.0.17/tanguer/asset//image/gui/gui-calendar-flyout-arrow-indicator19x10.png" alt="">
+                <h3>Cambiar ubicación</h3>
+                <form action="http://10.0.0.17/tanguer/" method="post" id="lselForm0" >
+                    <input type="hidden" name="lsel" value="1" />
+                    <label for="country">País</label>
+                    <select name="country">
+                        <option value="0">Argentina</option>
+                        <option value="1">Estados Unidos</option>
+                    </select>
+                    <label for="city">Ciudad</label>
+                    <select name="city" id="city">
+                        <option value="0">Buenos Aires</option>
+                        <option value="1">Rosario</option>
+                    </select>
+                    <input type="submit" name="lselSubmit0" value="Cambiar" class="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
