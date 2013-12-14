@@ -113,11 +113,16 @@ class Utility_App{
     public static function printHeader(){
         $logoURL = Utility_Constants::URL_MAIN;
         $logo = Utility_Constants::URL_ASSET_BASE . "/image/gui/logo/logo-tanguer-header.png";
+        $locationSelector = new Module_LocationSelector();
+        $locationSelector = $locationSelector->to_html_full();
         $html = <<<HTML
             <div id="header">
-                <div class="content">
+                <div class="content clearfix">
                     <div class="logo-block">
                         <h2><a href="$logoURL" class="logo"><img class="logo" src="$logo" alt="Tánguer" /></a></h2>
+                    </div>
+                    <div class="nav-right">
+                        $locationSelector
                     </div>
                 </div>
             </div>
