@@ -16,6 +16,7 @@ body{
     padding:0;
     font-family:Lato, Arial, sans-serif;
     font-size:10px;
+    color:#333;
 }
 
 input{
@@ -140,7 +141,7 @@ input.button{
     margin-top: 3px;
     color: #333;
     height: 2px;
-    background-color: #333;
+    background-color:#333;
     border: 0;
 }
 
@@ -180,32 +181,36 @@ input.button{
 }
 
 /* Calendar Sort Tool*/
-.c .sort{
+.c .s{
     display:none;
     border-top:1px solid #333;
     padding:20px 0 0 0;
     margin-bottom:20px;
 }
 
-.c .sort .sort-advanced{
+.c .s .s-adv{
     display:inline-block;
 }
 
-.c .sort .e-sort{
+.c .s .e-s-adv{
+    display:none;
+}
+
+.c .s .e-s{
     display:inline-block;
 }
 
-.c .sort a.button{
+.c .s a.button{
     padding-right:20px;
     border-right:1px solid #333;
     margin-right:20px;
 }
 
-.c .sort .button.advanced{
+.c .s .button.adv{
     display:block;
 }
 
-.js .c .sort .button.advanced .js-indicator{
+.js .c .s .button.adv .js-indicator{
     background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 0;
     width:12px;
     height:7px;
@@ -216,11 +221,11 @@ input.button{
     margin-top:-4px;
 }
 
-.c .sort input.button{
+.c .s input.button{
     float:right;
 }
 
-.c .sort label{
+.c .s label{
     padding:10px;
     cursor:pointer;
     display: inline-block;
@@ -229,11 +234,11 @@ input.button{
     margin-right:20px;
 }
 
-.js .c .e-sort input{
+.js .c .e-s input{
     display:none;
 }
 
-.c .sort label .js-indicator{
+.c .s label .js-indicator{
     background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat;
     width:12px;
     height:12px;
@@ -243,29 +248,29 @@ input.button{
     top:2px;
 }
 
-.c .sort label{
+.c .s label{
     background:#dedede;
     border:1px solid #999;
     color:#999999;
 }
 
-.c .sort label .js-indicator{
+.c .s label .js-indicator{
     background-position:-60px 0;
 }
 
-.c .sort label.milonga.checked .js-indicator{
+.c .s label.milonga.checked .js-indicator{
     background-position:-12px 0;
 }
 
-.c .sort label.lesson.checked .js-indicator{
+.c .s label.lesson.checked .js-indicator{
     background-position:-24px 0;
 }
 
-.c .sort label.practica.checked .js-indicator{
+.c .s label.practica.checked .js-indicator{
     background-position:-36px 0;
 }
 
-.c .sort label.show.checked .js-indicator{
+.c .s label.show.checked .js-indicator{
     background-position:-48px 0;
 }
 
@@ -324,7 +329,6 @@ input.button{
     margin-top:10px;
     font-style:italic;
     font-size:1.3em;
-    color:#333;
 }
 
 .c.picker:hover .visualizer{
@@ -467,7 +471,6 @@ input.button{
     margin:0 auto;
     width: 220px;
     text-align:center;
-    color:#333;
     font-size:.6em;
 }
 
@@ -693,7 +696,7 @@ input.button{
 }
 
 .e.th.lesson .container,
-.sort label.lesson.checked{
+.s label.lesson.checked{
     background-color:#ccefff;
     border:1px solid #1f79e5;
     color:#333;
@@ -708,7 +711,7 @@ input.button{
 }
 
 .e.th.milonga .container,
-.sort label.milonga.checked{
+.s label.milonga.checked{
     background-color: #ffd2d2;
     border:1px solid #b12f2c;
     color:#333;
@@ -723,7 +726,7 @@ input.button{
 }
 
 .e.th.practica .container,
-.sort label.practica.checked{
+.s label.practica.checked{
     background-color:#dbf7cc;
     border:1px solid #299428;
     color:#333;
@@ -738,7 +741,7 @@ input.button{
 }
 
 .e.th.show .container,
-.sort label.show.checked{
+.s label.show.checked{
     background-color:#fdeacc;
     border:1px solid #bf7b16;
     color:#333;
@@ -798,7 +801,6 @@ input.button{
 .c .login form{
     padding-top:20px;
     padding-bottom:10px;
-    color:#333;
 }
 
 .c .login .row input.submit{
@@ -1027,6 +1029,60 @@ input.button{
     background-position:-14px -34px;
 }
 
+/* Modal Styles*/
+.m-wrapper{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+.m-wrapper.hasBG{
+    background:rgba(0,0,0,.8);
+}
+
+.m{
+    width:85%;
+    margin:0 auto;
+    background:#FFF;
+    padding:10px;
+}
+
+.m h3{
+    text-align:center;
+    font-size:2em;
+    font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+}
+
+.m form{
+    padding:20px 0;
+    border:1px solid #333;
+    border-left:none;
+    border-right:none;
+}
+
+.m label{
+    display:block;
+    margin:10px auto 0 auto;
+    text-align:center;
+    vertical-align:middle;
+    font-size:1.4em;
+}
+
+.m input{
+    margin:0 5px;
+}
+
+.m select{
+    width:100%;
+}
+
+.m .button{
+    display:block;
+    margin:20px auto 0 auto;
+}
+
 
 
 /**
@@ -1109,6 +1165,11 @@ and (min-width:360px){
  */
 @media only screen
 and ( min-width:480px ){
+
+    /* Modal Styles*/
+    .m{
+        width:65%;
+    }
 }
 
 
@@ -1264,7 +1325,7 @@ and (min-width:768px){
     }
 
     /* CALENDAR SORT TOOL*/
-    .c .sort{
+    .c .s{
         display:block;
     }
 
@@ -1284,6 +1345,12 @@ and (min-width:768px){
 
     .lsel .location h3{
         font-size:1.6em;
+    }
+
+    /* Modal Styles*/
+    .m{
+        width:600px;
+        padding:20px;
     }
 }
 

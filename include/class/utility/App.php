@@ -90,9 +90,11 @@ class Utility_App{
                     <script src='js/third-party/jquery.validate.min.js' type='text/javascript' ></script>
                     <script src='js/third-party/head.core.min.js' type='text/javascript' ></script>
                     <script src='js/Tanguer_App.js' type='text/javascript' ></script>
+
                     <script src='js/extension/Tanguer_IOC.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_JSONCalls.js' type='text/javascript' ></script>
                     <script src='js/extension/Tanguer_GUI.js' type='text/javascript' ></script>
+                    <script src='js/extension/Tanguer_Modal.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Tooltip.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Alert.js' type='text/javascript' ></script>
                     <script src='js/module/Tanguer_Calendar.js' type='text/javascript' ></script>

@@ -8,7 +8,7 @@
 var Tanguer_Alert = function(){
     //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
+        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Alert module.");
         return;
     }
     this.init();

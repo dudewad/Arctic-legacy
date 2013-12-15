@@ -23,7 +23,7 @@ class Module_Calendar{
     /**
      * Formats the calendar to it's full HTML view for a single day
      * @param   $eventList  Array           An array of Event objects to display
-     * @param   $day        Integer         Timestamp of the day to be displayed
+     * @param   $date       Integer         Timestamp of the day to be displayed
      * @param   $event      Event_Event     The event to be viewed, if applicable. This typically will only be set if the
      *                                      user has Javascript disabled, as this data is brought in via AJAX otherwise
      * @param   $domID      String          The DOM ID to be applied to the calendar object, if applicable
@@ -31,18 +31,14 @@ class Module_Calendar{
      * @return  string                      Render the calendar as HTML
      * @throws  Exception
      */
-    public function to_html_full_day($eventList, $day = null, $event = null, $domID = null, $class = null){
-        $html = "";
-        $default = "";
+    public function to_html_full_day($eventList, $date = null, $event = null, $domID = null, $class = null){
         $eObj = null;
         $selectedID = null;
-        $dateCheck = date("dmY", $day);
-        $sort = $this->sorterToHTML(Utility_App::getCurrentPageURL());
-
         //Use today by default
-        if(!$day){
-            $day = time();
+        if(!$date){
+            $date = time();
         }
+        $sort = $this->sorterToHTML(Utility_App::getCurrentPageURL(), $date);
 
         if(isset($event)){
             switch(get_class($event)){
@@ -390,7 +386,7 @@ HTML;
      * Prints the calendar sorter to HTML
      * @return string
      */
-    private function sorterToHTML(){
+    private function sorterToHTML($url, $date){
         $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $sortOptionsText = String_String::getString("SORT_SORT_OPTIONS",__CLASS__);
         $milongaDisplay = String_String::getString("EVENT_TYPE_MILONGA","Output_Event_Event");
@@ -398,27 +394,29 @@ HTML;
         $practicaDisplay = String_String::getString("EVENT_TYPE_PRACTICA","Output_Event_Event");
         $showDisplay = String_String::getString("EVENT_TYPE_SHOW","Output_Event_Event");
         $formID = "eTypeSort" . $this->getNextFormID();
-        $advancedSort = $this->advancedSortModalToHTML();
+        $advancedSort = $this->advancedSortModalToHTML($url, $date);
         $html = <<<HTML
-                <div class="sort">
-                    <div class="sort-advanced">
-                        <a href="" class="button advanced"><span>$sortOptionsText</span></a>
-                        $advancedSort
+                <div class="s">
+                    <div class="s-adv">
+                        <a href="" class="button adv"><span>$sortOptionsText</span></a>
+                        <div class="e-s-adv">
+                            $advancedSort
+                        </div>
                     </div>
-                    <form action='#' method='post' class="e-sort" id="$formID">
-                        <label class="milonga checked hasIndicator">
+                    <form action='#' method='post' class="e-s" id="$formID">
+                        <label class="milonga checked hasIndicator" data-sort-type="milonga">
                             <input type='checkbox' name='milonga' checked/>
                             $milongaDisplay
                         </label>
-                        <label class="lesson checked hasIndicator">
+                        <label class="lesson checked hasIndicator" data-sort-type="lesson">
                             <input type='checkbox' name='lesson' checked/>
                             $lessonDisplay
                         </label>
-                        <label class="practica checked hasIndicator">
+                        <label class="practica checked hasIndicator" data-sort-type="practica">
                             <input type='checkbox' name='practica' checked/>
                             $practicaDisplay
                         </label>
-                        <label class="show checked hasIndicator">
+                        <label class="show checked hasIndicator" data-sort-type="show">
                             <input type='checkbox' name='show' checked/>
                             $showDisplay
                         </label>
@@ -434,17 +432,20 @@ HTML;
      * Returns and HTML string for an advanced sort form for the calendar
      * @return string
      */
-    private function advancedSortModalToHTML(){
-        $formID = "eAdvSort" . $this->getNextFormID();
+    private function advancedSortModalToHTML($url, $date){
+        $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $html = <<<HTML
-            <form action='#' method='post' class="e-adv-sort" id="$formID">
-                <select>
-                    <option>Time</option>
-                    <option>Price</option>
-                    <option>Event Type</option>
+            <h3>Additional Sort Options</h3>
+            <form action='#' method='post' class="s-adv-form" >
+                <input type="hidden" name="date" value="$date" >
+                <select name="param">
+                    <option value="start_time">Time</option>
+                    <option value="price">Price</option>
+                    <option value="event_type">Event Type</option>
                 </select>
-                <input type="radio" name="sO" value="asc" />
-                <input type="radio" name="sO" value="desc" />
+                <label><input type="radio" name="sO" value="asc" checked="true" /><span>Ascending</span></label>
+                <label><input type="radio" name="sO" value="desc" /><span>Descending</span></label>
+                <input type="submit" class="button" value="$submitButtonText"/>
             </form>
 HTML;
         return $html;

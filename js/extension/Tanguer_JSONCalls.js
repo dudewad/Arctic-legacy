@@ -5,7 +5,15 @@
  * Time: 12:26 PM
  */
 
-function Tanguer_JSONCalls(){}
+function Tanguer_JSONCalls(){
+    //Requires the Tanguer_App module
+    if(!Tanguer_App){
+        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_JSONCalls module.");
+        return;
+    }
+}
+
+
 
 Tanguer_JSONCalls.prototype = {
 
@@ -23,6 +31,9 @@ Tanguer_JSONCalls.prototype = {
             //e         The event id being requested
             case "getQuickEvent":
                 return this.baseJsonURL + "?t=gqe&eid=" + params.e;
+                break;
+            case "getSortFullDay":
+                return this.baseJsonURL + "?t=sfd&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
                 break;
             default:
                 console.warn("Requested JSONCall URL does not exist.");
@@ -42,6 +53,7 @@ Tanguer_JSONCalls.prototype = {
      */
     makeAjaxCall:function(url, callback, ref){
         $.getJSON(url + "&cb=?", null, function(data,status){
+            console.log('good');
             if(status != "success"){
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
@@ -71,6 +83,22 @@ Tanguer_JSONCalls.prototype = {
      */
     getQuickEvent:function(data, callback, ref){
         var url = this.getURL("getQuickEvent", data);
+        this.makeAjaxCall(url, callback, ref);
+    },
+
+
+
+    /**
+     * Gets an event with the specified ID
+     * @param data      Required    The data to be used to build the query string
+     *
+     * @param callback  Required    The callback function used to respond when the response comes back
+     *
+     * @param ref       Optional    An additional data object to be passed to the callback. This is useful for targeting
+     *                              the calling object, etc.
+     */
+    getSortFullDay:function(data, callback, ref){
+        var url = this.getURL("getSortFullDay", data);
         this.makeAjaxCall(url, callback, ref);
     },
 

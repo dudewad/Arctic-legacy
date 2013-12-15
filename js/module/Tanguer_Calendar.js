@@ -12,8 +12,9 @@ var Tanguer_Calendar = function(){
         console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
         return;
     }
-    this._body = $("body");
-    this._window = $(window);
+    //Try to use the pre-selected common jquery selections first
+    this._body = Tanguer_App.jSel._body || $("body");
+    this._window = Tanguer_App.jSel._window || $(window);
     this.breakpointTabletPortrait = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
     this.displayMode = null;
 
@@ -73,7 +74,6 @@ Tanguer_Calendar.prototype = {
             scope.hideCurrentQuickEvent(instance);
             scope.createQuickEventLoadingPlaceholder(thumb,eventID);
             scope.openQuickEvent(instance,eventID);
-            //Test environment is too fast. Add 1 second delay for "ajax simulation" purposes
             Tanguer_App.JSONCalls.getQuickEvent(data,scope.ajax_getQuickEventHandler,ref);
             return false;
         });
@@ -89,31 +89,40 @@ Tanguer_Calendar.prototype = {
             scope.setDisplayMode();
         });
 
-        //Add click events to the js version of the sorts
-        this._body.on("click",".c .sort label",function(e){
-                if(e.target.tagName.toLowerCase() !== 'input') {
-                    var label = $(this);
-                    label.hasClass("checked") ? label.removeClass("checked") : label.addClass("checked");
-
-                    if(label.hasClass("milonga")){
-                        label.closest(".c").find(".e.milonga").toggle();
-                    }
-                    else if(label.hasClass("lesson")){
-                        label.closest(".c").find(".e.lesson").toggle();
-                    }
-                    else if(label.hasClass("practica")){
-                        label.closest(".c").find(".e.practica").toggle();
-                    }
-                    else if(label.hasClass("show")){
-                        label.closest(".c").find(".e.show").toggle();
-                    }
-                }
+        //Add click events to the js version of the simple event sorts
+        this._body.on("click",".c .s label",function(e){
+            if(e.target.tagName.toLowerCase() !== 'input') {
+                var label = $(this);
+                label.hasClass("checked") ? label.removeClass("checked") : label.addClass("checked");
+                var sortType = label.data("sort-type");
+                label.closest(".c").find(".e." + sortType).toggle();
+            }
         });
 
         //Advanced sort options modal
-        this._body.on("click",".c .sort .button.advanced", function(){
-            Tanguer_App.modal($(this).closest("c").find(".sort.advanced"));
-            return false;
+        this._body.on("click",".c .s-adv a.button.adv", function(e){
+            var instance = $(this).closest(".c").attr("id");
+            var ref = {scope:scope,instanceID:instance};
+            e.preventDefault();
+            var settings = {
+                content:$(this).closest(".s").find(".e-s-adv").html(),
+                hasBackground:true
+            };
+            var modalID = Tanguer_App.modal.open(settings);
+            var form = $("#" + modalID).find(".s-adv-form");
+            //When a user submits the advanced search form, handle the submission
+            form.on("submit",function(e){
+                e.preventDefault();
+                //Get form values
+                var sO = form.find("input[name=sO]:checked").val();
+                var data = {
+                    param:this.param.value,
+                    sO:sO,
+                    d:this.date.value
+                };
+                Tanguer_App.modal.close(modalID);
+                Tanguer_App.JSONCalls.getSortFullDay(data,scope.ajax_getSortFullDayHandler,ref);
+            })
         });
 
         this._body.on("click", ".c.picker .preview", function(){
@@ -122,7 +131,7 @@ Tanguer_Calendar.prototype = {
         });
 
         //Disable selection of sort options for aesthetic purposes
-        $(".sort").disableSelection();
+        $(".s").disableSelection();
     },
 
 
@@ -135,11 +144,31 @@ Tanguer_Calendar.prototype = {
     ajax_getQuickEventHandler:function(e,ref){
         if(e.error != undefined){
             //TODO: Handle error here
-            console.log("getQuickEvent error in Tanguer_Calendar.js. Error handler not specified...")
+            console.log("getQuickEvent error in Tanguer_Calendar.js. Error handler not specified...");
         }
         var that = ref.scope;
         that.hideCurrentQuickEvent(ref.instanceID);
         that.createQuickEvent(e,ref);
+    },
+
+
+    /**
+     * Handles data returned when a full day sort completes
+     * @param e     Object      An object representation of the returned data, containing HTML of the object for viewing
+     * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
+     *                          data such as scope and any other reference variables needed by the receiving method.
+     */
+    ajax_getSortFullDayHandler:function(e,ref){
+        if(e.error != undefined){
+            //TODO: Handle error here
+            console.log("getSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
+        }
+        var that = ref.scope;
+        var instance = $("#" + ref.instanceID);
+        instance.replaceWith(e.html);
+        var html = $.parseHTML(e.html)[1];
+        var id = $(html).attr("id");
+        Tanguer_App.gui.refresh("#" + id);
     },
 
 
@@ -159,6 +188,7 @@ Tanguer_Calendar.prototype = {
     },
 
 
+
     /**
      * Adds a full event to the calendar view system. A "quick event" is an event that lives in the single-day view
      * calendar and is intended to be quickly retrieved/viewed.
@@ -173,6 +203,7 @@ Tanguer_Calendar.prototype = {
         li.html(html);
         ref.scope.openQuickEvent(ref.instanceID, ref.eventID);
     },
+
 
 
     /**
