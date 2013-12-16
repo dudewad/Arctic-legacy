@@ -69,7 +69,7 @@ class Module_Calendar{
 
         //"Day" timeframe has a left column with thumbs, and main display area on the right
         $html = <<<HTML
-                <div class="c full-day $class" id="$domID">
+                <div class="c full-day disp $class" id="$domID">
                     $sort
                     $thumbs
                 </div>

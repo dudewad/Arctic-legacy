@@ -121,6 +121,7 @@ Tanguer_Calendar.prototype = {
                     d:this.date.value
                 };
                 Tanguer_App.modal.close(modalID);
+                $(".c.disp").showLoader();
                 Tanguer_App.JSONCalls.getSortFullDay(data,scope.ajax_getSortFullDayHandler,ref);
             })
         });
@@ -130,9 +131,27 @@ Tanguer_Calendar.prototype = {
             visualizer.toggle();
         });
 
+        //When a user clicks a visualizer date, asynchronously load that data
+        this._body.on("click", ".c.picker .visualizer .body a", function(e){
+            e.preventDefault();
+            var target = $(this);
+            var visualizer = target.closest(".visualizer");
+            var day = target.data("day");
+            var month = target.data("month");
+            var year = target.data("year");
+            var timestamp = new Date(year,month - 1,day).getTime() / 1000;
+            var data = {
+                d:timestamp
+            };
+            visualizer.hide();
+            $(".c.disp").showLoader();
+            Tanguer_App.JSONCalls.getFullDay(data,scope.ajax_getFullDayHandler);
+        });
+
         //Disable selection of sort options for aesthetic purposes
         $(".s").disableSelection();
     },
+
 
 
     /**
@@ -152,6 +171,30 @@ Tanguer_Calendar.prototype = {
     },
 
 
+
+    /**
+     * Handles data returned when a "quick event" is requested
+     * @param e     Object      An object representation of the calendar data, containing HTML of the object for viewing
+     * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
+     *                          data such as scope and any other reference variables needed by the receiving method.
+     */
+    ajax_getFullDayHandler:function(e, ref){
+        if(e.error != undefined){
+            //TODO: Handle error here
+            console.log("getSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
+        }
+        var instances = $(".c.full-day");
+        instances.replaceWith(e.html);
+        var html = $.parseHTML(e.html)[1];
+        var id = $(html).attr("id");
+        Tanguer_App.gui.refresh(".c.full-day");
+        instances.css({display:"none"});
+        instances.fadeIn();
+        $(".c.disp").hideLoader();
+    },
+
+
+
     /**
      * Handles data returned when a full day sort completes
      * @param e     Object      An object representation of the returned data, containing HTML of the object for viewing
@@ -163,12 +206,15 @@ Tanguer_Calendar.prototype = {
             //TODO: Handle error here
             console.log("getSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
         }
-        var that = ref.scope;
         var instance = $("#" + ref.instanceID);
         instance.replaceWith(e.html);
         var html = $.parseHTML(e.html)[1];
         var id = $(html).attr("id");
         Tanguer_App.gui.refresh("#" + id);
+        var cal = $("#" + id);
+        cal.css({display:"none"});
+        cal.fadeIn();
+        $(".c.disp").hideLoader();
     },
 
 

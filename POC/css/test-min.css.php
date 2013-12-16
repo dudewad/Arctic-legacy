@@ -126,6 +126,21 @@ input.button{
     cursor:pointer;
 }
 
+.dynamic-loader{
+    background:rgba(0,0,0,.4);
+}
+
+.dynamic-loader .indicator{
+    background:url("$baseAssetURL/image/gui/gui-loading-333-16x16.gif");
+    width:16px;
+    height:16px;
+    display:block;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-8px 0 0 -8px;
+}
+
 
 
 /**

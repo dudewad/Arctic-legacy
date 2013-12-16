@@ -30,10 +30,13 @@ Tanguer_JSONCalls.prototype = {
             //Requires:
             //e         The event id being requested
             case "getQuickEvent":
-                return this.baseJsonURL + "?t=gqe&eid=" + params.e;
+                return this.baseJsonURL + "?t=cgqe&eid=" + params.e;
                 break;
             case "getSortFullDay":
-                return this.baseJsonURL + "?t=sfd&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
+                return this.baseJsonURL + "?t=csfd&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
+                break;
+            case "getFullDay":
+                return this.baseJsonURL + "?t=cfd&d=" + params.d;
                 break;
             default:
                 console.warn("Requested JSONCall URL does not exist.");
@@ -53,7 +56,6 @@ Tanguer_JSONCalls.prototype = {
      */
     makeAjaxCall:function(url, callback, ref){
         $.getJSON(url + "&cb=?", null, function(data,status){
-            console.log('good');
             if(status != "success"){
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
@@ -62,14 +64,15 @@ Tanguer_JSONCalls.prototype = {
             //Tanguer in test mode will add a 1 second delay to simulate ajax calls happening.
             if(Tanguer_App.settings.app.environment == "test"){
                 setTimeout(function(){
-                    callback(data[0], ref);
+                    callback(data[0], ref || {});
                 },1000);
             }
             else{
-                callback(data[0], ref);
+                callback(data[0], ref || {});
             }
         });
     },
+
 
 
     /**
@@ -83,6 +86,22 @@ Tanguer_JSONCalls.prototype = {
      */
     getQuickEvent:function(data, callback, ref){
         var url = this.getURL("getQuickEvent", data);
+        this.makeAjaxCall(url, callback, ref);
+    },
+
+
+
+    /**
+     * Gets a full day calendar view based off the date passed
+     * @param data      Required    The data to be used to build the query string
+     *
+     * @param callback  Required    The callback function used to respond when the response comes back
+     *
+     * @param ref       Optional    An additional data object to be passed to the callback. This is useful for targeting
+     *                              the calling object, etc.
+     */
+    getFullDay:function(data, callback, ref){
+        var url = this.getURL("getFullDay", data);
         this.makeAjaxCall(url, callback, ref);
     },
 

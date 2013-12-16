@@ -33,7 +33,6 @@ Tanguer_GUI.prototype = {
     buttons:function(parent){
         var span = $("<span>");
         span.addClass("js-indicator");
-        console.log(parent + " a.button");
         $(parent + " a.button").prepend(span);
     },
 

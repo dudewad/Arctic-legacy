@@ -49,6 +49,8 @@ var Tanguer_App;
             this.extend("modal", this.ioc.build("modal"));
             this.JSONCalls.setBaseJsonURL(this.settings.url.URL_JSON_BASE);
             this.jqueryModPrototype();
+            //Build all polyfill functionality
+            this.polyfill();
         },
 
 
@@ -113,17 +115,75 @@ var Tanguer_App;
         * Upgrade jQuery to allow us to do extra things that weren't initially possible
         */
         jqueryModPrototype:function(){
-            //Disables text selection on an element. Good for fixing double-click form element selection, etc.
+            /**
+             * Disables text selection on an element. Good for fixing double-click form element selection, etc.
+             */
             $.fn.disableSelection = function() {
                 return this.attr('unselectable', 'on').css('user-select', 'none').on('selectstart', false);
             };
 
-            //Validator for checking of us phone numbers
+
+
+            /**
+             * Validator for checking of us phone numbers
+             */
             $.validator.addMethod("phoneUS", function(phone_number, element) {
                 phone_number = phone_number.replace(/\s+/g, "");
                 return this.optional(element) || phone_number.length > 9 &&
                     phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
             }, "Please specify a valid phone number");
+
+
+
+            /**
+             * Creates a "loading" object that hovers over the targeted objects until a call to $.hideLoader() is made.
+             * Includes window resize listener/calculation
+             */
+            $.fn.showLoader = function() {
+                //Allows for layout refreshins on window resize
+                var refreshLayout = function(parent, loader){
+                    var w = parent.outerWidth() + "px";
+                    var h = parent.outerHeight() + "px";
+                    loader.css({width:w,height:h});
+                };
+
+                var t = $(this);
+                //One loader at a time
+                var loader = t.find(".dynamic-loader");
+                if(!loader.length){
+                    loader = "<div class='dynamic-loader' style='display:none'><span class='indicator'></span></div>";
+                    t.prepend(loader);
+                    loader = t.find(".dynamic-loader");
+                }
+                refreshLayout(t,loader);
+                loader.fadeIn();
+                loader.css({position:"absolute",zIndex:9999});
+            };
+
+
+
+            /**
+             * Hides/removes a "loading" object that was created by $.showLoader().
+             * Removes window resize listener created by $.showLoader()
+             */
+            $.fn.hideLoader = function(){
+                var t = $(this);
+                var loader = t.find(".dynamic-loader");
+                loader.fadeOut(400);
+            }
+        },
+
+
+
+        /**
+         * Add any polyfills that we will need
+         */
+        polyfill:function(){
+            if (!Date.now) {
+                Date.now = function now() {
+                    return new Date().getTime();
+                };
+            }
         }
     };
 
