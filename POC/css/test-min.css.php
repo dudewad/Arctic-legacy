@@ -3,6 +3,9 @@ define("BASEDIR", __DIR__ . "/../../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 $baseAssetURL = Utility_Constants::URL_ASSET_BASE;
 
+$sprite = $baseAssetURL . "image/gui/gui-sprite.png";
+$loader = $baseAssetURL . "image/gui/gui-loading-333-16x16.gif";
+
 $css = <<<CSS
 @charset "utf-8";
 /* CSS Document */
@@ -131,7 +134,7 @@ input.button{
 }
 
 .dynamic-loader .indicator{
-    background:url("$baseAssetURL/image/gui/gui-loading-333-16x16.gif");
+    background:url("$loader");
     width:16px;
     height:16px;
     display:block;
@@ -226,7 +229,7 @@ input.button{
 }
 
 .js .c .s .button.adv .js-indicator{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 0;
+    background:url("$sprite") no-repeat 0 0;
     width:12px;
     height:7px;
     display:block;
@@ -254,7 +257,7 @@ input.button{
 }
 
 .c .s label .js-indicator{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat;
+    background:url("$sprite") no-repeat;
     width:12px;
     height:12px;
     display:inline-block;
@@ -452,7 +455,7 @@ input.button{
 .c.picker .visualizer .controls .previous,
 .c.picker .visualizer .controls .next{
     display:block;
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat center #333;
+    background:url("$sprite") no-repeat center #333;
     top:57px;
     width:16px;
     height:16px;
@@ -513,7 +516,7 @@ input.button{
 
 .c.d-disp .controls .next,
 .c.d-disp .controls .previous{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -55px -12px;
+    background:url("$sprite") no-repeat -55px -12px;
     width:10px;
     height:19px;
     display:block;
@@ -535,7 +538,7 @@ input.button{
 /* Calendar event full display styles */
 .c-e-disp.full.loading{
     height:50px;
-    background:url("$baseAssetURL/image/gui/gui-loading-333-16x16.gif") no-repeat center #333;
+    background:url("$loader") no-repeat center #333;
 }
 
 .c-e-disp.full h3{
@@ -895,7 +898,7 @@ input.button{
     display:inline-block;
     width:13px;
     height:13px;
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat 0 -34px;
+    background:url("$sprite") no-repeat 0 -34px;
     margin-right:.35em;
     position:relative;
     top:1px;
@@ -971,7 +974,7 @@ input.button{
 }
 
 .lsel .indicator{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -21px -38px;
+    background:url("$sprite") no-repeat -21px -38px;
     width:7px;
     height:4px;
     display:inline-block;
@@ -1033,7 +1036,7 @@ input.button{
 }
 
 #header .lsel .indicator{
-    background:url("$baseAssetURL/image/gui/gui-sprite.png") no-repeat -14px -38px;
+    background:url("$sprite") no-repeat -14px -38px;
 }
 
 #header .lsel .change-location:hover a{

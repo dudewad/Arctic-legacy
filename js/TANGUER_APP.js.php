@@ -3,7 +3,9 @@ define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 
 //Application JS contants
+$urlBase = constant("Utility_Constants::URL_MAIN");
 $urlJSONBase = constant("Utility_Constants::URL_JSON_BASE");
+$urlAssetBase = constant("Utility_Constants::URL_ASSET_BASE");
 $jsBreakpointTabletPortrait = constant("Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT");
 $appEnvironment = constant("Utility_Constants::APP_ENVIRONMENT");
 
@@ -15,30 +17,45 @@ $js = <<<JS
  */
 var Tanguer_App;
 (function(){
-    function TANGUER_APP(){
-        //Application settings go here
-        this.settings = {};
-        this.settings.url = {};
-        this.settings.app = {};
-        this.settings.display = {};
-        this.settings.url.URL_JSON_BASE = "$urlJSONBase";
-        this.settings.app.environment = "$appEnvironment";
-        this.settings.display.BREAKPOINT_TABLET_PORTRAIT = "$jsBreakpointTabletPortrait";
-        //jQuery selections that are available for all extensions to use- this increases efficiency of selecting it
-        //only once and referencing the same object each time.
-        this.jSel = {};
-        this.jSel._window = $(window);
-        this.jSel._body = $("body");
-        //Access to other images (error, etc)
-        this.settings.baseImageDir = "images/";
-    }
+    function TANGUER_APP(){}
 
     TANGUER_APP.prototype = {
+
+        settings:{
+
+            app:{
+                environment:"$appEnvironment"
+            },
+
+            url:{
+                URL_BASE:"$urlBase",
+                URL_JSON_BASE:"$urlJSONBase",
+                URL_ASSET_BASE:"$urlAssetBase",
+                URL_IMAGE_BASE:"$urlAssetBase" + "image/"
+            },
+
+            display:{
+                BREAKPOINT_TABLET_PORTRAIT:"$jsBreakpointTabletPortrait"
+            },
+
+            preload:[
+                {
+                    type:"image",
+                    asset:"gui/gui-loading-333-16x16.gif"
+                }
+            ]
+        },
 
         /**
          * Any pre-processing
          */
         initialize: function () {
+            //jQuery selections that are available for all extensions to use- this increases efficiency of selecting it
+            //only once and referencing the same object each time.
+            this.jSel = {};
+            this.jSel._window = $(window);
+            this.jSel._body = $("body");
+
             this.ioc = new Tanguer_IOC();
             this.initIOC();
             //Upgrade GUI when JS capable
@@ -51,6 +68,8 @@ var Tanguer_App;
             this.jqueryModPrototype();
             //Build all polyfill functionality
             this.polyfill();
+            //Preload any items required by the dom
+            this.preload();
         },
 
 
@@ -184,6 +203,51 @@ var Tanguer_App;
                     return new Date().getTime();
                 };
             }
+            //When console is unavailable, fail silently. If in test environment, fire alerts instead.
+            if(!window.console && !window.console.log){
+                window.console = {};
+                if(this.settings.app.environment == "test"){
+                    window.console.log = function(str){alert(str)};
+                }
+                else{
+                    window.console.log = function(str){};
+                }
+            }
+        },
+
+
+
+        /**
+         * Application asset preloader
+         */
+        preload:function(){
+            var length = this.settings.preload.length;
+            var env = this.settings.app.environment;
+            var obj = null;
+            var imageBase = this.settings.url.URL_IMAGE_BASE;
+            for(var i = 0; i < length; i++){
+                obj = this.settings.preload[i];
+                //New img object for each loop
+                switch(obj.type){
+                    case "image":
+                        var img = document.createElement("IMG");
+                        img.src = imageBase + obj.asset;
+                        //Unset each image after it loads
+                        img.onload = function(){
+                            img = null;
+                        };
+                        //Alert developer if an asset is broken
+                        if(env === "test"){
+                            img.onerror = function(){
+                                console.log("Error loading auto-image at global app level: '" + this.src + "'. Check the url and try again.");
+                            };
+                        }
+                        break;
+                    default:
+                        continue;
+                        break;
+                }
+;           }
         }
     };
 
