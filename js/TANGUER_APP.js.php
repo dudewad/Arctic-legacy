@@ -21,6 +21,9 @@ var Tanguer_App;
 
     TANGUER_APP.prototype = {
 
+        /**
+         * Application settings
+         */
         settings:{
 
             app:{
