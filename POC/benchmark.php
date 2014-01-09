@@ -7,7 +7,7 @@ define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
-$APP = Utility_IOC::build("Utility_App");
+$APP = Utility_IOC::build("TanguerApp");
 
 echo "<h2>Benchmark test of printing one million constants from the constants class vs one million references to the constant for efficiency purposes</h2>";
 

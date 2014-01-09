@@ -4,7 +4,7 @@
  * Date: 7/12/13
  */
  
-class String_ESAR_Utility_App {
+class String_ESAR_TanguerApp {
 
 
     //Login module related strings

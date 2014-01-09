@@ -10,9 +10,9 @@ abstract class Event_EventDJd extends Event_Event{
 
 
     /**
-     * @param Array             $data
-     * @param Location_Location|null     $location
-     * @param Array|null        $djs
+     * @param stdClass                  $data
+     * @param Location_Location|null    $location
+     * @param Array|null                $djs
      */
     public function __construct($data, $location, $djs = null){
         parent::__construct($data, $location);

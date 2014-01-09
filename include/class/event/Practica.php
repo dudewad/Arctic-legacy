@@ -15,17 +15,17 @@ class Event_Practica extends Event_EventInstructedDJd {
 
 
     /**
-     * @param Array     $data
-     * @param Location_Location  $location
-     * @param Array     $instructors
-     * @param Array     $djs
+     * @param stdClass              $data
+     * @param Location_Location     $location
+     * @param Array                 $instructors
+     * @param Array                 $djs
      */
     public function __construct($data, $location, $instructors = null, $djs = null){
         parent::__construct($data, $location, $instructors, $djs);
-        if(isset($data['difficulty']))
-            $this->setDifficulty($data['difficulty']);
-        if(isset($data['topic']))
-            $this->setTopic($data['topic']);
+        if(isset($data->difficulty))
+            $this->setDifficulty($data->difficulty);
+        if(isset($data->topic))
+            $this->setTopic($data->topic);
     }
 
 

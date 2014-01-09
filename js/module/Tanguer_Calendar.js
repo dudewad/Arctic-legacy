@@ -38,6 +38,7 @@ Tanguer_Calendar.prototype = {
      */
     init:function(){
         var scope = this;
+        var ref = {};
         //Set current display mode (mobile or desktop)
         this.displayMode = this.setDisplayMode();
 
@@ -48,7 +49,7 @@ Tanguer_Calendar.prototype = {
             var eventID = thumb.data("event-id");
             var instance = $(this).closest(".c").attr("id");
             var data = {e:eventID};
-            var ref = {scope:scope,instanceID:instance,eventID:eventID};
+            ref = {scope:scope,instanceID:instance,eventID:eventID};
             var li = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eventID + "']");
             //Hide currently selected element on mobile, otherwise return false
             if(thumb.hasClass("selected")){
@@ -75,7 +76,6 @@ Tanguer_Calendar.prototype = {
             scope.createQuickEventLoadingPlaceholder(thumb,eventID);
             scope.openQuickEvent(instance,eventID);
             Tanguer_App.JSONCalls.getQuickEvent(data,scope.ajax_getQuickEventHandler,ref);
-            return false;
         });
 
         //Window resize event needs to have a few modifications
@@ -102,7 +102,7 @@ Tanguer_Calendar.prototype = {
         //Advanced sort options modal
         this._body.on("click",".c .s-adv a.button.adv", function(e){
             var instance = $(this).closest(".c").attr("id");
-            var ref = {scope:scope,instanceID:instance};
+            ref = {scope:scope,instanceID:instance};
             e.preventDefault();
             var settings = {
                 content:$(this).closest(".s").find(".e-s-adv").html(),
@@ -122,6 +122,7 @@ Tanguer_Calendar.prototype = {
                 };
                 Tanguer_App.modal.close(modalID);
                 $(".c.disp").showLoader();
+                ref.scope = scope;
                 Tanguer_App.JSONCalls.getSortFullDay(data,scope.ajax_getSortFullDayHandler,ref);
             })
         });
@@ -191,6 +192,7 @@ Tanguer_Calendar.prototype = {
         instances.css({display:"none"});
         instances.fadeIn();
         $(".c.disp").hideLoader();
+        ref.scope.refreshGUI();
     },
 
 
@@ -269,6 +271,16 @@ Tanguer_Calendar.prototype = {
             content.slideDown();
         }
         else content.fadeIn(200);
+    },
+
+
+
+    /**
+     * When a new day is selected, this refreshes the GUI (calendar displays are updated to display the new day selected
+     * and calendar visualizers will now show the correct month if applicable)
+     */
+    refreshGUI:function(){
+
     },
 
 

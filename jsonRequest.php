@@ -14,14 +14,12 @@
  * csfd     calendar sortFullDay request
  */
 define("BASEDIR", __DIR__ . "/");
-require_once(BASEDIR . "/include/config.php");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
-$APP = Utility_IOC::build("Utility_App");
+$APP = Utility_IOC::build("TanguerApp");
 $lang = "ESAR";
 String_String::setLanguage($lang);
 
-//$db = Utility_DB::connection($config["db"]["tanguer"]);
 $data = new stdClass();
 $generator = new Test_ObjectGenerator();
 

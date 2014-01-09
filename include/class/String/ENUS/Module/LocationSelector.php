@@ -1,8 +1,8 @@
 <?php
 /**
- * Author: Ghost
- * Date: 11/30/13
- */
+* Author: Ghost
+* Date: 11/30/13
+*/
 class String_ENUS_Module_LocationSelector {
     //Title
     const MODULE_TITLE = "Change location";

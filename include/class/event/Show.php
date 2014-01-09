@@ -11,9 +11,9 @@ class Event_Show extends Event_EventPerformed{
 
 
     /**
-     * @param Array         $data
-     * @param Location_Location      $location
-     * @param Array         $performers
+     * @param stdClass              $data
+     * @param Location_Location     $location
+     * @param Array                 $performers
      */
     public function __construct($data, $location, $performers){
         parent::__construct($data, $location, $performers);

@@ -35,28 +35,28 @@ abstract class Event_Event implements Interface_Displayable{
 
 
     /**
-     * @param $data  Array             An associative array containing all event data except location
+     * @param $data         stdClass                    An object containing all event data except location
      *
-     * @param $location   Location_Location          A location object containing all data for this event
+     * @param $location     Location_Location           A location object containing all data for this event
      */
     public function __construct($data, $location = null){
         //Required items
-        $this->setId($data["id"]);
-        $this->setName($data["name"]);
-        $this->setPrice($data["price"]);
-        $this->setDateStart($data["date_start"]);
-        $this->setDateEnd($data["date_end"]);
-        $this->setOrganizerId($data["organizer_id"]);
-        $this->setConfirmed($data["confirmed"]);
-        $this->setDescription($data["description"]);
-        $this->setNumAttendees($data["num_attendees"]);
+        $this->setId($data->id);
+        $this->setName($data->name);
+        $this->setPrice($data->price);
+        $this->setDateStart($data->date_start);
+        $this->setDateEnd($data->date_end);
+        $this->setOrganizerId($data->organizer_id);
+        $this->setConfirmed($data->confirmed);
+        $this->setDescription($data->description);
+        $this->setNumAttendees($data->num_attendees);
         //Optional items
-        if(isset($data['parent_id']))
-            $this->setParentId($data["parent_id"]);
+        if(isset($data->parent_id))
+            $this->setParentId($data->parent_id);
         if(isset($location))
             $this->setLocation($location);
-        if(isset($data['repeat']))
-            $this->setRepeat($data["repeat"]);
+        if(isset($data->repeat))
+            $this->setRepeat($data->repeat);
     }
 
 

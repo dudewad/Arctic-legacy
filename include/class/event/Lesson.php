@@ -15,17 +15,17 @@ class Event_Lesson extends Event_EventInstructed{
 
 
     /**
-     * @param Array         $data
-     * @param Location_Location      $location
-     * @param Array         $instructors
+     * @param stdClass              $data
+     * @param Location_Location     $location
+     * @param Array                 $instructors
      * @throws Exception
      */
     public function __construct($data, $location, $instructors){
         parent::__construct($data, $location, $instructors);
-        if(isset($data['difficulty']))
-            $this->setDifficulty($data['difficulty']);
-        if(isset($data['topic']))
-            $this->setTopic($data['topic']);
+        if(isset($data->difficulty))
+            $this->setDifficulty($data->difficulty);
+        if(isset($data->topic))
+            $this->setTopic($data->topic);
     }
 
 

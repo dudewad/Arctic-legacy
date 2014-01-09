@@ -10,10 +10,10 @@ define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
-$APP = Utility_IOC::build("Utility_App");
+$APP = Utility_IOC::build("TanguerApp");
 $lang = "ESAR";
 String_String::setLanguage($lang);
-Utility_App::setDefaultTimezone();
+TanguerApp::setDefaultTimezone();
 $generator = new Test_ObjectGenerator();
 $selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;

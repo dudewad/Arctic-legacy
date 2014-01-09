@@ -13,13 +13,13 @@ class Event_Milonga extends Event_EventDJd{
 
 
     /**
-     * @param Array         $data
-     * @param Location_Location      $location
-     * @param Array|null    $djs
+     * @param stdClass              $data
+     * @param Location_Location     $location
+     * @param Array|null            $djs
      */
     public function __construct($data, $location, $djs = null){
         parent::__construct($data, $location, $djs);
-        $this->setMinAge($data['min_age']);
+        $this->setMinAge($data->min_age);
     }
 
 

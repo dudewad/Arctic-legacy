@@ -14,9 +14,9 @@ class Person_User extends Person_Person{
 
     public function __construct($data){
         parent::__construct($data);
-        $this->setEmail($data['email']);
-        $this->setUserID($data['user_id']);
-        $this->setLanguage($data['language']);
+        $this->setEmail($data->email);
+        $this->setUserID($data->user_id);
+        $this->setLanguage($data->language);
     }
 
 

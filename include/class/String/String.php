@@ -13,7 +13,7 @@ class String_String {
     private final function __construct(){}
     private final function __clone(){}
 
-    public static function getString($str, $module = "Utility_App"){
+    public static function getString($str, $module = "TanguerApp"){
         //Set default language if none is set
         if(!isset(self::$language))
             self::setLanguage();
@@ -26,5 +26,9 @@ class String_String {
         $lang = strtoupper(str_replace("_","",$language));
         //Default to Argentine Spanish
         self::$language = file_exists(__DIR__ . "/" . $lang) ? $lang : "ESAR";
+    }
+
+    public static function getLanguage(){
+        return strtoupper(str_replace("_","",self::$language));
     }
 }

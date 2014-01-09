@@ -26,14 +26,15 @@ class Utility_IOC {
 
     /**
      * Get a new object by specified name
-     * @param String $name      The name of the class to build
-     * @return mixed            The requested class
-     * @throws Exception        -No class by the supplied name is registered
+     * @param String        $name   The name of the class to build
+     * @param Array|null    $args   Any arguments to pass to the object being built
+     * @return mixed                The requested class
+     * @throws Exception            -No class by the supplied name is registered
      */
-    public static function build($name){
+    public static function build($name, $args = null){
         if(static::is_registered($name)){
             $name = static::$registry[$name];
-            return $name();
+            return $name($args);
         }
         throw new Exception("No class registered by the name of [$name]");
     }

@@ -13,9 +13,9 @@ class Person_Person implements Interface_Displayable{
 
 
     public function __construct($data){
-        $this->setPersonID($data['person_id']);
-        $this->setFirstName($data['first_name']);
-        $this->setLastName($data['last_name']);
+        $this->setPersonID($data->person_id);
+        $this->setFirstName($data->first_name);
+        $this->setLastName($data->last_name);
     }
 
 

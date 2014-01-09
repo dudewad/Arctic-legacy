@@ -33,6 +33,20 @@ class Utility_Constants {
 
 
 
+    //Password constants. These constants may be changed without breaking existing hashes - current
+    //passwords are stored with all settings readable.
+    const PBKDF2_HASH_ALGORITHM = "sha256";
+    const PBKDF2_ITERATIONS = 1000;
+    const PBKDF2_SALT_BYTE_SIZE = 24;
+    const PBKDF2_HASH_BYTE_SIZE = 24;
+    const HASH_SECTIONS = 4;
+    const HASH_ALGORITHM_INDEX = 0;
+    const HASH_ITERATION_INDEX = 1;
+    const HASH_SALT_INDEX = 2;
+    const HASH_PBKDF2_INDEX = 3;
+
+
+
     /**
      * Error constants
      */
@@ -46,4 +60,5 @@ class Utility_Constants {
 
     private final function __construct(){}
     private final function __clone(){}
+    public final function __wakeup(){}
 }

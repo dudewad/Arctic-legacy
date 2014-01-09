@@ -38,7 +38,7 @@ class Module_Calendar{
         if(!$date){
             $date = time();
         }
-        $sort = $this->sorterToHTML(Utility_App::getCurrentPageURL(), $date);
+        $sort = $this->sorterToHTML(TanguerApp::getCurrentPageURL(), $date);
 
         if(isset($event)){
             switch(get_class($event)){
@@ -160,7 +160,7 @@ HTML;
 
             $id = $e->getID();
             $isSelectedEvent = $id == $selectedID;
-            $url = Utility_App::getURL("URL_MAIN","e=$id");
+            $url = TanguerApp::getURL("URL_MAIN","e=$id");
             $selected = $isSelectedEvent ? "selected" : null;
             $html .= $eOut->to_html_thumb($url, $selected);
 
@@ -178,13 +178,19 @@ HTML;
 
 
     /**
-     * @param null $date    Integer     A Unix Timestamp representing the day/month to be displayed
+     * @param null $date        Integer     A UTC Timestamp representing the day/month to be displayed
+     * @param null $timezone    String      A string identifier for the timezone that the calendar picker will be in
      * @return string
      * @throws Exception_ModuleCalendarException
      */
-    public function calendarPickerMonthToHTML($date = null){
+    public function calendarPickerMonthToHTML($date = null, $timezone = null){
         if(!isset($date))
             $date = time();
+        //Use specified timezone if applicable. Will reset timezone at end of function.
+        if($timezone){
+            $oldTimezone = date_default_timezone_get($timezone);
+            date_default_timezone_set($timezone);
+        }
         //If today is the day, this sets the calendar's "Day of the week" to say "Today" in the applicable language
         if(date("jnY") == date("jnY",$date))
             $dayOfWeek = mb_strtoupper(String_String::getString("DAY_TODAY",__CLASS__),"UTF-8");
@@ -220,13 +226,13 @@ HTML;
         $indicator = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
         $prevMonthTS = mktime(0,0,0,$prevMonth,1,$prevMonthYear);
         $nextMonthTS = mktime(0,0,0,$nextMonth,1,$nextMonthYear);
-        $nextMonthURL = Utility_App::getURL("URL_MAIN","d=$nextMonthTS");
-        $previousMonthURL = Utility_App::getURL("URL_MAIN","d=$prevMonthTS");
+        $nextMonthURL = TanguerApp::getURL("URL_MAIN","d=$nextMonthTS");
+        $previousMonthURL = TanguerApp::getURL("URL_MAIN","d=$prevMonthTS");
         //Get URLS for "tomorrow" and "yesterday" as well
         $tomorrow = $date + 86400;
         $yesterday = $date - 86400;
-        $tomorrowURL = Utility_App::getURL("URL_MAIN","d=$tomorrow");
-        $yesterdayURL = Utility_App::getURL("URL_MAIN","d=$yesterday");
+        $tomorrowURL = TanguerApp::getURL("URL_MAIN","d=$tomorrow");
+        $yesterdayURL = TanguerApp::getURL("URL_MAIN","d=$yesterday");
         //Localized days (textual values)
         $days = array(String_String::getString("DAY_SUNDAY",__CLASS__),
             String_String::getString("DAY_MONDAY",__CLASS__),
@@ -302,7 +308,7 @@ HTML;
             $selected = $daysListed == $selectedDate ? "selected" : null;
             //New rows every 7 days
             $clearClass = $daysListed % 7 ? null : "rowStart";
-            $url = Utility_App::getURL("URL_MAIN","d=$currentDate");
+            $url = TanguerApp::getURL("URL_MAIN","d=$currentDate");
 
             //Generate the cell
             $previewCells .= "<div class='cell $dateClass $selected $clearClass'></div>";
@@ -362,6 +368,9 @@ HTML;
                     </div>
                 </div>
 HTML;
+
+        if($timezone)
+            date_default_timezone_set($oldTimezone);
 
         return $html;
     }

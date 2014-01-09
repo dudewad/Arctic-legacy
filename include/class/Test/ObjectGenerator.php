@@ -43,7 +43,7 @@ class Test_ObjectGenerator {
 
 
     public function getRandomEvent($type = null){
-        $data = array();
+        $data = new stdClass();
         $startHour = rand(18,22);
         $halfHour = rand(0,1) ? "00" : "30";
         $startTime = $startHour . ":" . $halfHour . ":00";
@@ -51,20 +51,20 @@ class Test_ObjectGenerator {
         $e = null;
         $typeNum = null;
 
-        $data['name'] = $this->eventNames[rand(0,count($this->eventNames) - 1)];
-        $data['price'] = rand(5,50);
-        $data['topic'] = $this->topics[rand(0,count($this->topics) - 1)];
-        $data['id'] = $this->getRandomID();
-        $data['parent_id'] = $this->getRandomID();
-        $data['organizer_id'] = $this->getRandomID();
-        $data['confirmed'] = rand(0,1);
-        $data['difficulty'] = $this->difficulties[rand(0,count($this->difficulties) - 1)];
-        $data['date_start'] = strtotime("today " . $startTime);
-        $data['date_end'] = strtotime("today " . $startTime . " + 4 hours");
-        $data['min_age'] = rand(0,1) ? 0 : 18;
-        $data['repeat'] = "weekly";
-        $data['description'] = $description;
-        $data['num_attendees'] = rand(0,50);
+        $data->name = $this->eventNames[rand(0,count($this->eventNames) - 1)];
+        $data->price = rand(5,50);
+        $data->topic = $this->topics[rand(0,count($this->topics) - 1)];
+        $data->id = $this->getRandomID();
+        $data->parent_id = $this->getRandomID();
+        $data->organizer_id = $this->getRandomID();
+        $data->confirmed = rand(0,1);
+        $data->difficulty = $this->difficulties[rand(0,count($this->difficulties) - 1)];
+        $data->date_start = strtotime("today " . $startTime);
+        $data->date_end = strtotime("today " . $startTime . " + 4 hours");
+        $data->min_age = rand(0,1) ? 0 : 18;
+        $data->repeat = "weekly";
+        $data->description = $description;
+        $data->num_attendees = rand(0,50);
 
         $location = $this->getRandomLocation();
         $numDJs = rand(1,2);
@@ -126,30 +126,35 @@ class Test_ObjectGenerator {
     }
 
 
-
+    /**
+     * Gets a random event, but the id of the event is generated in sequence with all other random events generated
+     * by this object (e.g. 201301, 201302, 201303, etc)
+     * @param null $id
+     * @return Event_Lesson|Event_Milonga|Event_Practica|Event_Show|null
+     */
     public function getSequencedEvent($id = null){
         $se = isset($id) ? $id : Test_ObjectGenerator::$sequencedEventCount++;
-        $data = array();
+        $data = new stdClass();
         $startHour = rand(18,22);
         $halfHour = rand(0,1) ? "00" : "30";
         $startTime = $startHour . ":" . $halfHour . ":00";
         $description = $this->descriptions[rand(0,3)];
         $e = null;
         $typeNum = null;
-        $data['name'] = $this->eventNames[rand(0,count($this->eventNames) - 1)];
-        $data['price'] = rand(5,50);
-        $data['topic'] = $this->topics[rand(0,count($this->topics) - 1)];
-        $data['id'] = intval($se);
-        $data['parent_id'] = $se - 1000;
-        $data['organizer_id'] = $this->getRandomID();
-        $data['confirmed'] = rand(0,1);
-        $data['difficulty'] = $this->difficulties[rand(0,count($this->difficulties) - 1)];
-        $data['date_start'] = strtotime("today " . $startTime);
-        $data['date_end'] = strtotime("today " . $startTime . " + 4 hours");
-        $data['min_age'] = rand(0,1) ? 0 : 18;
-        $data['repeat'] = "weekly";
-        $data['description'] = $description;
-        $data['num_attendees'] = rand(0,50);
+        $data->name = $this->eventNames[rand(0,count($this->eventNames) - 1)];
+        $data->price = rand(5,50);
+        $data->topic = $this->topics[rand(0,count($this->topics) - 1)];
+        $data->id = intval($se);
+        $data->parent_id = $se - 1000;
+        $data->organizer_id = $this->getRandomID();
+        $data->confirmed = rand(0,1);
+        $data->difficulty = $this->difficulties[rand(0,count($this->difficulties) - 1)];
+        $data->date_start = strtotime("today " . $startTime);
+        $data->date_end = strtotime("today " . $startTime . " + 4 hours");
+        $data->min_age = rand(0,1) ? 0 : 18;
+        $data->repeat = "weekly";
+        $data->description = $description;
+        $data->num_attendees = rand(0,50);
 
         $location = $this->getRandomLocation();
         $numDJs = rand(1,2);
@@ -202,11 +207,11 @@ class Test_ObjectGenerator {
             return $this->getRandomUser();
         }
 
-        $data = array();
-        $data['first_name'] = $this->getRandomFirstName();
-        $data['last_name'] = $this->getRandomLastName();
-        $data['person_id'] = $this->getRandomID();
-        $data['email'] = $data['first_name'] . "." . $data['last_name'] . "@gmail.com";
+        $data = new stdClass();
+        $data->first_name = $this->getRandomFirstName();
+        $data->last_name = $this->getRandomLastName();
+        $data->person_id = $this->getRandomID();
+        $data->email = $data->first_name . "." . $data->last_name . "@gmail.com";
 
         return new Person_Person($data);
     }
@@ -216,13 +221,13 @@ class Test_ObjectGenerator {
     public function getRandomUser($language = null){
         $randLang = rand(0,1);
 
-        $data = array();
-        $data['first_name'] = $this->getRandomFirstName();
-        $data['last_name'] = $this->getRandomLastName();
-        $data['person_id'] = $this->getRandomID();
-        $data['user_id'] = $this->getRandomID();
-        $data['email'] = $data['first_name'] . "." . $data['last_name'] . "@gmail.com";
-        $data['language'] = isset($language) ? $language : $this->languages[$randLang];
+        $data = new stdClass();
+        $data->first_name = $this->getRandomFirstName();
+        $data->last_name = $this->getRandomLastName();
+        $data->person_id = $this->getRandomID();
+        $data->user_id = $this->getRandomID();
+        $data->email = $data->first_name . "." . $data->last_name . "@gmail.com";
+        $data->language = isset($language) ? $language : $this->languages[$randLang];
 
         return new Person_User($data);
     }
@@ -255,13 +260,13 @@ class Test_ObjectGenerator {
 
     public function getRandomLocation(){
         $streetNumber = rand(100,9999);
-        $address = array();
-        $address['name'] = $this->placeNames[rand(0,count($this->placeNames)-1)];
-        $address['address'] = $streetNumber . " " . $this->streets[rand(0,count($this->streets)-1)];
-        $address['city'] = $this->cities[rand(0,count($this->cities)-1)];
-        $address['state'] = $this->states[rand(0,count($this->states)-1)];
-        $address['zip'] = rand(10001,99999) . "";
-        $address['country'] = $this->countries[rand(0,count($this->countries)-1)];
+        $address = new stdClass();
+        $address->name = $this->placeNames[rand(0,count($this->placeNames)-1)];
+        $address->address = $streetNumber . " " . $this->streets[rand(0,count($this->streets)-1)];
+        $address->city = $this->cities[rand(0,count($this->cities)-1)];
+        $address->state = $this->states[rand(0,count($this->states)-1)];
+        $address->zip = rand(10001,99999) . "";
+        $address->country = $this->countries[rand(0,count($this->countries)-1)];
         return new Location_Location($address);
     }
 }

@@ -15,15 +15,15 @@ final class Location_Location implements Interface_Displayable{
 
 
     /**
-     * @param $address  Array     An associative array containing all location data
+     * @param $address  stdClass     An associative array containing all location data
      */
     public function __construct($address){
-        $this->setName($address['name']);
-        $this->setAddress($address['address']);
-        $this->setCity($address['city']);
-        $this->setState($address['state']);
-        $this->setZip($address['zip']);
-        $this->setCountry($address['country']);
+        $this->setName($address->name);
+        $this->setAddress($address->address);
+        $this->setCity($address->city);
+        $this->setState($address->state);
+        $this->setZip($address->zip);
+        $this->setCountry($address->country);
     }
 
 

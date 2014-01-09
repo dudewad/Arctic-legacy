@@ -49,6 +49,17 @@ var Tanguer_App;
             ]
         },
 
+
+
+        /**
+         * Application strings
+         */
+        strings:{
+
+        },
+
+
+
         /**
          * Any pre-processing
          */
@@ -59,6 +70,8 @@ var Tanguer_App;
             this.jSel._window = $(window);
             this.jSel._body = $("body");
 
+            this.settings.app.timezoneOffset = new Date().getTimezoneOffset();
+
             this.ioc = new Tanguer_IOC();
             this.initIOC();
             //Upgrade GUI when JS capable
@@ -67,6 +80,8 @@ var Tanguer_App;
             this.extend("JSONCalls", this.ioc.build("JSONCalls"));
             //Add modal functionality
             this.extend("modal", this.ioc.build("modal"));
+            //Localized strings for the front-end
+            this.extend("string", Tanguer_String);
             this.JSONCalls.setBaseJsonURL(this.settings.url.URL_JSON_BASE);
             this.jqueryModPrototype();
             //Build all polyfill functionality

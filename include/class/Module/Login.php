@@ -9,8 +9,8 @@ class Module_Login{
 
     public function to_html_full($class = null){
         $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-large-gray.png";
-        $loginURL = Utility_App::getURL("URL_CURRENT","a=login");
-        $registerURL = Utility_App::getURL("URL_ACCOUNT","a=create");
+        $loginURL = TanguerApp::getURL("URL_CURRENT","a=login");
+        $registerURL = TanguerApp::getURL("URL_ACCOUNT","a=create");
         $loginSubtitle = String_String::getString("LOGIN_SUBTITLE");
 
         $createAccountCTA = String_String::getString("CTA_REGISTER",__CLASS__);

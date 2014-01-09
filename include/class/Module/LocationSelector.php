@@ -39,7 +39,7 @@ class Module_LocationSelector{
         $indicatorURL = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
         $change = String_String::getString("MISC_SUBMIT_LOCATION_CHANGE",__CLASS__);
         $moduleID = $this->getNextFormID();
-        $formAction = Utility_App::getCurrentPageURL();
+        $formAction = TanguerApp::getCurrentPageURL();
         $html = <<<HTML
                 <div class="lsel clearfix $class" id="lsel$moduleID">
                     <div class="location">

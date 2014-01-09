@@ -4,7 +4,7 @@
  * Date: 9/22/13
  */
  
-class String_ENUS_Utility_App {
+class String_ENUS_TanguerApp {
 
     //Login module related strings
     const LOGIN_SUBTITLE = "The free system to find and organize your tango";
