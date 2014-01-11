@@ -1510,6 +1510,17 @@ and (min-width:1212px){
     clear: both;
     visibility: hidden;
 }
+
+
+
+/**
+ * Dev mode classes
+ */
+
+.devMode{
+    background:#111;
+}
+
 CSS;
 header("Content-type: text/css");
 echo $css;

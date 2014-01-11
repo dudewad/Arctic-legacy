@@ -60,9 +60,12 @@ usort($eList, "sortByStartTime");
 $locationSelector = new Module_LocationSelector();
 
 $date = isset($_GET['d']) ? $_GET['d'] : time();
+
+if(Utility_Constants::APP_GUI_MODE == "dev")
+    $htmlTagClass = "devMode";
 ?>
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" class="<?php echo $htmlTagClass;?>">
     <?php echo $APP->head(); ?>
     <body>
         <?php
