@@ -7,6 +7,8 @@
 class Utility_Constants {
     /* Specify "test" or "production" for application behavior switching in applicable areas*/
     const APP_ENVIRONMENT = "test";
+    /* Specify "dev" or "production" for the production gui or the easy-on-the-eyes dark dev theme */
+    const APP_GUI_MODE = "dev";
 
     //URL CONSTANTS
     const URL_MAIN = "http://10.0.0.17/tanguer/";
