@@ -75,7 +75,7 @@ if(Utility_Constants::APP_GUI_MODE == "dev")
     <div class="content">
         <div class="clearfix">
             <?php
-            echo $cal->calendarPickerMonthToHTML($date);
+            echo $cal->calendarPickerMonthToHTML($date, date_default_timezone_get());
             echo $locationSelector->to_html_full();
             ?>
         </div>

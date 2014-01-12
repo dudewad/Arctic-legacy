@@ -95,6 +95,7 @@ HTML;
     }
 
 
+
     /**
      * Take an event list and turn it into HTML thumbnails and return as an HTML string.
      * @param $eventList    Array           Required        An array of Event_Event objects
@@ -178,19 +179,15 @@ HTML;
 
 
     /**
-     * @param null $date        Integer     A UTC Timestamp representing the day/month to be displayed
-     * @param null $timezone    String      A string identifier for the timezone that the calendar picker will be in
+     * @param null $date        Integer     REQUIRED    A UTC Timestamp representing the day/month to be displayed
+     * @param null $timezone    String      REQUIRED    A string identifier for the timezone that the calendar picker will be in
      * @return string
      * @throws Exception_ModuleCalendarException
      */
-    public function calendarPickerMonthToHTML($date = null, $timezone = null){
-        if(!isset($date))
-            $date = time();
+    public function calendarPickerMonthToHTML($date, $timezone){
         //Use specified timezone if applicable. Will reset timezone at end of function.
-        if($timezone){
-            $oldTimezone = date_default_timezone_get($timezone);
-            date_default_timezone_set($timezone);
-        }
+        $oldTimezone = date_default_timezone_get();
+        date_default_timezone_set($timezone);
         //If today is the day, this sets the calendar's "Day of the week" to say "Today" in the applicable language
         if(date("jnY") == date("jnY",$date))
             $dayOfWeek = mb_strtoupper(String_String::getString("DAY_TODAY",__CLASS__),"UTF-8");
@@ -224,13 +221,13 @@ HTML;
         $nextMonth = $month < 12 ? $month + 1 : 1;
         $nextMonthYear = $nextMonth == 1 ? $year + 1 : $year;
         $indicator = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
-        $prevMonthTS = mktime(0,0,0,$prevMonth,1,$prevMonthYear);
-        $nextMonthTS = mktime(0,0,0,$nextMonth,1,$nextMonthYear);
-        $nextMonthURL = TanguerApp::getURL("URL_MAIN","d=$nextMonthTS");
-        $previousMonthURL = TanguerApp::getURL("URL_MAIN","d=$prevMonthTS");
+        $prevMonthURLDate = self::urlFriendlyDate(mktime(0,0,0,$prevMonth,1,$prevMonthYear));
+        $nextMonthURLDate = self::urlFriendlyDate(mktime(0,0,0,$nextMonth,1,$nextMonthYear));
+        $nextMonthURL = TanguerApp::getURL("URL_MAIN","d=$nextMonthURLDate");
+        $previousMonthURL = TanguerApp::getURL("URL_MAIN","d=$prevMonthURLDate");
         //Get URLS for "tomorrow" and "yesterday" as well
-        $tomorrow = $date + 86400;
-        $yesterday = $date - 86400;
+        $tomorrow = self::urlFriendlyDate($date + 86400);
+        $yesterday = self::urlFriendlyDate($date - 86400);
         $tomorrowURL = TanguerApp::getURL("URL_MAIN","d=$tomorrow");
         $yesterdayURL = TanguerApp::getURL("URL_MAIN","d=$yesterday");
         //Localized days (textual values)
@@ -308,7 +305,8 @@ HTML;
             $selected = $daysListed == $selectedDate ? "selected" : null;
             //New rows every 7 days
             $clearClass = $daysListed % 7 ? null : "rowStart";
-            $url = TanguerApp::getURL("URL_MAIN","d=$currentDate");
+            $urlDate = self::urlFriendlyDate($currentDate);
+            $url = TanguerApp::getURL("URL_MAIN","d=$urlDate");
 
             //Generate the cell
             $previewCells .= "<div class='cell $dateClass $selected $clearClass'></div>";
@@ -369,11 +367,11 @@ HTML;
                 </div>
 HTML;
 
-        if($timezone)
-            date_default_timezone_set($oldTimezone);
+        date_default_timezone_set($oldTimezone);
 
         return $html;
     }
+
 
 
     /**
@@ -384,15 +382,18 @@ HTML;
      */
     private function getCalendarStartDay($month, $year){
         $prevMonth = $month > 1 ? $month - 1 : 12;
-        $prevMonthYear = $month < 12 ? $year : $year - 1;
+        $prevMonthYear = $prevMonth < 12 ? $year : $year - 1;
         $firstDayInMonth = date("w", mktime(0,0,0,$month,1,$year));
         $startDay = date("t", mktime(0,0,0,$prevMonth,1,$prevMonthYear)) - $firstDayInMonth + 1;
         return mktime(0,0,0,$prevMonth,$startDay,$prevMonthYear);
     }
 
 
+
     /**
      * Prints the calendar sorter to HTML
+     * @param $url
+     * @param $date
      * @return string
      */
     private function sorterToHTML($url, $date){
@@ -437,8 +438,11 @@ HTML;
     }
 
 
+
     /**
      * Returns and HTML string for an advanced sort form for the calendar
+     * @param $url
+     * @param $date
      * @return string
      */
     private function advancedSortModalToHTML($url, $date){
@@ -471,5 +475,30 @@ HTML;
         $id = self::$formID;
         self::$formID++;
         return constant("self::formIDPrefix") . $id;
+    }
+
+
+
+    /**
+     * Takes a timestamp and converts it to a Tanguer-url-friendly date string in the ISO 8601 format.
+     * Uses the currently set default timezone.
+     * @param $timestamp
+     * @return string ISO-8601 formated date string
+     */
+    public static function urlFriendlyDate($timestamp){
+        return date("Y-m-d", $timestamp);
+    }
+
+
+
+    /**
+     * Takes a timestamp and converts it to a Tanguer-url-friendly date string in the ISO 8601 format.
+     * Uses the currently set default timezone.
+     * @param $dateString   String  REQUIRED        The date string in ISO-8601 format to be converted to a timestamp
+     * @return string ISO-8601 formated date string
+     */
+    public static function urlFriendlyDateToTimestamp($dateString){
+        $parts = explode("-",$dateString);
+        return mktime(0,0,0,$parts[1],$parts[2],$parts[0]);
     }
 }
