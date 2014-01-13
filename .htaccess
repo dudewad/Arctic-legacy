@@ -1,5 +1,4 @@
-#RewriteEngine On
-#RewriteRule ^index.php$ POC/test.php [NC]
+RewriteEngine On
 
-#e.g. Rewrite a url with a string of numbers and letters to a processing script
-#RewriteRule ^([0-9a-zA-Z]+)$ number.php?number=$1 [NC,L]
+#Rewrites specific ISO-8601 date ranges to go to the index page with get params excluded
+RewriteRule ^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})$ index.php?d=$1-$2-$3 [L]

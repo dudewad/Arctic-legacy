@@ -27,9 +27,9 @@ class Test_ObjectGenerator {
         $this->streets = array("1st Avenue","45th Street","Avenida Pellegrini","9 de Julio","Boylston Drive","Mitre","Paraguay");
         $this->cities = array("Seattle","Buenos Aires","Rosario","Portland","New York City","Bellingham","San Francisco");
         $this->states = array("WA","OR","CA","Capital Federal","Santa Fe","New York");
-        $this->countries = array("United State","Argentina");
-        $this->placeNames = array("Club Sur","Om Culture","China Harbor","Downtown Bar","Mano a Mano","El Levante");
-        $this->eventNames = array("El Faro","Purple Haze","China Harbor","Roja","Cafe de la Flor","Los Zarpados","Cachete","Bailarines","La Monita");
+        $this->countries = array("United States","Argentina");
+        $this->placeNames = array("Club Sur","Om Culture","China Harbor","Downtown Bar","Mano a Mano","El Levante","Dancebar","La Estancia","Cafe Zorro","El Ancla Bar","Bar Verde","Centro Cultural Los Tuertos","Bar Leo Messi");
+        $this->eventNames = array("El Faro","Purple Haze","China Harbor","Roja","Cafe de la Flor","Los Zarpados","Cachete","Bailarines","La Monita","Bailelandia","Dance Party","OMGTANGO","Baile a Ful");
         $this->topics = array("Ochos","Crosses","Ochos and Crosses","Caminata","Pasos Chiquitos","Musicality","Ganchos","Boleos","Sistemas de Baile Avanzadas","Walking slowly","Dancing to the Music","El Abrazo");
         $this->difficulties = array(String_String::getString("EVENT_DIFFICULTY_BEGINNER","Output_Event_Event"),String_String::getString("EVENT_DIFFICULTY_INTERMEDIATE","Output_Event_Event"),String_String::getString("EVENT_DIFFICULTY_ADVANCED","Output_Event_Event"));
         $this->descriptions = array(

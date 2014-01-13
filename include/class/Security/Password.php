@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-class Security_Password {
+final class Security_Password {
     private $PBKDF2_HASH_ALGORITHM;
     private $PBKDF2_ITERATIONS;
     private $PBKDF2_SALT_BYTE_SIZE;

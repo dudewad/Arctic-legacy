@@ -10,28 +10,9 @@ define("BASEDIR", __DIR__ . "/");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 
-$u = new stdClass();
-$u->user_id = 201301;
-$u->person_id = 201301;
-$u->first_name = "Layton";
-$u->last_name = "Miller";
-$u->email = "layton@desmill.com";
-$u->language = "es_AR";
-$user = new Person_User($u);
-$_SESSION['user'] = $user;
+Utility_IOC::build("TanguerApp");
 
-$APP = Utility_IOC::build("TanguerApp");
-$lang = "es_AR
-";
-String_String::setLanguage($lang);
-TanguerApp::setDefaultTimezone();
-
-$location = new stdClass();
-$location->city = "Rosario";
-$location->country = "Argentina";
-TanguerApp::setUserLocation($location);
 $generator = new Test_ObjectGenerator();
-$selectedEvent = isset($_GET['e']) ? $_GET['e'] : null;
 $eventToView = null;
 $mainCalID = "mainCal";
 
@@ -41,14 +22,12 @@ if(isset($_REQUEST['lsel'])){
     TanguerApp::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
 }
 
-$appUser = $generator->getRandomUser($lang);
-//Languages can be "ESAR" or "ENUS"
-
-$APP->setUserSession($appUser);
-$cal = new Module_Calendar(time());
+$date = TanguerApp::getUserInput("date");
+$cal = new Module_Calendar($date);
 
 $numEvents = 8;//rand(4,10);
 $eList = array();
+$selectedEvent = TanguerApp::getUserInput("eventID");
 for($i = 0; $i < $numEvents; $i++){
     array_push($eList, $generator->getSequencedEvent());
     if($eList[$i]->getId() == $selectedEvent)
@@ -59,14 +38,11 @@ usort($eList, "sortByStartTime");
 
 $locationSelector = new Module_LocationSelector();
 
-$date = isset($_GET['d']) ? $_GET['d'] : time();
-
-if(Utility_Constants::APP_GUI_MODE == "dev")
-    $htmlTagClass = "devMode";
+$htmlTagClass = Utility_Constants::APP_GUI_MODE == "dev" ? "devMode" : "";
 ?>
     <!DOCTYPE html>
     <html lang="en" class="<?php echo $htmlTagClass;?>">
-    <?php echo $APP->head(); ?>
+    <?php echo TanguerApp::head(); ?>
     <body>
         <?php
         echo TanguerApp::alertsToHTML();

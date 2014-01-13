@@ -32,7 +32,7 @@ switch($_REQUEST['t']){
      * Event (e) request- asks for one event from the server
      */
     case "cgqe":
-        if(!isset($_REQUEST['eid']))
+        if(!isset($_GET['eid']))
             error(1201);
         $e = $generator->getSequencedEvent($_REQUEST['eid']);
         $class = "Output_" . get_class($e);

@@ -97,88 +97,6 @@ HTML;
 
 
     /**
-     * Take an event list and turn it into HTML thumbnails and return as an HTML string.
-     * @param $eventList    Array           Required        An array of Event_Event objects
-     *
-     * @param $selectedID   Integer         Optional        The ID of the event in the set that is to be rendered with a
-     *                                                      "selected" class. This is for when a user loads a page with an
-     *                                                      event selected, namely with JS disabled.
-     *
-     * @param $defaultData  String          Optional        An HTML string defining the data to be displayed by default.
-     *                                                      This could be an event, or anything else such as a login dialog
-     *                                                      or an advertisement.
-     *
-     * @return string
-     * @throws Exception
-     */
-    private function eventListToThumbs($eventList, $selectedID = null, $defaultData = null){
-        $html = "<ul class='th-list clearfix'>";
-        $eOut = null;
-        $mOut = null;
-        $lOut = null;
-        $pOut = null;
-        $sOut = null;
-        $isSelectedEvent = false;
-
-        //If no event was passed, add the default data that was passed to the beginning of the list.
-        if(!$selectedID){
-            $html .= "<li class='c-e-disp full'>" . $defaultData . "</li>";
-        }
-
-        foreach($eventList as $e){
-            //Require events
-            if(!($e instanceof Event_Event))
-                throw new Exception("All events passed to " . __CLASS__ . "::eventListToThumbs() must be of type Event_Event.");
-
-            if($e instanceof Event_Milonga){
-                if(isset($mOut))
-                    $mOut->setData($e);
-                else
-                    $mOut = new Output_Event_Milonga($e);
-                $eOut = $mOut;
-            }
-            if($e instanceof Event_Practica){
-                if(isset($pOut))
-                    $pOut->setData($e);
-                else
-                    $pOut = new Output_Event_Practica($e);
-                $eOut = $pOut;
-            }
-            if($e instanceof Event_Lesson){
-                if(isset($lOut))
-                    $lOut->setData($e);
-                else
-                    $lOut = new Output_Event_Lesson($e);
-                $eOut = $lOut;
-            }
-            if($e instanceof Event_Show){
-                if(isset($sOut))
-                    $sOut->setData($e);
-                else
-                    $sOut = new Output_Event_Show($e);
-                $eOut = $sOut;
-            }
-
-            $id = $e->getID();
-            $isSelectedEvent = $id == $selectedID;
-            $url = TanguerApp::getURL("URL_MAIN","e=$id");
-            $selected = $isSelectedEvent ? "selected" : null;
-            $html .= $eOut->to_html_thumb($url, $selected);
-
-            //Add the selected event if there is one
-            if($isSelectedEvent){
-                $html .= "<li class='c-e-disp full' data-event-id='" . $e->getId() . "'>" . $defaultData . "</li>";
-            }
-        }
-
-        $html .= "</ul>";
-
-        return $html;
-    }
-
-
-
-    /**
      * @param null $date        Integer     REQUIRED    A UTC Timestamp representing the day/month to be displayed
      * @param null $timezone    String      REQUIRED    A string identifier for the timezone that the calendar picker will be in
      * @return string
@@ -221,15 +139,15 @@ HTML;
         $nextMonth = $month < 12 ? $month + 1 : 1;
         $nextMonthYear = $nextMonth == 1 ? $year + 1 : $year;
         $indicator = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
-        $prevMonthURLDate = self::urlFriendlyDate(mktime(0,0,0,$prevMonth,1,$prevMonthYear));
-        $nextMonthURLDate = self::urlFriendlyDate(mktime(0,0,0,$nextMonth,1,$nextMonthYear));
-        $nextMonthURL = TanguerApp::getURL("URL_MAIN","d=$nextMonthURLDate");
-        $previousMonthURL = TanguerApp::getURL("URL_MAIN","d=$prevMonthURLDate");
+        $prevMonthURLDate = Date_TanguerDateTime::urlFriendlyDate(mktime(0,0,0,$prevMonth,1,$prevMonthYear));
+        $nextMonthURLDate = Date_TanguerDateTime::urlFriendlyDate(mktime(0,0,0,$nextMonth,1,$nextMonthYear));
+        $nextMonthURL = TanguerApp::getDynamicURL($nextMonthURLDate);
+        $previousMonthURL = TanguerApp::getDynamicURL($prevMonthURLDate);
         //Get URLS for "tomorrow" and "yesterday" as well
-        $tomorrow = self::urlFriendlyDate($date + 86400);
-        $yesterday = self::urlFriendlyDate($date - 86400);
-        $tomorrowURL = TanguerApp::getURL("URL_MAIN","d=$tomorrow");
-        $yesterdayURL = TanguerApp::getURL("URL_MAIN","d=$yesterday");
+        $tomorrow = Date_TanguerDateTime::urlFriendlyDate($date + 86400);
+        $yesterday = Date_TanguerDateTime::urlFriendlyDate($date - 86400);
+        $tomorrowURL = TanguerApp::getDynamicURL($tomorrow);
+        $yesterdayURL = TanguerApp::getDynamicURL($yesterday);
         //Localized days (textual values)
         $days = array(String_String::getString("DAY_SUNDAY",__CLASS__),
             String_String::getString("DAY_MONDAY",__CLASS__),
@@ -305,8 +223,8 @@ HTML;
             $selected = $daysListed == $selectedDate ? "selected" : null;
             //New rows every 7 days
             $clearClass = $daysListed % 7 ? null : "rowStart";
-            $urlDate = self::urlFriendlyDate($currentDate);
-            $url = TanguerApp::getURL("URL_MAIN","d=$urlDate");
+            $urlDate = Date_TanguerDateTime::urlFriendlyDate($currentDate);
+            $url = TanguerApp::getDynamicURL($urlDate);
 
             //Generate the cell
             $previewCells .= "<div class='cell $dateClass $selected $clearClass'></div>";
@@ -368,6 +286,88 @@ HTML;
 HTML;
 
         date_default_timezone_set($oldTimezone);
+
+        return $html;
+    }
+
+
+
+    /**
+     * Take an event list and turn it into HTML thumbnails and return as an HTML string.
+     * @param $eventList    Array           Required        An array of Event_Event objects
+     *
+     * @param $selectedID   Integer         Optional        The ID of the event in the set that is to be rendered with a
+     *                                                      "selected" class. This is for when a user loads a page with an
+     *                                                      event selected, namely with JS disabled.
+     *
+     * @param $defaultData  String          Optional        An HTML string defining the data to be displayed by default.
+     *                                                      This could be an event, or anything else such as a login dialog
+     *                                                      or an advertisement.
+     *
+     * @return string
+     * @throws Exception
+     */
+    private function eventListToThumbs($eventList, $selectedID = null, $defaultData = null){
+        $html = "<ul class='th-list clearfix'>";
+        $eOut = null;
+        $mOut = null;
+        $lOut = null;
+        $pOut = null;
+        $sOut = null;
+        $isSelectedEvent = false;
+
+        //If no event was passed, add the default data that was passed to the beginning of the list.
+        if(!$selectedID){
+            $html .= "<li class='c-e-disp full'>" . $defaultData . "</li>";
+        }
+
+        foreach($eventList as $e){
+            //Require events
+            if(!($e instanceof Event_Event))
+                throw new Exception("All events passed to " . __CLASS__ . "::eventListToThumbs() must be of type Event_Event.");
+
+            if($e instanceof Event_Milonga){
+                if(isset($mOut))
+                    $mOut->setData($e);
+                else
+                    $mOut = new Output_Event_Milonga($e);
+                $eOut = $mOut;
+            }
+            if($e instanceof Event_Practica){
+                if(isset($pOut))
+                    $pOut->setData($e);
+                else
+                    $pOut = new Output_Event_Practica($e);
+                $eOut = $pOut;
+            }
+            if($e instanceof Event_Lesson){
+                if(isset($lOut))
+                    $lOut->setData($e);
+                else
+                    $lOut = new Output_Event_Lesson($e);
+                $eOut = $lOut;
+            }
+            if($e instanceof Event_Show){
+                if(isset($sOut))
+                    $sOut->setData($e);
+                else
+                    $sOut = new Output_Event_Show($e);
+                $eOut = $sOut;
+            }
+
+            $id = $e->getID();
+            $isSelectedEvent = $id == $selectedID;
+            $url = TanguerApp::getURL("URL_MAIN","e=$id");
+            $selected = $isSelectedEvent ? "selected" : null;
+            $html .= $eOut->to_html_thumb($url, $selected);
+
+            //Add the selected event if there is one
+            if($isSelectedEvent){
+                $html .= "<li class='c-e-disp full' data-event-id='" . $e->getId() . "'>" . $defaultData . "</li>";
+            }
+        }
+
+        $html .= "</ul>";
 
         return $html;
     }
@@ -475,30 +475,5 @@ HTML;
         $id = self::$formID;
         self::$formID++;
         return constant("self::formIDPrefix") . $id;
-    }
-
-
-
-    /**
-     * Takes a timestamp and converts it to a Tanguer-url-friendly date string in the ISO 8601 format.
-     * Uses the currently set default timezone.
-     * @param $timestamp
-     * @return string ISO-8601 formated date string
-     */
-    public static function urlFriendlyDate($timestamp){
-        return date("Y-m-d", $timestamp);
-    }
-
-
-
-    /**
-     * Takes a timestamp and converts it to a Tanguer-url-friendly date string in the ISO 8601 format.
-     * Uses the currently set default timezone.
-     * @param $dateString   String  REQUIRED        The date string in ISO-8601 format to be converted to a timestamp
-     * @return string ISO-8601 formated date string
-     */
-    public static function urlFriendlyDateToTimestamp($dateString){
-        $parts = explode("-",$dateString);
-        return mktime(0,0,0,$parts[1],$parts[2],$parts[0]);
     }
 }
