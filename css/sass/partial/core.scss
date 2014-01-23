@@ -1,0 +1,142 @@
+//Core DOM styles (reset, etc)
+
+html{
+    padding:0;
+    margin:0;
+}
+
+body{
+    padding:0;
+    font-family:Lato, Arial, sans-serif;
+    font-size:10px;
+    color:#333;
+}
+
+input{
+    background-color:#333;
+    color:#DEDEDE;
+    padding:8px;
+    border:0;
+    margin:0;
+
+    .button{
+        padding:10px;
+        margin:0;
+
+        &:hover{
+            background-color:#b12f2c;
+        }
+    }
+}
+
+select{
+    background:#333;
+    color:#DEDEDE;
+    padding:5px;
+}
+
+p{
+    padding-bottom:0;
+    margin-bottom:0;
+}
+
+table{
+    font-size:1.2em;
+}
+
+.content{
+    width:auto;
+    min-width:0;
+    max-width:none;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.offscreen{
+    text-indent:-9999px;
+}
+
+
+///////////////
+//GRID STYLES//
+///////////////
+.row{
+    clear:both;
+}
+
+.column.end{
+    margin:0;
+    padding:0;
+}
+
+
+
+//////////////
+//GUI STYLES//
+//////////////
+.button{
+    font-weight:700;
+    font-size:1.2em;
+    color:#DEDEDE;
+    position:relative;
+
+    &:hover{
+        cursor:pointer;
+        color:#FFF;
+    }
+
+    span{
+        background:#333;
+        padding:10px;
+    }
+}
+
+.js{
+    a{
+        .button{
+            span{
+                padding-right:30px;
+                display:inline-block;
+            }
+        }
+    }
+
+    .button{
+        .js-indicator{
+            padding:0;
+            background:none;
+        }
+    }
+}
+
+.cta,
+.submit:hover{
+    background-color:#b12f2c;
+    color:#FFF;
+    cursor:pointer;
+}
+
+.dynamic-loader{
+    background:rgba(0,0,0,.4);
+
+    .indicator{
+        background:url($loader);
+        width:16px;
+        height:16px;
+        display:block;
+        position:absolute;
+        left:50%;
+        top:50%;
+        margin:-8px 0 0 -8px;
+    }
+}

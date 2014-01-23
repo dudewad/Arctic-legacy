@@ -1,0 +1,417 @@
+html {
+  padding: 0;
+  margin: 0; }
+
+body {
+  padding: 0;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 10px;
+  color: #333; }
+
+input {
+  background-color: #333;
+  color: #DEDEDE;
+  padding: 8px;
+  border: 0;
+  margin: 0; }
+  input .button {
+    padding: 10px;
+    margin: 0; }
+    input .button:hover {
+      background-color: #b12f2c; }
+
+select {
+  background: #333;
+  color: #DEDEDE;
+  padding: 5px; }
+
+p {
+  padding-bottom: 0;
+  margin-bottom: 0; }
+
+table {
+  font-size: 1.2em; }
+
+.content {
+  width: auto;
+  min-width: 0;
+  max-width: none; }
+
+.text-left {
+  text-align: left; }
+
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.offscreen {
+  text-indent: -9999px; }
+
+.row {
+  clear: both; }
+
+.column.end {
+  margin: 0;
+  padding: 0; }
+
+.button {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: #DEDEDE;
+  position: relative; }
+  .button:hover {
+    cursor: pointer;
+    color: #FFF; }
+  .button span {
+    background: #333;
+    padding: 10px; }
+
+.js a .button span {
+  padding-right: 30px;
+  display: inline-block; }
+.js .button .js-indicator {
+  padding: 0;
+  background: none; }
+
+.cta,
+.submit:hover {
+  background-color: #b12f2c;
+  color: #FFF;
+  cursor: pointer; }
+
+.dynamic-loader {
+  background: rgba(0, 0, 0, 0.4); }
+  .dynamic-loader .indicator {
+    background: url("http://10.0.0.17/tanguer/asset/image/gui/gui-loading-333-16x16.gif");
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -8px 0 0 -8px; }
+
+/* SCSS Partial Source */
+#header {
+  padding: 20px 10px;
+  background-color: #333;
+  color: #FFF; }
+  #header .logo-block {
+    float: left; }
+    #header .logo-block .logo {
+      width: 100px; }
+  #header .nav-right {
+    float: right; }
+
+.header-decoration {
+  margin-top: 3px;
+  color: #333;
+  height: 2px;
+  background-color: #333;
+  border: 0; }
+
+.c {
+  width: 100%; }
+  .c.full-day {
+    padding-top: 20px; }
+  .c .s {
+    display: none;
+    border-top: 1px solid #333;
+    padding: 20px 0 0 0;
+    margin-bottom: 20px; }
+    .c .s a .button {
+      padding-right: 20px;
+      border-right: 1px solid #333;
+      margin-right: 20px; }
+    .c .s label {
+      padding: 10px;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1.2em;
+      font-weight: 700;
+      margin-right: 20px;
+      background: #dedede;
+      border: 1px solid #999;
+      color: #999999; }
+      .c .s label .js-indicator {
+        background: url("$sprite") no-repeat;
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        top: 2px;
+        background-position: -60px 0; }
+      .c .s label .milonga.checked .js-indicator {
+        background-position: -12px 0; }
+      .c .s label .lesson.checked .js-indicator {
+        background-position: -24px 0; }
+      .c .s label .practica.checked .js-indicator {
+        background-position: -36px 0; }
+      .c .s label .show.checked .js-indicator {
+        background-position: -48px 0; }
+    .c .s input .button {
+      float: right; }
+    .c .s .s-adv {
+      display: inline-block; }
+    .c .s .e-s {
+      display: inline-block; }
+    .c .s .e-s-adv {
+      display: none; }
+    .c .s .button .adv {
+      display: block; }
+  .c.picker {
+    width: 95px;
+    float: left;
+    margin-right: 30px;
+    display: none; }
+    .c.picker:hover .visualizer {
+      display: block; }
+    .c.picker .cell .rowStart {
+      clear: left; }
+    .c.picker .preview {
+      display: inline-block;
+      cursor: pointer; }
+      .c.picker .preview div span {
+        display: none; }
+      .c.picker .preview .cell {
+        background: #CCC;
+        border: 1px solid #CCC;
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin: 0 1px 1px 0; }
+        .c.picker .preview .cell.selected {
+          border: 2px solid #333;
+          width: 8px;
+          height: 8px; }
+      .c.picker .preview .othMon {
+        background: #FFF; }
+    .c.picker .visualizer {
+      display: none;
+      position: absolute;
+      z-index: 2;
+      background: #fff;
+      border: 1px solid #333;
+      padding: 10px 29px;
+      margin-top: 10px;
+      font-style: italic;
+      font-size: 1.3em; }
+      .c.picker .visualizer h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.6em;
+        text-align: center;
+        font-weight: 700; }
+      .c.picker .visualizer .cell {
+        text-align: center;
+        width: 25px;
+        height: 20px;
+        padding-top: 4px !important;
+        display: inline-block;
+        vertical-align: middle;
+        float: left; }
+      .c.picker .visualizer .header {
+        background: #333;
+        color: #CCC;
+        padding: 0;
+        font-weight: 700;
+        border-bottom: 1px solid #FFF; }
+        .c.picker .visualizer .header .cell {
+          border: 1px solid #333;
+          padding: 1px; }
+      .c.picker .visualizer .body {
+        border-spacing: 2px; }
+        .c.picker .visualizer .body .cell {
+          cursor: pointer;
+          border: 1px solid #CCC;
+          margin: 1px;
+          color: #333; }
+          .c.picker .visualizer .body .cell:hover {
+            border: 1px solid #333;
+            background: #333 !important;
+            color: #FFF; }
+          .c.picker .visualizer .body .cell.selected {
+            border: 2px solid #333;
+            width: 23px;
+            height: 19px;
+            padding-top: 3px !important;
+            margin: 1px; }
+            .c.picker .visualizer .body .cell.selected:hover {
+              border: 2px solid #333; }
+          .c.picker .visualizer .body .cell .curMon {
+            background: #CCC; }
+          .c.picker .visualizer .body .cell .othMonContainer:hover .cell {
+            background: #333;
+            border: 1px solid #333; }
+          .c.picker .visualizer .body .cell .othMon span {
+            visibility: hidden; }
+          .c.picker .visualizer .body .cell .othMon:hover span {
+            visibility: visible; }
+        .c.picker .visualizer .body .othMonContainer {
+          height: 26px;
+          float: left; }
+      .c.picker .visualizer .indicator {
+        position: absolute;
+        top: -20px;
+        padding: 10px 35px 0 35px;
+        left: 0; }
+      .c.picker .visualizer .controls {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 0;
+        width: 100%; }
+        .c.picker .visualizer .controls .next, .c.picker .visualizer .controls .previous {
+          display: block;
+          background: url("$sprite") no-repeat center #333333;
+          top: 57px;
+          width: 16px;
+          height: 16px; }
+        .c.picker .visualizer .controls .next {
+          position: absolute;
+          right: 10px;
+          background-position: 0 -15px; }
+          .c.picker .visualizer .controls .next:hover {
+            background-position: -12px -15px; }
+        .c.picker .visualizer .controls .previous {
+          position: absolute;
+          left: 10px;
+          background-position: -26px -15px; }
+          .c.picker .visualizer .controls .previous:hover {
+            background-position: -38px -15px; }
+  .c.d-disp {
+    vertical-align: top;
+    line-height: normal;
+    padding: 0 2em;
+    text-align: center;
+    margin: 0 auto;
+    width: 220px;
+    text-align: center;
+    font-size: .6em; }
+    .c.d-disp h2 {
+      font-family: "Vollkorn Bold Italic","Times New Roman",serif;
+      margin-top: -.2em;
+      font-size: 4em; }
+    .c.d-disp h3 {
+      margin-top: -.5em;
+      font-size: 1.75em;
+      font-weight: 100; }
+    .c.d-disp .controls {
+      position: relative;
+      width: 100%; }
+      .c.d-disp .controls .next, .c.d-disp .controls .previous {
+        background: url("$sprite") no-repeat -55px -12px;
+        width: 10px;
+        height: 19px;
+        display: block;
+        position: absolute;
+        top: .75em; }
+      .c.d-disp .controls .next {
+        right: -20px; }
+      .c.d-disp .controls .previous {
+        background-position: -65px -12px;
+        left: -2em; }
+    .c.d-disp .d-content {
+      float: left;
+      width: 100%; }
+
+.c-e-disp .banner-container {
+  max-height: 200px;
+  overflow: hidden; }
+.c-e-disp .banner {
+  width: 150%;
+  display: block; }
+.c-e-disp.full h3 {
+  font-size: 1.8em; }
+.c-e-disp.full h2 {
+  font-family: "Vollkorn Bold Italic",Lato,Arial,sans-serif;
+  font-size: 2.4em;
+  line-height: 1;
+  padding: 30px 20px;
+  color: #FFF;
+  background-color: #333; }
+.c-e-disp.full .lesson {
+  background-color: #1f79e5;
+  color: #ccefff; }
+  .c-e-disp.full .lesson .information {
+    border-bottom: 1px solid #ccefff; }
+  .c-e-disp.full .lesson .e-data {
+    border-top: 1px solid #ccefff; }
+.c-e-disp.full .milonga {
+  background-color: #b12f2c;
+  color: #ffd2d2; }
+  .c-e-disp.full .milonga .information {
+    border-bottom: 1px solid #ffd2d2; }
+  .c-e-disp.full .milonga .e-data {
+    border-top: 1px solid #ffd2d2; }
+.c-e-disp.full .practica {
+  background-color: #299428;
+  color: #dbf7cc; }
+  .c-e-disp.full .practica .information {
+    border-bottom: 1px solid #dbf7cc; }
+  .c-e-disp.full .practica .e-data {
+    border-top: 1px solid #dbf7cc; }
+.c-e-disp.full .show {
+  background-color: #bf7b16;
+  color: #fdeacc; }
+  .c-e-disp.full .show .information {
+    border-bottom: 1px solid #fdeacc; }
+  .c-e-disp.full .show .e-data {
+    border-top: 1px solid #fdeacc; }
+.c-e-disp.full .social, .c-e-disp.full .e-data {
+  padding: 20px; }
+.c-e-disp.full .e-data table {
+  width: 100%; }
+.c-e-disp.full .e-data td.label {
+  width: 25%; }
+.c-e-disp.full .e-data td.content {
+  width: 75%; }
+.c-e-disp.full .e-data .information {
+  padding-bottom: 20px; }
+.c-e-disp.full .e-data .description {
+  margin-top: 20px;
+  overflow: hidden; }
+.c-e-disp.full.loading {
+  height: 50px;
+  background: url("http://10.0.0.17/tanguer/asset/image/gui/gui-loading-333-16x16.gif") no-repeat center #333333; }
+
+.c-picker-wrapper {
+  margin-top: 20px; }
+
+.js .c .s .button.adv .js-indicator {
+  background: url("http://10.0.0.17/tanguer/asset/image/gui/gui-sprite.png") no-repeat 0 0;
+  width: 12px;
+  height: 7px;
+  display: block;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  margin-top: -4px; }
+.js .c .e-s input {
+  display: none; }
+.js .c .picker:hover .visualizer {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  background: #fff;
+  border: 1px solid #333;
+  padding: 10px 29px;
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 1.3em; }
+
+/* SCSS Partial Source */
+.e.th.selected.lesson .container {
+  background-color: #1f79e5;
+  color: #ccefff; }
+.e.th.selected.milonga .container {
+  background-color: #b12f2c;
+  color: #ffd2d2; }
+.e.th.selected.practica .container {
+  background-color: #299428;
+  color: #dbf7cc; }
+.e.th.selected.show .container {
+  background-color: #bf7b16;
+  color: #fdeacc; }

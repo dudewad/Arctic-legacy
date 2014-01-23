@@ -1,0 +1,509 @@
+//Tanguer application Calendar module SCSS
+
+.c{
+    width:100%;
+
+    &.full-day{
+        padding-top:20px;
+    }
+
+    //////////////////////
+    //Calendar Sort Tool//
+    //////////////////////
+    .s{
+        display:none;
+        border-top:1px solid #333;
+        padding:20px 0 0 0;
+        margin-bottom:20px;
+
+        a{
+            .button{
+                padding-right:20px;
+                border-right:1px solid #333;
+                margin-right:20px;
+            }
+        }
+
+        label{
+            padding:10px;
+            cursor:pointer;
+            display: inline-block;
+            font-size:1.2em;
+            font-weight:700;
+            margin-right:20px;
+            background:#dedede;
+            border:1px solid #999;
+            color:#999999;
+
+            .js-indicator{
+                background:url("$sprite") no-repeat;
+                width:12px;
+                height:12px;
+                display:inline-block;
+                margin-right:10px;
+                position:relative;
+                top:2px;
+                background-position:-60px 0;
+            }
+
+            .milonga{
+                &.checked{
+                    .js-indicator{
+                        background-position:-12px 0;
+                    }
+                }
+            }
+
+            .lesson{
+                &.checked{
+                    .js-indicator{
+                        background-position:-24px 0;
+                    }
+                }
+            }
+
+            .practica{
+                &.checked{
+                    .js-indicator{
+                        background-position:-36px 0;
+                    }
+                }
+            }
+
+            .show{
+                &.checked{
+                    .js-indicator{
+                        background-position:-48px 0;
+                    }
+                }
+            }
+        }
+
+        input{
+            .button{
+                float:right;
+            }
+        }
+
+        .s-adv{
+            display:inline-block;
+        }
+
+        .e-s{
+            display:inline-block;
+        }
+
+        .e-s-adv{
+            display:none;
+        }
+
+        .button{
+            .adv{
+                display:block;
+            }
+        }
+    }
+
+    ////////////////////////
+    //Calendar Picker tool//
+    ////////////////////////
+    &.picker{
+        width:95px;
+        float:left;
+        margin-right: 30px;
+        display:none;
+
+        &:hover{
+            .visualizer{
+                display:block;
+            }
+        }
+
+        .cell{
+            .rowStart{
+                clear:left;
+            }
+        }
+
+        .preview{
+            display:inline-block;
+            cursor:pointer;
+
+            div{
+                span{
+                    display:none;
+                }
+            }
+
+            .cell{
+                background:#CCC;
+                border:1px solid #CCC;
+                width:10px;
+                height:10px;
+                float:left;
+                margin:0 1px 1px 0;
+
+                &.selected{
+                    border:2px solid #333;
+                    width:8px;
+                    height:8px;
+                }
+            }
+
+            .othMon{
+                background:#FFF;
+            }
+        }
+
+        .visualizer{
+            @include calendarPickerVisualizer;
+
+            h3{
+                margin:0 0 10px 0;
+                font-size:1.6em;
+                text-align:center;
+                font-weight:700;
+            }
+
+            .cell{
+                text-align:center;
+                width:25px;
+                height:20px;
+                padding-top:4px !important;
+                display:inline-block;
+                vertical-align:middle;
+                float:left;
+            }
+
+            .header{
+                background:#333;
+                color:#CCC;
+                padding:0;
+                font-weight:700;
+                border-bottom:1px solid #FFF;
+
+                .cell{
+                    border:1px solid #333;
+                    padding:1px;
+                }
+            }
+
+            .body{
+                border-spacing:2px;
+
+                .cell{
+                    cursor:pointer;
+                    border:1px solid #CCC;
+                    margin:1px;
+                    color:#333;
+
+                    &:hover{
+                        border:1px solid #333;
+                        background:#333 !important;
+                        color:#FFF;
+                    }
+
+                    &.selected{
+                        border:2px solid #333;
+                        width:23px;
+                        height:19px;
+                        padding-top:3px !important;
+                        margin:1px;
+
+                        &:hover{
+                            border:2px solid #333;
+                        }
+                    }
+
+                    .curMon{
+                        background:#CCC;
+                    }
+
+                    .othMonContainer{
+                        &:hover{
+                            .cell{
+                                background:#333;
+                                border:1px solid #333;
+                            }
+                        }
+                    }
+
+                    .othMon{
+                        span{
+                            visibility:hidden;
+                        }
+                    }
+
+                    .othMon{
+                        &:hover{
+                            span{
+                                visibility:visible;
+                            }
+                        }
+                    }
+                }
+
+                .othMonContainer{
+                    height:26px;
+                    float:left;
+                }
+            }
+
+            .indicator{
+                position:absolute;
+                top:-20px;
+                padding:10px 35px 0 35px;
+                left:0;
+            }
+
+            .controls{
+                position:absolute;
+                left:0;
+                top:0;
+                height:0;
+                width:100%;
+
+                .next, .previous{
+                    display:block;
+                    background:url("$sprite") no-repeat center #333;
+                    top:57px;
+                    width:16px;
+                    height:16px;
+                }
+
+                .next{
+                    position:absolute;
+                    right:10px;
+                    background-position:0 -15px;
+
+                    &:hover{
+                        background-position:-12px -15px;
+                    }
+                }
+
+                .previous{
+                    position:absolute;
+                    left:10px;
+                    background-position:-26px -15px;
+
+                    &:hover{
+                        background-position:-38px -15px;
+                    }
+                }
+            }
+        }
+    }
+
+    //////////////////////
+    //SINGLE DAY DISPLAY//
+    //////////////////////
+    &.d-disp{
+        vertical-align: top;
+        line-height:normal;
+        padding:0 2em;
+        text-align:center;
+        margin:0 auto;
+        width: 220px;
+        text-align:center;
+        font-size:.6em;
+
+        h2{
+            font-family:"Vollkorn Bold Italic","Times New Roman",serif;
+            margin-top: -.2em;
+            font-size:4em;
+        }
+
+        h3{
+            margin-top:-.5em;
+            font-size:1.75em;
+            font-weight:100;
+        }
+
+        .controls{
+            position:relative;
+            width:100%;
+
+            .next, .previous{
+                background:url("$sprite") no-repeat -55px -12px;
+                width:10px;
+                height:19px;
+                display:block;
+                position:absolute;
+                top:.75em;
+            }
+
+            .next{
+                right:-20px;
+            }
+
+            .previous{
+                background-position: -65px -12px;
+                left:-2em;
+            }
+        }
+
+        .d-content{
+            float:left;
+            width:100%;
+        }
+
+    }
+}
+
+/////////////////////////////////
+//Calendar event display styles//
+/////////////////////////////////
+.c-e-disp{
+    .banner-container{
+        max-height:200px;
+        overflow:hidden;
+    }
+
+    .banner{
+        width:150%;
+        display:block;
+    }
+
+    //////////////////////////////////////
+    //Calendar event full display styles//
+    //////////////////////////////////////
+    &.full{
+        h3{
+            font-size:1.8em;
+        }
+
+        h2{
+            font-family:"Vollkorn Bold Italic",Lato,Arial,sans-serif;
+            font-size:2.4em;
+            line-height:1;
+            padding:30px 20px;
+            color:#FFF;
+            background-color:#333;
+        }
+
+        .lesson{
+            @include colorSchemeLesson;
+
+            .information{
+                border-bottom:1px solid #ccefff;
+            }
+
+            .e-data{
+                border-top:1px solid #ccefff;
+            }
+        }
+
+        .milonga{
+            @include colorSchemeMilonga;
+
+            .information{
+                border-bottom:1px solid #ffd2d2;
+            }
+
+            .e-data{
+                border-top:1px solid #ffd2d2;
+            }
+        }
+
+        .practica{
+            @include colorSchemePractica;
+
+            .information{
+                border-bottom:1px solid #dbf7cc;
+            }
+
+            .e-data{
+                border-top:1px solid #dbf7cc;
+            }
+        }
+
+        .show{
+            @include colorSchemeShow;
+
+            .information{
+                border-bottom:1px solid #fdeacc;
+            }
+
+            .e-data{
+                border-top:1px solid #fdeacc;
+            }
+        }
+
+        .social,.e-data{
+            padding:20px;
+        }
+
+        .e-data{
+            table{
+                width:100%;
+            }
+
+            td{
+                &.label{
+                    width:25%;
+                }
+
+                &.content{
+                    width:75%;
+                }
+            }
+
+            .information{
+                padding-bottom:20px;
+            }
+
+            .description{
+                margin-top:20px;
+                overflow:hidden;
+            }
+        }
+
+        &.loading{
+            height:50px;
+            background:url($loader) no-repeat center #333;
+        }
+    }
+}
+
+.c-picker-wrapper{
+    margin-top:20px;
+}
+
+
+/////////////////////
+//JS-ENABLED STYLES//
+/////////////////////
+.js{
+    .c{
+        .s{
+            .button{
+                &.adv{
+                    .js-indicator{
+                        background:url($sprite) no-repeat 0 0;
+                        width:12px;
+                        height:7px;
+                        display:block;
+                        position:absolute;
+                        right:30px;
+                        top:50%;
+                        margin-top:-4px;
+                    }
+                }
+            }
+        }
+
+        .e-s{
+            input{
+                display:none;
+            }
+        }
+
+        .picker{
+            &:hover{
+                .visualizer{
+                    @include calendarPickerVisualizer;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+//Tanguer SCSS Mixins
+
+@mixin calendarPickerVisualizer{
+    display:none;
+    position:absolute;
+    z-index:2;
+    background:#fff;
+    border:1px solid #333;
+    padding:10px 29px;
+    margin-top:10px;
+    font-style:italic;
+    font-size:1.3em;
+}
+
+
+
+
+//Event mixins
+@mixin colorSchemeLesson{
+    background-color:#1f79e5;
+    color:#ccefff;
+}
+
+@mixin colorSchemeMilonga{
+    background-color:#b12f2c;
+    color:#ffd2d2;
+}
+
+@mixin colorSchemePractica{
+    background-color:#299428;
+    color:#dbf7cc;
+}
+
+@mixin colorSchemeShow{
+    background-color:#bf7b16;
+    color:#fdeacc;
+}

@@ -1,0 +1,34 @@
+/* SCSS Partial Source */
+
+.e{
+    //////////////////////
+    //EVENT THUMB STYLES//
+    //////////////////////
+    &.th{
+        &.selected{
+            &.lesson{
+                .container{
+                    @include colorSchemeLesson;
+                }
+            }
+
+            &.milonga{
+                .container{
+                    @include colorSchemeMilonga;
+                }
+            }
+
+            &.practica{
+                .container{
+                    @include colorSchemePractica;
+                }
+            }
+
+            &.show{
+                .container{
+                    @include colorSchemeShow;
+                }
+            }
+        }
+    }
+}

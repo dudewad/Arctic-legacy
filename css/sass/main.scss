@@ -1,0 +1,13 @@
+//Primary Tanguer SCSS Source File
+
+//Import constants, variables, queries, and other resources
+@import "include/appVars";
+@import "include/vars";
+@import "include/mediaQueries";
+@import "include/mixins";
+
+//Partials
+@import "partial/core";
+@import "partial/header";
+@import "partial/calendar";
+@import "partial/event";
