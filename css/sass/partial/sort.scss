@@ -1,0 +1,45 @@
+.s{
+    label{
+        &.milonga{
+            &.checked{
+                @include colorSchemeMilongaUnfocused;
+                border:smallSolidBorder($milongaUnfocusedBorderColor);
+            }
+        }
+
+        &.lesson{
+            &.checked{
+                @include colorSchemeLessonUnfocused;
+                border:smallSolidBorder($lessonUnfocusedBorderColor);
+            }
+        }
+
+        &.practica{
+            &.checked{
+                @include colorSchemePracticaUnfocused;
+                border:smallSolidBorder($practicaUnfocusedBorderColor);
+            }
+        }
+
+        &.show{
+            &.checked{
+                @include colorSchemeShowUnfocused;
+                border:smallSolidBorder($showUnfocusedBorderColor);
+            }
+        }
+    }
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minTabletPortrait}{
+    .c{
+        .s{
+            display:block;
+        }
+    }
+}

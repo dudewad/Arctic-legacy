@@ -1,6 +1,8 @@
-c                       Calendar
-disp                    Display
-e                       Event
-f                       Full
-th                      Thumb
-lsel                    Location Selector
+c						Calendar
+disp					Display
+e						Event
+f						Full
+th						Thumb
+lsel					Location Selector
+s						Sort module
+m						Modal

@@ -1,0 +1,126 @@
+
+////////////////////////////////////
+//LOGIN MODULE INSIDE THE CALENDAR//
+////////////////////////////////////
+
+//Calendar login is hidden on the mobile view
+.c{
+    .login{
+        text-align:center;
+        background-color:$primaryNeutralLight;
+        padding:30px 20px;
+        border:smallSolidBorder($primaryNeutralDark);
+        display:none;
+
+        h2,
+        h3{
+            color:$ctaTitleFontColor;
+            background-color:transparent;
+        }
+
+        h2{
+            margin-top:10px;
+        }
+
+        h3{
+            font-style:italic;
+            margin:20px 0 15px 0;
+        }
+
+        form{
+            padding-top:20px;
+            padding-bottom:10px;
+        }
+
+        input{
+            margin-bottom:10px;
+        }
+
+        label{
+            display:block;
+            padding:8px;
+            height:16px;
+            font-size:1.3em;
+            font-style:italic;
+        }
+
+        hr{
+            height:1px;
+            border:0;
+            background-color:$primaryNeutralDark;
+        }
+
+        .logo{
+            max-width:100%;
+        }
+
+        .submit{
+            cursor:pointer;
+            font-weight:900;
+            font-size: 1.4em;
+        }
+
+        .cta-container{
+            padding:2px;
+            border:1px solid #b12f2c;
+            display:inline-block;
+        }
+
+        .cta{
+            color:$ctaUnfocusedFontColor;
+            font-weight:900;
+            padding:8px;
+            display:block;
+            font-size: 1.4em;
+        }
+
+        .row{
+            input{
+                &.submit{
+                    float:none;
+                }
+            }
+        }
+    }
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minPhonePortrait}{
+    .c{
+        .login{
+            label{
+                margin-bottom:0;
+            }
+
+            .row{
+                label{
+                    float:right;
+                }
+
+                input{
+                    float:left;
+                    min-width:25%;
+                    max-width:75%;
+
+                    &.submit{
+                        min-width:0;
+                        max-width:100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    .c{
+        .login{
+            display:block;
+        }
+    }
+}

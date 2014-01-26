@@ -1,0 +1,198 @@
+
+.lsel{
+    color:$primaryNeutralDark;
+    float:right;
+    display:none;
+
+    .location{
+        font-size:1.3em;
+        font-family:$baseApplicationTitleFontFamily;
+        color:$primaryNeutralDark;
+
+        h3{
+            font-size:.8em;
+        }
+    }
+
+    .indicator{
+        background:url($sprite) no-repeat -21px -38px;
+        width:7px;
+        height:4px;
+        display:inline-block;
+        position:relative;
+        top:-1px;
+        left:1px;
+        cursor:pointer;
+    }
+
+    .change-location{
+        font-size:1em;
+        line-height:1;
+        float:right;
+        cursor:pointer;
+        position:relative;
+
+        a{
+            color:$primaryNeutralDark;
+        }
+
+        &:hover{
+            a{
+                color:$primaryNeutralDarkest;
+            }
+
+            .selector{
+                display:block;
+            }
+
+            .indicator{
+                background-position:-21px -42px;
+            }
+        }
+    }
+
+    .selector{
+        @include locationSelectorSelector;
+
+        h3{
+            font-family:$baseApplicationTitleFontFamily;
+            font-size:1.8em;
+        }
+
+        select{
+            display:block;
+            width:100%;
+
+            &.city{
+                margin-top:10px;
+            }
+        }
+
+        option{
+            padding:2px;
+        }
+
+        label{
+            font-size:1.4em;
+            display:block;
+            padding:7px 0 2px 5px;
+        }
+
+        .indicator{
+            background:none !important;
+            position: absolute;
+            top: -20px;
+            padding: 10px 35px 0 35px;
+            right:0;
+            left:auto;
+            width:19px;
+            height:10px;
+        }
+
+        .submit{
+            display:block;
+            margin-top:10px;
+        }
+    }
+}
+
+
+
+//////////////////
+//JS-ONLY STYLES//
+//////////////////
+.js{
+    .lsel{
+        .change-location{
+            &:hover{
+                .selector{
+                    @include locationSelectorSelector;
+                }
+            }
+        }
+
+        .selector{
+            .submit{
+                display:none;
+            }
+        }
+    }
+}
+
+
+
+///////////////////////////////////
+//HEADER LOCATION SELECTOR STYLES//
+///////////////////////////////////
+
+#header .lsel{
+    display:block;
+
+    .location{
+        color:$primaryNeutralLight;
+    }
+
+    .change-location{
+        a{
+            color:$primaryNeutralLight;
+        }
+
+        &:hover{
+            a{
+                color:$primaryNeutralLightest;
+            }
+
+            .indicator{
+                background-position:-14px -34px;
+            }
+        }
+    }
+
+    .indicator{
+        background:url($sprite) no-repeat -14px -38px;
+    }
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minPhoneOrSmallTablet}{
+    .lsel{
+        .location{
+            h3{
+                font-size:1em;
+            }
+        }
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    .lsel{
+        display:block;
+
+        .location{
+            h3{
+                font-size:1.6em;
+            }
+        }
+    }
+
+    #header{
+        .lsel{
+            display:none;
+        }
+    }
+}
+
+@media #{$mq_minDesktop}{
+    .lsel{
+        .location{
+            h3{
+                font-size:1.8em;
+            }
+        }
+    }
+}

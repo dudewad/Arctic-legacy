@@ -1,4 +1,118 @@
 //Tanguer application variables
 
+//////////////////////
+//MEDIA QUERY SIZING//
+//////////////////////
+
+$mq_minPhonePortrait:           "only screen
+                                and (min-width:360px)";
+
+$mq_minPhoneLandscape:          "only screen
+                                and (min-width:480px)";
+
+$mq_minPhoneOrSmallTablet:      "only screen
+                                and (min-width:540px)";
+
+$mq_onlyPhoneOrSmallTablet:     "only screen
+                                and (min-width:540px)
+                                and (max-width:767px)";
+
+$mq_onlyTabletPortrait:          "only screen
+                                and (min-width:768px)
+                                and (max-width:1023px)";
+
+$mq_minTabletPortrait:          "only screen
+                                and (min-width:768px)";
+
+$mq_minDesktop:                 "only screen
+                                and (min-width:1024px)";
+
+$mq_minLargeDesktop:            "only screen
+                                and (min-width:1212px)";
+
+
+
+////////
+//URLs//
+////////
 $sprite:$URL_ASSET_BASE + "image/gui/gui-sprite.png";
 $loader:$URL_ASSET_BASE + "image/gui/gui-loading-333-16x16.gif";
+
+
+
+//////////////
+//Typography//
+//////////////
+$baseApplicationFontSize:10px;
+$baseApplicationFontFamily:Lato, Arial, sans-serif;
+$baseApplicationTitleFontFamily:"Vollkorn Bold Italic","Times New Roman",serif;
+
+
+
+//////////
+//Layout//
+//////////
+
+//Border styles
+$borderSmallWidth:1px;
+$borderSmallStyle:solid;
+
+
+
+/////////
+//Color//
+/////////
+
+//UI
+$primaryAccentColor:#b12f2c;
+$primaryNeutralDarkest:#000000;
+$primaryNeutralDark:#333333;
+$primaryNeutralMedium:#999999;
+$primaryNeutralMediumLight:#cccccc;
+$primaryNeutralLight:#dedede;
+$primaryNeutralLightest:#ffffff;
+$uiUnfocusedFontColor:#dedede;
+$uiFocusedFontColor:#dedede;
+
+$uiInputUnfocusedBGColor:$primaryNeutralDark;
+$uiInputFocusedBGColor:$primaryAccentColor;
+
+$ctaUnfocusedFontColor:#ffd2d2;
+$ctaUnfocusedBGColor:$primaryAccentColor;
+$ctaTitleFontColor:$primaryAccentColor;
+
+//Event - Milonga
+$milongaUnfocusedFontColor:$primaryNeutralDark;
+$milongaUnfocusedBGColor:#ffd2d2;
+$milongaUnfocusedBorderColor:$primaryAccentColor;
+
+$milongaFocusedFontColor:#ffd2d2;
+$milongaFocusedBGColor:$primaryAccentColor;
+$milongaFocusedBorderColor:$primaryAccentColor;
+
+//Event - Lesson
+$lessonUnfocusedFontColor:$primaryNeutralDark;
+$lessonUnfocusedBGColor:#ccefff;
+$lessonUnfocusedBorderColor:#1f79e5;
+
+$lessonFocusedFontColor:#ccefff;
+$lessonFocusedBGColor:#1f79e5;
+$lessonFocusedBorderColor:#1f79e5;
+
+//Event - Practica
+$practicaUnfocusedFontColor:$primaryNeutralDark;
+$practicaUnfocusedBGColor:#dbf7cc;
+$practicaUnfocusedBorderColor:#299428;
+
+$practicaFocusedFontColor:#dbf7cc;
+$practicaFocusedBGColor:#299428;
+$practicaFocusedBorderColor:#299428;
+
+//Event - Show
+$showUnfocusedFontColor:$primaryNeutralDark;
+$showUnfocusedBGColor:#fdeacc;
+$showUnfocusedBorderColor:#bf7b16;
+
+$showFocusedFontColor:#fdeacc;
+$showFocusedBGColor:#bf7b16;
+$showFocusedBorderColor:#bf7b16;

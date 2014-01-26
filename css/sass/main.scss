@@ -1,9 +1,12 @@
 //Primary Tanguer SCSS Source File
 
+@charset "utf-8";
+/* CSS Document */
+
 //Import constants, variables, queries, and other resources
+@import "include/functions";
 @import "include/appVars";
 @import "include/vars";
-@import "include/mediaQueries";
 @import "include/mixins";
 
 //Partials
@@ -11,3 +14,9 @@
 @import "partial/header";
 @import "partial/calendar";
 @import "partial/event";
+@import "partial/sort";
+@import "partial/login";
+@import "partial/alerts";
+@import "partial/locationSelector";
+@import "partial/modal";
+@import "partial/dev";

@@ -5,33 +5,65 @@
     position:absolute;
     z-index:2;
     background:#fff;
-    border:1px solid #333;
+    border:smallSolidBorder($primaryNeutralDark);
     padding:10px 29px;
     margin-top:10px;
     font-style:italic;
     font-size:1.3em;
 }
 
+@mixin locationSelectorSelector{
+    display:none;
+    position:absolute;
+    background:$primaryNeutralLight;
+    padding:10px;
+    border:smallSolidBorder($primaryNeutralDark);
+    margin-top:13px;
+    z-index:9999;
+    right:0;
+    width:200px;
+}
+
 
 
 
 //Event mixins
-@mixin colorSchemeLesson{
-    background-color:#1f79e5;
-    color:#ccefff;
+@mixin colorSchemeMilongaUnfocused{
+    color:$milongaUnfocusedFontColor;
+    background-color:$milongaUnfocusedBGColor;
 }
 
-@mixin colorSchemeMilonga{
-    background-color:#b12f2c;
-    color:#ffd2d2;
+@mixin colorSchemeMilongaFocused{
+    color:$milongaFocusedFontColor;
+    background-color:$milongaFocusedBGColor;
 }
 
-@mixin colorSchemePractica{
-    background-color:#299428;
-    color:#dbf7cc;
+@mixin colorSchemeLessonUnfocused{
+    color:$lessonUnfocusedFontColor;
+    background-color:$lessonUnfocusedBGColor;
 }
 
-@mixin colorSchemeShow{
-    background-color:#bf7b16;
-    color:#fdeacc;
+@mixin colorSchemeLessonFocused{
+    color:$lessonFocusedFontColor;
+    background-color:$lessonFocusedBGColor;
+}
+
+@mixin colorSchemePracticaUnfocused{
+    color:$practicaUnfocusedFontColor;
+    background-color:$practicaUnfocusedBGColor;
+}
+
+@mixin colorSchemePracticaFocused{
+    color:$practicaFocusedFontColor;
+    background-color:$practicaFocusedBGColor;
+}
+
+@mixin colorSchemeShowUnfocused{
+    color:$showUnfocusedFontColor;
+    background-color:$showUnfocusedBGColor;
+}
+
+@mixin colorSchemeShowFocused{
+    color:$showFocusedFontColor;
+    background-color:$showFocusedBGColor;
 }

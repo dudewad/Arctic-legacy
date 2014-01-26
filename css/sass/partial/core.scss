@@ -7,14 +7,14 @@ html{
 
 body{
     padding:0;
-    font-family:Lato, Arial, sans-serif;
-    font-size:10px;
-    color:#333;
+    font-family:$baseApplicationFontFamily;
+    font-size:$baseApplicationFontSize;
+    color:$primaryNeutralDark;
 }
 
 input{
-    background-color:#333;
-    color:#DEDEDE;
+    background:$uiInputUnfocusedBGColor;
+    color:$uiUnfocusedFontColor;
     padding:8px;
     border:0;
     margin:0;
@@ -24,14 +24,14 @@ input{
         margin:0;
 
         &:hover{
-            background-color:#b12f2c;
+            background-color:$uiInputFocusedBGColor;
         }
     }
 }
 
 select{
-    background:#333;
-    color:#DEDEDE;
+    background:$uiInputUnfocusedBGColor;
+    color:$uiUnfocusedFontColor;
     padding:5px;
 }
 
@@ -87,16 +87,16 @@ table{
 .button{
     font-weight:700;
     font-size:1.2em;
-    color:#DEDEDE;
+    color:$uiUnfocusedFontColor;
     position:relative;
 
     &:hover{
         cursor:pointer;
-        color:#FFF;
+        color:$uiFocusedFontColor;
     }
 
     span{
-        background:#333;
+        background:$primaryNeutralDark;
         padding:10px;
     }
 }
@@ -121,8 +121,8 @@ table{
 
 .cta,
 .submit:hover{
-    background-color:#b12f2c;
-    color:#FFF;
+    color:$ctaUnfocusedFontColor;
+    background-color:$ctaUnfocusedBGColor;
     cursor:pointer;
 }
 
@@ -138,5 +138,93 @@ table{
         left:50%;
         top:50%;
         margin:-8px 0 0 -8px;
+    }
+}
+
+////////////////////////
+//APPLICATION CLEARFIX//
+////////////////////////
+
+//IE5-6
+* html .clearfix {
+    height: 1%;
+}
+
+//IE7
+*+html .clearfix {
+    display: inline-block;
+}
+
+//All other browsers
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minPhonePortrait}{
+    ///////////////
+    //GRID STYLES//
+    ///////////////
+    .col-1-2,
+    .col-1-3,
+    .col-2-3,
+    .col-1-4,
+    .col-3-4,
+    .col-1-5,
+    .col-2-5,
+    .col-3-5,
+    .col-4-5{
+        float:left;
+        margin-right:2%;
+    }
+    .col-1-2{
+        width:48%;
+    }
+
+    .col-1-4{
+        width:23.5%;
+    }
+
+    .col-1-5{
+        width:18.4%;
+    }
+
+    .col-2-5{
+        width:38%;
+    }
+
+    .col-3-5{
+        width:58%;
+    }
+
+    .col-4-5{
+        width:78%;
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    body{
+        width:auto;
+    }
+
+    .content{
+        max-width:1200px;
+        margin:0 auto;
+        padding:0 10px;
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    body{
+        padding:0;
     }
 }

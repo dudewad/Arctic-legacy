@@ -1,32 +1,353 @@
-/* SCSS Partial Source */
-
 .e{
     //////////////////////
     //EVENT THUMB STYLES//
     //////////////////////
     &.th{
-        &.selected{
-            &.lesson{
+        width:auto;
+        margin-top:0;
+        display:block;
+        color:inherit;
+        font-weight:700;
+        font-style:italic;
+
+        a{
+            display:block;
+            color:inherit;
+            font-weight:700;
+            font-style:italic;
+        }
+
+        h3,
+        .time,
+        .col-price{
+            font-size:1.3em;
+        }
+
+        .col-price{
+            float:right;
+            margin-right:5px;
+            width:50px;
+            text-align:right;
+        }
+
+        .col-time{
+            margin-left:18px;
+            float:left;
+        }
+
+        .col-data{
+            width:100%;
+            float:right;
+            position:relative;
+        }
+
+        .details{
+            padding-top:2px;
+            clear:both;
+            font-size:1.1em;
+            font-weight:400;
+            font-style:italic;
+        }
+
+        .organizer{
+            padding-top:2px;
+        }
+
+        .container{
+            position:relative;
+        }
+
+        .content-padding{
+            padding:5px;
+        }
+
+        .e-content{
+            padding-left:60px;
+            padding-right:55px;
+            display:block;
+        }
+
+        .labels{
+            position:absolute;
+            width:100%;
+            margin-top:5px;
+        }
+
+        &.milonga{
+
+            .container{
+                @include colorSchemeMilongaUnfocused;
+                border: smallSolidBorder($milongaUnfocusedBorderColor);
+                border-bottom:0;
+            }
+
+            .e-content{
+                border-left:8px solid $milongaUnfocusedBorderColor;
+            }
+
+            &.selected{
                 .container{
-                    @include colorSchemeLesson;
+                    @include colorSchemeMilongaFocused;
+                    border: smallSolidBorder($milongaFocusedBorderColor);
+                }
+
+                .e-content{
+                    border-left:8px solid $milongaUnfocusedBGColor;
+                }
+            }
+        }
+
+        &.lesson{
+
+            .container{
+                @include colorSchemeLessonUnfocused;
+                border: smallSolidBorder($lessonUnfocusedBorderColor);
+                border-bottom:0;
+            }
+
+            .e-content{
+                border-left:8px solid $lessonUnfocusedBorderColor;
+            }
+
+            &.selected{
+                .container{
+                    @include colorSchemeLessonFocused;
+                    border: smallSolidBorder($lessonFocusedBorderColor);
+                }
+
+                .e-content{
+                    border-left:8px solid $lessonUnfocusedBGColor;
+                }
+            }
+        }
+
+        &.practica{
+
+            .container{
+                @include colorSchemePracticaUnfocused;
+                border: smallSolidBorder($practicaUnfocusedBorderColor);
+                border-bottom:0;
+            }
+
+            .e-content{
+                border-left:8px solid $practicaUnfocusedBorderColor;
+            }
+
+            &.selected{
+                .container{
+                    @include colorSchemePracticaFocused;
+                    border: smallSolidBorder($practicaFocusedBorderColor);
+                }
+
+                .e-content{
+                    border-left:8px solid $practicaUnfocusedBGColor;
+                }
+            }
+        }
+
+        &.show{
+
+            .container{
+                @include colorSchemeShowUnfocused;
+                border: smallSolidBorder($showUnfocusedBorderColor);
+                border-bottom:0;
+            }
+
+            .e-content{
+                border-left:8px solid $showUnfocusedBorderColor;
+            }
+
+            &.selected{
+                .container{
+                    @include colorSchemeShowFocused;
+                    border: smallSolidBorder($showFocusedBorderColor);
+                }
+
+                .e-content{
+                    border-left:8px solid $showUnfocusedBGColor;
+                }
+            }
+        }
+    }
+}
+
+//////////////////////
+//THUMB LIST DISPLAY//
+//////////////////////
+.c{
+    .th-list{
+        .e{
+            &.th{
+                &.milonga{
+                    &:last-child{
+                        .container{
+                            border-bottom:$borderSmallWidth $borderSmallStyle $milongaFocusedBorderColor;
+                        }
+                    }
+                }
+
+                &.lesson{
+                    &:last-child{
+                        .container{
+                            border-bottom:$borderSmallWidth $borderSmallStyle $lessonFocusedBorderColor;
+                        }
+                    }
+                }
+
+                &.practica{
+                    &:last-child{
+                        .container{
+                            border-bottom:$borderSmallWidth $borderSmallStyle $practicaFocusedBorderColor;
+                        }
+                    }
+                }
+
+                &.show{
+                    &:last-child{
+                        .container{
+                            border-bottom:$borderSmallWidth $borderSmallStyle $showFocusedBorderColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minPhoneOrSmallTablet}{
+    .e{
+        &.th{
+            &.milonga{
+                .container{
+                    border:smallSolidBorder($milongaFocusedBorderColor);
                 }
             }
 
-            &.milonga{
+            &.lesson{
                 .container{
-                    @include colorSchemeMilonga;
+                    border:smallSolidBorder($lessonFocusedBorderColor);
                 }
             }
 
             &.practica{
                 .container{
-                    @include colorSchemePractica;
+                    border:smallSolidBorder($practicaFocusedBorderColor);
                 }
             }
 
             &.show{
                 .container{
-                    @include colorSchemeShow;
+                    border:smallSolidBorder($showFocusedBorderColor);
+                }
+            }
+        }
+    }
+}
+
+
+@media #{$mq_onlyPhoneOrSmallTablet}{
+    .e{
+        &.th{
+            margin:10px 10px 0 10px;
+        }
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    .e{
+        &.th{
+            cursor:pointer;
+            margin-bottom:10px;
+            width:auto;
+        }
+    }
+
+    .c{
+        .th-list{
+            .e{
+                &.th{
+                    .container{
+                        margin-right:10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media #{$mq_onlyTabletPortrait}{
+    .e{
+        &.th{
+            .e-content{
+                padding-right:10px;
+            }
+
+            .col-price{
+                width:55px;
+                float:left;
+                clear:left;
+                text-align:left;
+                margin-right:0;
+                margin-left:18px;
+            }
+        }
+    }
+}
+
+@media #{$mq_minDesktop}{
+    .e{
+        &.th{
+            &.milonga{
+                &:hover{
+                    .container{
+                        @include colorSchemeMilongaFocused;
+                    }
+
+                    .e-content{
+                        border-left:8px solid $milongaFocusedFontColor;
+                    }
+                }
+            }
+
+            &.lesson{
+                &:hover{
+                    .container{
+                        @include colorSchemeLessonFocused;
+                    }
+
+                    .e-content{
+                        border-left:8px solid $lessonFocusedFontColor;
+                    }
+                }
+            }
+
+            &.practica{
+                &:hover{
+                    .container{
+                        @include colorSchemePracticaFocused;
+                    }
+
+                    .e-content{
+                        border-left:8px solid $practicaFocusedFontColor;
+                    }
+                }
+            }
+
+            &.show{
+                &:hover{
+                    .container{
+                        @include colorSchemeShowFocused;
+                    }
+
+                    .e-content{
+                        border-left:8px solid $showFocusedFontColor;
+                    }
                 }
             }
         }

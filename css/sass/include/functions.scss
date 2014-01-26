@@ -1,0 +1,4 @@
+//Generates a "small width border" using the passed color
+@function smallSolidBorder($color){
+    @return $borderSmallWidth $borderSmallStyle $color;
+}

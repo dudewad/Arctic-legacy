@@ -2,8 +2,8 @@
 
 #header{
     padding:20px 10px;
-    background-color:#333;
-    color:#FFF;
+    background-color:$primaryNeutralDark;
+    color:$primaryNeutralLightest;
 
     .logo-block{
         float:left;
@@ -20,8 +20,32 @@
 
 .header-decoration{
     margin-top: 3px;
-    color: #333;
+    color:$primaryNeutralDark;
     height: 2px;
-    background-color:#333;
+    background-color:$primaryNeutralDark;
     border: 0;
+}
+
+
+
+/////////////////
+//MEDIA QUERIES//
+/////////////////
+
+@media #{$mq_minPhoneOrSmallTablet}{
+    #header{
+        padding:20px 10px 25px 10px;
+
+        .logo-block{
+            .logo{
+                width:auto;
+            }
+        }
+    }
+}
+
+@media #{$mq_minTabletPortrait}{
+    #header{
+        padding:20px 0 25px 0;
+    }
 }
