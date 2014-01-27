@@ -7,6 +7,11 @@
         padding-top:20px;
     }
 
+    .th-list{
+        width:auto;
+        position:relative;
+    }
+
     //////////////////////
     //Calendar Sort Tool//
     //////////////////////
@@ -17,7 +22,7 @@
         margin-bottom:20px;
 
         a{
-            .button{
+            &.button{
                 padding-right:20px;
                 border-right:1px solid $primaryNeutralDark;
                 margin-right:20px;
@@ -46,7 +51,7 @@
                 background-position:-60px 0;
             }
 
-            .milonga{
+            &.milonga{
                 &.checked{
                     .js-indicator{
                         background-position:-12px 0;
@@ -54,7 +59,7 @@
                 }
             }
 
-            .lesson{
+            &.lesson{
                 &.checked{
                     .js-indicator{
                         background-position:-24px 0;
@@ -62,7 +67,7 @@
                 }
             }
 
-            .practica{
+            &.practica{
                 &.checked{
                     .js-indicator{
                         background-position:-36px 0;
@@ -70,7 +75,7 @@
                 }
             }
 
-            .show{
+            &.show{
                 &.checked{
                     .js-indicator{
                         background-position:-48px 0;
@@ -80,7 +85,7 @@
         }
 
         input{
-            .button{
+            &.button{
                 float:right;
             }
         }
@@ -98,7 +103,7 @@
         }
 
         .button{
-            .adv{
+            &.adv{
                 display:block;
             }
         }
@@ -120,7 +125,7 @@
         }
 
         .cell{
-            .rowStart{
+            &.rowStart{
                 clear:left;
             }
         }
@@ -462,11 +467,6 @@
             background:url($loader) no-repeat center $primaryNeutralDark;
         }
     }
-
-    .th-list{
-        width:auto;
-        position:relative;
-    }
 }
 
 .c-picker-wrapper{
@@ -502,7 +502,7 @@
             }
         }
 
-        .picker{
+        &.picker{
             &:hover{
                 .visualizer{
                     @include calendarPickerVisualizer;
@@ -533,6 +533,12 @@
             .banner{
                 width:100%;
             }
+        }
+    }
+
+    .c{
+        &.d-disp{
+            font-size:1em;
         }
     }
 }
@@ -601,9 +607,7 @@
             }
         }
     }
-}
 
-@media #{$mq_minTabletPortrait}{
     .c-picker-wrapper{
         &.clearfix{
             clear:none;

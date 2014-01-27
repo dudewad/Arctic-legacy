@@ -128,14 +128,12 @@
 #header .lsel{
     display:block;
 
-    .location{
+    .location,
+    .change-location a{
         color:$primaryNeutralLight;
     }
 
     .change-location{
-        a{
-            color:$primaryNeutralLight;
-        }
 
         &:hover{
             a{

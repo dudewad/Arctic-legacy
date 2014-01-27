@@ -119,7 +119,9 @@ class TanguerApp{
 
                     <link type='text/css' rel='stylesheet' href='css/style.css' media='all' />
                     <!--<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' />-->
-                    <link type='text/css' rel='stylesheet' href='POC/css/test-min.css' />
+                    <!--<link type='text/css' rel='stylesheet' href='POC/css/test-min.css' />-->
+
+                    <link type='text/css' rel='stylesheet' href='css/main.css' />
                 </head>";
 
         return $data;

@@ -19,7 +19,7 @@ input{
     border:0;
     margin:0;
 
-    .button{
+    &.button{
         padding:10px;
         margin:0;
 
@@ -103,7 +103,7 @@ table{
 
 .js{
     a{
-        .button{
+        &.button{
             span{
                 padding-right:30px;
                 display:inline-block;
@@ -223,7 +223,7 @@ table{
     }
 }
 
-@media #{$mq_minTabletPortrait}{
+@media #{$mq_minLargeDesktop}{
     body{
         padding:0;
     }
