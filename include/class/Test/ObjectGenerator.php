@@ -269,4 +269,10 @@ class Test_ObjectGenerator {
         $address->country = $this->countries[rand(0,count($this->countries)-1)];
         return new Location_Location($address);
     }
+
+
+
+    public function db_getRandomUser($resource){
+
+    }
 }

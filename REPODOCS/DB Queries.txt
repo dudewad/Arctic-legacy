@@ -1,0 +1,51 @@
+/**
+ * Get only the information for an event thumbnail
+ */
+
+SELECT
+	event.event_id AS event_id,
+	event.name AS name,
+	event.date_start AS date_start,
+	event.confirmed AS confirmed,
+	event.price AS price,
+	event.event_type_id AS event_type_id,
+	v_street_address.street_address AS street_address
+FROM
+	event,
+	location,
+	v_street_address
+WHERE
+	event.location_id = location.location_id & v_street_address.street_address_id = location.street_address_id;
+
+
+
+/**
+ * Get an entire event's information
+ */
+
+ SELECT
+ 	event.event_id AS event_id,
+ 	event.name AS name,
+ 	event.date_start AS date_start,
+ 	event.confirmed AS confirmed,
+ 	event.price AS price,
+ 	event.event_type_id AS event_type_id,
+ 	v_place_name.place_name AS place_name,
+ 	v_street_address.street_address AS street_address,
+ 	v_city.city_name AS city_name,
+ 	v_state.state_name AS state_name,
+ 	v_zip.zip AS zip
+ FROM
+ 	event,
+ 	location,
+ 	v_place_name,
+ 	v_street_address,
+ 	v_city,
+ 	v_state,
+ 	v_zip
+ WHERE
+ 	event.location_id = location.location_id
+ 	&& v_street_address.street_address_id = location.street_address_id
+ 	&& v_city.city_id = location.city_id
+ 	&& v_state.state_id = location.state_id
+ 	&& v_zip.zip_id = location.zip_id;

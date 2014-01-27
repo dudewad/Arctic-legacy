@@ -17,8 +17,8 @@ $eventToView = null;
 $mainCalID = "mainCal";
 
 if(isset($_REQUEST['lsel'])){
-    $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->city;
-    $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->country;
+    $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->getCity();
+    $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->getCountry();
     TanguerApp::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
 }
 
