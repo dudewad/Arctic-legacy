@@ -6,7 +6,7 @@
 var Tanguer_Modal = function(){
     //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Modal module.");
+        console.warn("Tanguer_App module not detected. Cannot initialize the Tanguer_Modal module.");
         return;
     }
 
@@ -51,10 +51,10 @@ Tanguer_Modal.prototype = {
         this.setParams(params);
         var mid = this.getNextID();
         var wrapperClass = "m-wrapper";
-        wrapperClass += this.settings.hasBackground ? " hasBG" : null;
+        wrapperClass += this.settings.hasBackground ? " hasBG" : "";
         var modalClass = "m";
         var html = "<div class='" + wrapperClass + "' id='" + mid + "'>" +
-                        "<div class='" + modalClass + "'>" + this.content + "</div>" +
+                        "<div class='" + modalClass + " clearfix'>" + this.content + "</div>" +
                     "</div>";
         this._body.append(html);
         var modal = $("#" + mid);
@@ -132,7 +132,8 @@ Tanguer_Modal.prototype = {
      */
     setParams:function(params){
         if(params){
-            this.content = params.content || null;
+            var modal = $("#modals .modal-" + params.target).eq(0);
+            this.content = $(modal).html() || null;
             this.settings.hasBackground = params.hasBackground || false;
         }
     }

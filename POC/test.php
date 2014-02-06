@@ -23,28 +23,17 @@ $appUser = $generator->getRandomUser($lang);
 //Languages can be "ESAR" or "ENUS"
 
 $APP->setUserSession($appUser);
-$cal = new Module_Calendar(time());
 
-$numEvents = 8;//rand(4,10);
-$eList = array();
-for($i = 0; $i < $numEvents; $i++){
-    array_push($eList, $generator->getSequencedEvent());
-    if($eList[$i]->getId() == $selectedEvent)
-        $eventToView = $eList[$i];
-}
-
-usort($eList, "sortByStartTime");
-
-$date = isset($_GET['d']) ? $_GET['d'] : time();
+$creator = new Module_CreateAccount();
+$htmlTagClass = Utility_Constants::APP_GUI_MODE == "dev" ? "devMode" : "";
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<?php echo $APP->head(); ?>
+    <html lang="en" class="<?php echo $htmlTagClass;?>">
+<?php echo TanguerApp::head(); ?>
 <body>
 <div class="content">
     <?php
-        echo $cal->calendarPickerMonthToHTML($date);
-        echo $cal->to_html_full_day($eList, time(), $eventToView, $mainCalID);
+        echo $creator->to_html_full_create();
     ?>
     <div id="debug"></div>
 </div>

@@ -49,7 +49,7 @@ class Module_Login{
                 <hr />
                 <h3>$createAccountCTA</h3>
                 <span class="cta-container">
-                    <a href="$registerURL" class="cta">$ctaButtonText</a>
+                    <a href="$registerURL" class="cta flow-start-ac">$ctaButtonText</a>
                 </span>
             </div>
 HTML;

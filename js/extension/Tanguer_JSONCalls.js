@@ -8,7 +8,7 @@
 function Tanguer_JSONCalls(){
     //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_JSONCalls module.");
+        console.warn("Tanguer_App module not detected. Cannot initialize the Tanguer_JSONCalls module.");
         return;
     }
 }

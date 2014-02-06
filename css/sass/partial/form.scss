@@ -1,0 +1,40 @@
+input{
+    background:$uiInputUnfocusedBGColor;
+    color:$uiUnfocusedFontColor;
+    padding:8px;
+    border:0;
+    margin:0;
+
+    &.button{
+        padding:10px;
+        margin:0;
+
+        &:hover{
+            background-color:$uiInputFocusedBGColor;
+        }
+    }
+}
+
+select{
+    background:$uiInputUnfocusedBGColor;
+    color:$uiUnfocusedFontColor;
+    padding:5px;
+}
+
+//These placeholder rules need to stay separate because any invalid style selectors in a group makes
+//the browser skip the entire group, per the spec
+*::-webkit-input-placeholder {
+    color: $primaryNeutralMediumDark;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: $primaryNeutralMediumDark;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: $primaryNeutralMediumDark;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: $primaryNeutralMediumDark;
+}

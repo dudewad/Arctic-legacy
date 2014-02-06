@@ -12,29 +12,6 @@ body{
     color:$primaryNeutralDark;
 }
 
-input{
-    background:$uiInputUnfocusedBGColor;
-    color:$uiUnfocusedFontColor;
-    padding:8px;
-    border:0;
-    margin:0;
-
-    &.button{
-        padding:10px;
-        margin:0;
-
-        &:hover{
-            background-color:$uiInputFocusedBGColor;
-        }
-    }
-}
-
-select{
-    background:$uiInputUnfocusedBGColor;
-    color:$uiUnfocusedFontColor;
-    padding:5px;
-}
-
 p{
     padding-bottom:0;
     margin-bottom:0;

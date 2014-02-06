@@ -37,6 +37,8 @@ for($i = 0; $i < $numEvents; $i++){
 usort($eList, "sortByStartTime");
 
 $locationSelector = new Module_LocationSelector();
+$accountCreator = new Module_AccountCreator();
+TanguerApp::setModal($accountCreator->to_html_full_create(), "ac");
 
 $htmlTagClass = Utility_Constants::APP_GUI_MODE == "dev" ? "devMode" : "";
 ?>
@@ -60,6 +62,9 @@ $htmlTagClass = Utility_Constants::APP_GUI_MODE == "dev" ? "devMode" : "";
         ?>
         <div id="debug"></div>
     </div>
+        <?php
+        echo TanguerApp::modalsToHTML();
+        ?>
     </body>
     </html>
 

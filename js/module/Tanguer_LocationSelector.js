@@ -9,7 +9,7 @@
 var Tanguer_LocationSelector = function(){
     //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_LocationSelector module.");
+        console.warn("Tanguer_App module not detected. Cannot initialize the Tanguer_LocationSelector module.");
         return;
     }
     //Try to use the pre-selected common jquery selections first

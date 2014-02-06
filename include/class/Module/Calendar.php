@@ -10,6 +10,10 @@ class Module_Calendar{
     const formIDPrefix = "c";
     //The Calendar module will give each form a unique numeric ID
     public static $formID = 0;
+    //Stores the URL that the modal sort will point to
+    private $modalSortURL = null;
+    //Stores the date that the modal sort will effect
+    private $modalSortDate = null;
 
 
 
@@ -404,14 +408,11 @@ HTML;
         $practicaDisplay = String_String::getString("EVENT_TYPE_PRACTICA","Output_Event_Event");
         $showDisplay = String_String::getString("EVENT_TYPE_SHOW","Output_Event_Event");
         $formID = "eTypeSort" . $this->getNextFormID();
-        $advancedSort = $this->advancedSortModalToHTML($url, $date);
+        TanguerApp::setModal($this->advancedSortModalToHTML($url, $date),"e-s-adv");
         $html = <<<HTML
                 <div class="s">
                     <div class="s-adv">
                         <a href="" class="button adv"><span>$sortOptionsText</span></a>
-                        <div class="e-s-adv">
-                            $advancedSort
-                        </div>
                     </div>
                     <form action='#' method='post' class="e-s" id="$formID">
                         <label class="milonga checked hasIndicator" data-sort-type="milonga">
@@ -441,25 +442,27 @@ HTML;
 
     /**
      * Returns and HTML string for an advanced sort form for the calendar
-     * @param $url
-     * @param $date
+     * @param string $url       The form action URL
+     * @param string $date      The date that the sort action is working on
      * @return string
      */
     private function advancedSortModalToHTML($url, $date){
         $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $html = <<<HTML
-            <h3>Additional Sort Options</h3>
-            <form action='#' method='post' class="s-adv-form" >
-                <input type="hidden" name="date" value="$date" >
-                <select name="param">
-                    <option value="start_time">Time</option>
-                    <option value="price">Price</option>
-                    <option value="event_type">Event Type</option>
-                </select>
-                <label><input type="radio" name="sO" value="asc" checked="true" /><span>Ascending</span></label>
-                <label><input type="radio" name="sO" value="desc" /><span>Descending</span></label>
-                <input type="submit" class="button" value="$submitButtonText"/>
-            </form>
+                <div class="e-s-adv">
+                    <h3>Additional Sort Options</h3>
+                    <form action="$url" method="post" class="s-adv-form" >
+                        <input type="hidden" name="date" value="$date" >
+                        <select name="param">
+                            <option value="start_time">Time</option>
+                            <option value="price">Price</option>
+                            <option value="event_type">Event Type</option>
+                        </select>
+                        <label><input type="radio" name="sO" value="asc" checked="true" /><span>Ascending</span></label>
+                        <label><input type="radio" name="sO" value="desc" /><span>Descending</span></label>
+                        <input type="submit" class="button" value="$submitButtonText"/>
+                    </form>
+                </div>
 HTML;
         return $html;
     }

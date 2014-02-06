@@ -9,7 +9,7 @@
 var Tanguer_Calendar = function(){
     //Requires the Tanguer_App module
     if(!Tanguer_App){
-        console.log("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
+        console.warn("Tanguer_App module not detected. Cannot initialize the Tanguer_Calendar module.");
         return;
     }
     //Try to use the pre-selected common jquery selections first
@@ -43,7 +43,7 @@ Tanguer_Calendar.prototype = {
         this.displayMode = this.setDisplayMode();
 
         //Set up thumbnail click functionality
-        this._body.on("click","div.c .th-list a", function(e){
+        this._body.on("click","div.c .th-list .e.th a", function(e){
             e.preventDefault();
             var thumb = $(this).closest(".e.th");
             var eventID = thumb.data("event-id");
@@ -105,7 +105,7 @@ Tanguer_Calendar.prototype = {
             ref = {scope:scope,instanceID:instance};
             e.preventDefault();
             var settings = {
-                content:$(this).closest(".s").find(".e-s-adv").html(),
+                target:"e-s-adv",
                 hasBackground:true
             };
             var modalID = Tanguer_App.modal.open(settings);

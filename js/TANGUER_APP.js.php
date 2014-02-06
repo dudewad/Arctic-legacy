@@ -113,6 +113,10 @@ var Tanguer_App;
                 return new Tanguer_Alert();
             });
 
+            this.ioc.register("accountCreator", function(){
+                return new Tanguer_AccountCreator();
+            });
+
             //Extensions are singletons
             this.ioc.register("modal", function(){
                 return scope.modal || new Tanguer_Modal();
@@ -289,6 +293,10 @@ var Tanguer_App;
         //If any location selector modules are present, add them to the page
         if($(".lsel").length > 0)
             Tanguer_App.ioc.build("locationSelector");
+
+        //If any location selector modules are present, add them to the page
+        if($(".cta.flow-start-ac").length > 0)
+            Tanguer_App.ioc.build("accountCreator");
 
         //All alerts should be handled; we may want to add alerts dynamically
         //so this needs to be on the page in any case.

@@ -7,7 +7,7 @@
 
 //Global Tanguer App object
 Utility_IOC::register("TanguerApp", function(){
-    return new TanguerApp("/../../");
+    return new TanguerApp();
 });
 
 //Security: password object
