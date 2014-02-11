@@ -22,6 +22,7 @@ class Utility_Constants {
 
 
     //DIRECTORY CONSTANTS
+    const DIR_VIEW_BASE = "include/view/";
     const DIR_EVENT_BANNER = "asset/image/event/banner/";
 
 

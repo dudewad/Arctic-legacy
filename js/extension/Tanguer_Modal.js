@@ -132,7 +132,8 @@ Tanguer_Modal.prototype = {
      */
     setParams:function(params){
         if(params){
-            var modal = $("#modals .modal-" + params.target).eq(0);
+            var modal = $("#m-" + params.target).eq(0);
+            console.log("#m-" + params.target);
             this.content = $(modal).html() || null;
             this.settings.hasBackground = params.hasBackground || false;
         }

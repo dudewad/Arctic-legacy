@@ -14,6 +14,8 @@ class TanguerApp{
     private static $modals = array();
     //Contains sanitized inputs that came in via get/post
     private static $userInput;
+    //Will contain data specific to the current view
+    private static $viewData;
 
 
 
@@ -25,7 +27,7 @@ class TanguerApp{
         self::$userInput = new stdClass();
         //Start out by getting the user's session data all set up
         $generator = new Test_ObjectGenerator();
-        $lang = "es_ar";
+        $lang = "en_us";
         String_String::setLanguage($lang);
         $this->setDefaultTimezone();
         $appUser = $generator->getRandomUser($lang);
@@ -34,12 +36,45 @@ class TanguerApp{
         $location->city = "Rosario";
         $location->country = "Argentina";
         self::setUserLocation($location);
-        //Languages can be "ESAR" or "ENUS"
+
+        //TODO: Need to handle this sort of task en masse in their own method call
+        if(isset($_REQUEST['lsel'])){
+            $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->getCity();
+            $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->getCountry();
+            self::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
+        }
 
         self::setUserSession($appUser);
         self::validateAndStoreInputs();
-        //unset($_GET);
-        //unset($_POST);
+    }
+
+
+
+    /**
+     * Figures out which view needs to be loaded, and loads it. Returns the data as a string.
+     */
+    public static function loadView(){
+        $view = isset($_REQUEST['v']) ? $_REQUEST['v'] : null;
+        $viewData = "";
+        switch($view){
+            //Default to "main" view
+            case "m":
+            default:
+                require_once(Utility_Constants::DIR_VIEW_BASE . "main.php");
+                break;
+        }
+        $viewData = self::$viewData;
+        return <<<HTML
+                <div class="content">
+                    $viewData
+                </div>
+HTML;
+    }
+
+
+
+    public static function setViewData($data){
+        self::$viewData = $data;
     }
 
 
@@ -198,13 +233,10 @@ HTML;
     public static function modalsToHTML(){
         if(count(TanguerApp::$modals) > 0){
             $html = "<div id='modals' style='display:none;'>";
-            for($i = 0; $i < count(TanguerApp::$modals); $i++){
-                $modal = TanguerApp::$modals[$i];
-                $class = $modal->class;
-                $content = $modal->str;
+            foreach(TanguerApp::$modals as $key => $val){
                 $html .= <<<HTML
-                        <div class='modal-$class'>
-                            $content
+                        <div class='modal' id="m-$key">
+                            $val
                         </div>
 HTML;
             }
@@ -215,11 +247,8 @@ HTML;
 
 
 
-    public static function setModal($modal, $class = ""){
-        $m = new stdClass();
-        $m->str = $modal;
-        $m->class = $class;
-        array_push(TanguerApp::$modals, $m);
+    public static function setModal($modal, $id){
+        TanguerApp::$modals["$id"] = $modal;
     }
 
 
