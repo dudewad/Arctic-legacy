@@ -24,7 +24,7 @@ Tanguer_AccountCreator.prototype = {
         this._body.on("click",".flow-start-ac",function(e){
             e.preventDefault();
             var settings = {
-                target:"ac-start",
+                target:"m-ac-start",
                 hasBackground:"true"
             };
             Tanguer_App.modal.open(settings);

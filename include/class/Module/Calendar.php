@@ -361,7 +361,7 @@ HTML;
 
             $id = $e->getID();
             $isSelectedEvent = $id == $selectedID;
-            $url = TanguerApp::getURL("URL_MAIN","e=$id");
+            $url = TanguerApp::getURL(null,"e=$id");
             $selected = $isSelectedEvent ? "selected" : null;
             $html .= $eOut->to_html_thumb($url, $selected);
 
@@ -408,7 +408,7 @@ HTML;
         $practicaDisplay = String_String::getString("EVENT_TYPE_PRACTICA","Output_Event_Event");
         $showDisplay = String_String::getString("EVENT_TYPE_SHOW","Output_Event_Event");
         $formID = "eTypeSort" . $this->getNextFormID();
-        TanguerApp::setModal($this->advancedSortModalToHTML($url, $date),"e-s-adv");
+        TanguerApp::setModal($this->advancedSortModalToHTML($url, $date),"m-e-s-adv");
         $html = <<<HTML
                 <div class="s">
                     <div class="s-adv">
@@ -447,11 +447,13 @@ HTML;
      * @return string
      */
     private function advancedSortModalToHTML($url, $date){
+        $dataPostType = Utility_Constants::REQUEST_TYPE_EVENT_ADVANCED_SORT;
         $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $html = <<<HTML
                 <div class="e-s-adv">
                     <h3>Additional Sort Options</h3>
                     <form action="$url" method="post" class="s-adv-form" >
+                        <input type="hidden" name="t" value="$dataPostType" />
                         <input type="hidden" name="date" value="$date" >
                         <select name="param">
                             <option value="start_time">Time</option>

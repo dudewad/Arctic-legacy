@@ -12,6 +12,14 @@ body{
     color:$primaryNeutralDark;
 }
 
+a{
+    color:$primaryAccentColor;
+
+    &:hover{
+        text-decoration:underline;
+    }
+}
+
 p{
     padding-bottom:0;
     margin-bottom:0;
@@ -41,6 +49,36 @@ table{
 
 .offscreen{
     text-indent:-9999px;
+}
+
+.vr{
+    border-right:1px solid $primaryNeutralDark;
+}
+
+.cta-container{
+    padding:2px;
+    border:1px solid #b12f2c;
+    display:inline-block;
+
+    .cta{
+        margin:0;
+    }
+}
+
+.cta{
+    font-weight:900;
+    padding:8px;
+    display:block;
+    font-size: 1.4em;
+
+    &:hover{
+        text-decoration:none;
+    }
+}
+
+.no-space-bottom{
+    margin-bottom:0 !important;
+    padding-bottom:0 !important;
 }
 
 
@@ -163,8 +201,30 @@ table{
         float:left;
         margin-right:2%;
     }
+
     .col-1-2{
         width:48%;
+
+        //Two-column layout with vertical divider option
+        &.col-2-right{
+            margin:0;
+            width:50%;
+
+            .col-content{
+                padding:20px 0 20px 50px;
+            }
+        }
+
+        &.col-2-left{
+            margin:0;
+            width:50%;
+
+            .col-content{
+                &.vr{
+                    padding:20px 50px 20px 0;
+                }
+            }
+        }
     }
 
     .col-1-4{

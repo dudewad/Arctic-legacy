@@ -28,6 +28,8 @@ class Module_LocationSelector{
      * @return  string
      */
     public function to_html_full($class = null){
+        $formAction = TanguerApp::getCurrentPageURL();
+        $dataPostType = Utility_Constants::REQUEST_TYPE_LOCATION_SELECTED;
         $city = isset($_SESSION['location']['city']) ? $_SESSION['location']['city'] : null;
         $country = isset($_SESSION['location']['country']) ? $_SESSION['location']['country'] : null;
         $title = String_String::getString("MODULE_TITLE",__CLASS__);
@@ -39,7 +41,6 @@ class Module_LocationSelector{
         $indicatorURL = Utility_Constants::URL_ASSET_BASE . "/image/gui/gui-calendar-flyout-arrow-indicator19x10.png";
         $change = String_String::getString("MISC_SUBMIT_LOCATION_CHANGE",__CLASS__);
         $moduleID = $this->getNextFormID();
-        $formAction = TanguerApp::getCurrentPageURL();
         $html = <<<HTML
                 <div class="lsel clearfix $class" id="lsel$moduleID">
                     <div class="location">
@@ -54,7 +55,7 @@ class Module_LocationSelector{
                             <img class="indicator" src="$indicatorURL" alt="">
                             <h3>$title</h3>
                             <form action="$formAction" method="post" id="lselForm$moduleID" >
-                                <input type="hidden" name="lsel" value="1" />
+                                <input type="hidden" name="t" value="$dataPostType" />
                                 <label for="country">$countryLabel</label>
                                 <select name="country">
                                     <option value="0">$countryArgentina</option>

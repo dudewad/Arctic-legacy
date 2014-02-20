@@ -30,13 +30,13 @@ Tanguer_JSONCalls.prototype = {
             //Requires:
             //e         The event id being requested
             case "getQuickEvent":
-                return this.baseJsonURL + "?t=cgqe&eid=" + params.e;
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("requestType.REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT") + "&eid=" + params.e;
                 break;
             case "getSortFullDay":
-                return this.baseJsonURL + "?t=csfd&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("requestType.REQUEST_TYPE_CALENDAR_SORT_FULL_DAY") + "&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
                 break;
             case "getFullDay":
-                return this.baseJsonURL + "?t=cfd&d=" + params.d;
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("requestType.REQUEST_TYPE_CALENDAR_FULL_DAY") + "&d=" + params.d;
                 break;
             default:
                 console.warn("Requested JSONCall URL does not exist.");
@@ -62,7 +62,7 @@ Tanguer_JSONCalls.prototype = {
             }
 
             //Tanguer in test mode will add a 1 second delay to simulate ajax calls happening.
-            if(Tanguer_App.settings.app.environment == "test"){
+            if(Tanguer_App.constants.get("app.environment") == "test"){
                 setTimeout(function(){
                     callback(data[0], ref || {});
                 },1000);

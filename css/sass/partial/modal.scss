@@ -20,23 +20,22 @@
     background:$primaryNeutralLightest;
     padding:10px;
 
+    h1{
+        font-family:$baseApplicationTitleFontFamily;
+        font-size:2.4em;
+        color:$ctaTitleFontColor;
+        margin:10px 0 20px 0;
+    }
+
     h3{
         text-align:center;
         font-size:2em;
         font-family:$baseApplicationTitleFontFamily;
     }
 
-    form{
-        padding:20px 0;
-        border:smallSolidBorder($primaryNeutralDark);
-        border-left:none;
-        border-right:none;
-    }
-
     label{
         display:block;
         margin:10px auto 0 auto;
-        text-align:center;
         vertical-align:middle;
         font-size:1.4em;
     }
@@ -53,6 +52,16 @@
         display:block;
         margin:20px auto 0 auto;
     }
+
+    .close{
+        width:25px;
+        height:25px;
+        position:absolute;
+        top:-12px;
+        right:-12px;
+        background:url($sprite) no-repeat -75px 0;
+        cursor:pointer;
+    }
 }
 
 
@@ -64,12 +73,13 @@
 @media #{$mq_minPhoneLandscape}{
     .m{
         width:65%;
+        padding:30px;
     }
 }
 
 @media #{$mq_minTabletPortrait}{
     .m{
         width:600px;
-        padding:20px;
+        padding:50px;
     }
 }

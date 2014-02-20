@@ -31,7 +31,7 @@ switch($_REQUEST['t']){
     /**
      * Event (e) request- asks for one event from the server
      */
-    case "cgqe":
+    case Utility_Constants::REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT:
         if(!isset($_GET['eid']))
             error(1201);
         $e = $generator->getSequencedEvent($_REQUEST['eid']);
@@ -44,7 +44,7 @@ switch($_REQUEST['t']){
     /**
      * fullDay request- asks for list of events for one full day from the server at the specified date
      */
-    case "cfd":
+    case Utility_Constants::REQUEST_TYPE_CALENDAR_FULL_DAY:
         //TODO: Replace with actual code - this is placeholder stuff
         $cal = new Module_Calendar($_REQUEST['d']);
         $mainCalID = md5(microtime() . time());
@@ -66,7 +66,7 @@ switch($_REQUEST['t']){
     /**
      * sortFullDay request- asks for list of events for one full day from the server sorted accordingly
      */
-    case "csfd":
+    case Utility_Constants::REQUEST_TYPE_CALENDAR_SORT_FULL_DAY:
         //TODO: Replace with actual code - this is placeholder stuff
         $cal = new Module_Calendar($_REQUEST['d']);
         $mainCalID = md5(microtime() . time());

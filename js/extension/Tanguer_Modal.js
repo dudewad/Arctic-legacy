@@ -34,6 +34,9 @@ Tanguer_Modal.prototype = {
             case "transitionSpeed":
                 return 200;
                 break;
+            case "modalClass":
+                return "m";
+                break;
             default:
                 return null;
                 break;
@@ -52,9 +55,8 @@ Tanguer_Modal.prototype = {
         var mid = this.getNextID();
         var wrapperClass = "m-wrapper";
         wrapperClass += this.settings.hasBackground ? " hasBG" : "";
-        var modalClass = "m";
         var html = "<div class='" + wrapperClass + "' id='" + mid + "'>" +
-                        "<div class='" + modalClass + " clearfix'>" + this.content + "</div>" +
+                        "<div class='" + this.constant("modalClass") + " clearfix'>" + this.content + "</div>" +
                     "</div>";
         this._body.append(html);
         var modal = $("#" + mid);
@@ -66,7 +68,7 @@ Tanguer_Modal.prototype = {
 
         //On click of the wrapper only, hide/remove the modal
         this._body.on("click.modal" + mid,"#" + mid + ".m-wrapper",function(e){
-            if($(e.target).hasClass("m-wrapper")){
+            if($(e.target).hasClass("m-wrapper") || $(e.target).hasClass("close")){
                 scope.close(mid);
             }
         });
@@ -132,8 +134,7 @@ Tanguer_Modal.prototype = {
      */
     setParams:function(params){
         if(params){
-            var modal = $("#m-" + params.target).eq(0);
-            console.log("#m-" + params.target);
+            var modal = $("#" + params.target).eq(0);
             this.content = $(modal).html() || null;
             this.settings.hasBackground = params.hasBackground || false;
         }

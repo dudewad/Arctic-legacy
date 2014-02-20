@@ -6,17 +6,11 @@
  
 class String_ESAR_TanguerApp {
 
-
     //Login module related strings
     const LOGIN_SUBTITLE = "El sistema gratuito para organizar y encontrar tu baile";
 
-    const BUTTON_SUBMIT = "Listo";
-
-    //Verbs
-    const V_1P_PRES_ATTENDING = "Voy";
-    const V_2P_PRES_ATTENDING = "Vas";
-    const V_3P_PRES_S_ATTENDING = "Va";
-    const V_3P_PRES_PL_ATTENDING = "Van";
+    //Legal strings
+    const TERMS_OF_SERVICE_TAGLINE = "Política de uso de Tánguer";
 
     //Date format for this language
     const DATE_FORMAT = "j/n/Y";
@@ -24,4 +18,10 @@ class String_ESAR_TanguerApp {
     //Country names
     const COUNTRY_ARGENTINA = "Argentina";
     const COUNTRY_UNITED_STATES = "Estados Unidos";
+
+    //VIEW CONSTANTS (htaccess will deal with redirecting to the proper views)
+    const VIEW_TERMS_OF_SERVICE             = "politica-de-uso";
+    const VIEW_ACCOUNT_CREATOR_START        = "crear-cuenta";
+    const VIEW_ACCOUNT_CREATOR_FINALIZE     = "finalizar-cuenta";
+    const VIEW_ACCOUNT_MANAGER              = "cuenta";
 }

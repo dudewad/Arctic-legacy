@@ -24,7 +24,7 @@ usort($eList, "sortByStartTime");
 
 $locationSelector = new Module_LocationSelector();
 $accountCreator = new Module_AccountCreator();
-TanguerApp::setModal($accountCreator->to_html_full_create(), "ac-start");
+TanguerApp::setModal($accountCreator->to_html_full_create(), "m-ac-start");
 
 $calPicker = $cal->calendarPickerMonthToHTML($date, date_default_timezone_get());
 $locSelector = $locationSelector->to_html_full();

@@ -37,11 +37,30 @@ class TanguerApp{
         $location->country = "Argentina";
         self::setUserLocation($location);
 
-        //TODO: Need to handle this sort of task en masse in their own method call
-        if(isset($_REQUEST['lsel'])){
-            $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->getCity();
-            $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->getCountry();
-            self::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
+        //TODO: Need to handle form submission tasks en masse in their own method call (and likely their own class)
+        if(isset($_REQUEST['t'])){
+            switch(strtolower($_REQUEST['t'])){
+                //Login request
+                case Utility_Constants::REQUEST_TYPE_LOGIN:
+                    break;
+                //Location selection updated
+                case Utility_Constants::REQUEST_TYPE_LOCATION_SELECTED:
+                    $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : $location->getCity();
+                    $country = isset($_REQUEST['country']) ? $_REQUEST['country'] : $location->getCountry();
+                    self::setAlert(new Alert_Standard("Location selection has been updated: " . $country . "," . $city));
+                    break;
+                //Account creation - start flow submitted
+                case Utility_Constants::REQUEST_TYPE_ACCOUNT_CREATOR_START;
+                    break;
+                //Account creation - verification link from email clicked
+                case Utility_Constants::REQUEST_TYPE_ACCOUNT_CREATOR_VERIFY;
+                    break;
+                //Account creation - finalization flow submitted
+                case Utility_Constants::REQUEST_TYPE_ACCOUNT_CREATOR_FINALIZE;
+                    break;
+                default:
+                    break;
+            }
         }
 
         self::setUserSession($appUser);
@@ -57,6 +76,10 @@ class TanguerApp{
         $view = isset($_REQUEST['v']) ? $_REQUEST['v'] : null;
         $viewData = "";
         switch($view){
+            //Account-creator: start
+            case "ac-s":
+                require_once(Utility_Constants::DIR_VIEW_BASE . "accountCreator.php");
+                break;
             //Default to "main" view
             case "m":
             default:
@@ -235,7 +258,8 @@ HTML;
             $html = "<div id='modals' style='display:none;'>";
             foreach(TanguerApp::$modals as $key => $val){
                 $html .= <<<HTML
-                        <div class='modal' id="m-$key">
+                        <div class='modal' id="$key">
+                            <div class='close'></div>
                             $val
                         </div>
 HTML;
@@ -248,7 +272,7 @@ HTML;
 
 
     public static function setModal($modal, $id){
-        TanguerApp::$modals["$id"] = $modal;
+        TanguerApp::$modals[$id] = $modal;
     }
 
 
@@ -336,20 +360,41 @@ HTML;
 
 
     /**
-     * @param $page     String      The page to be linked to
+     * @param $view     String      The view to be linked to
      *
      * @param $q        String      Query string arguments to be appended to the URL
      *
      * @return string               URL or empty string
      */
-    public static function getURL($page = null, $q = null){
-        if(strtoupper($page) == "URL_CURRENT"){
-            return $_SERVER["PHP_SELF"];
-        }
-        $url = constant("Utility_Constants::" . strtoupper($page));
-        if($q)
+    public static function getURL($view = null, $q = null){
+        $url = Utility_Constants::URL_MAIN;
+        if(isset($view))
+            $url .= $view;
+        if(isset($q))
             $url .= "?$q";
+
         return $url;
+    }
+
+
+    /**
+     * Gets an HTML formatted anchor tag and uses any passed view, copy, target, and query string data to do so.
+     * @param $view             String      The view to be linked to
+     * @param $copy             String      The actual text to appear inside the anchor
+     * @param null $target      String      "Window target", e.g. "_blank". Defaults to nothing
+     * @param null $q           String      Query string arguments to be appended to the URL
+     * @param null $class       String      The CSS class attribute to add to the anchor
+     * @return string
+     */
+    public static function buildAnchor($view, $copy, $target = null, $q = null, $class = null){
+        $url = self::getURL($view, $q);
+        $anchor = "<a href='$url'";
+        if(isset($target))
+            $anchor .= " target='$target'";
+        if(isset($class))
+            $anchor .= " class='$class'";
+        $anchor .= ">$copy</a>";
+        return $anchor;
     }
 
 

@@ -9,14 +9,8 @@ class String_ENUS_TanguerApp {
     //Login module related strings
     const LOGIN_SUBTITLE = "The free system to find and organize your tango";
 
-    //Button strings
-    const BUTTON_SUBMIT = "Listo";
-
-    //Verbs
-    const V_1P_PRES_ATTENDING = "Attending";
-    const V_2P_PRES_ATTENDING = "Attending";
-    const V_3P_PRES_S_ATTENDING = "Attending";
-    const V_3P_PRES_PL_ATTENDING = "Attending";
+    //Legal strings
+    const TERMS_OF_SERVICE_TAGLINE = "Tánguer Terms of Service Agreement";
 
     //Date format for this language
     const DATE_FORMAT = "n/j/Y";
@@ -24,4 +18,10 @@ class String_ENUS_TanguerApp {
     //Country names
     const COUNTRY_ARGENTINA = "Argentina";
     const COUNTRY_UNITED_STATES = "United States";
+
+    //VIEW CONSTANTS (htaccess will deal with redirecting to the proper views)
+    const VIEW_TERMS_OF_SERVICE             = "terms-of-service/";
+    const VIEW_ACCOUNT_CREATOR_START        = "create-account/";
+    const VIEW_ACCOUNT_CREATOR_FINALIZE     = "finalize-account/";
+    const VIEW_ACCOUNT_MANAGER              = "account/";
 }

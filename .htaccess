@@ -2,3 +2,16 @@ RewriteEngine On
 
 #Rewrites specific ISO-8601 date ranges to go to the index page with get params excluded
 RewriteRule ^([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})$ index.php?d=$1-$2-$3 [L]
+
+#Redirect specific page requests to specific views.
+#Note: Need one for each view in each distributed language, or failures will occur.
+#These need to map to the URL-friendly values that users will put in.
+
+#Account creation page
+RewriteRule ^create-account|crear-cuenta$ index.php?v=ac-s [L]
+
+#Account finalization page
+RewriteRule ^finalize-account|finalizar-cuenta$ index.php?v=ac-f [L]
+
+#Account manager page
+RewriteRule ^account|cuenta$ index.php?v=ac-f [L]

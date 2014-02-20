@@ -15,7 +15,7 @@ var Tanguer_Calendar = function(){
     //Try to use the pre-selected common jquery selections first
     this._body = Tanguer_App.jSel._body || $("body");
     this._window = Tanguer_App.jSel._window || $(window);
-    this.breakpointTabletPortrait = Tanguer_App.settings.display.BREAKPOINT_TABLET_PORTRAIT;
+    this.breakpointTabletPortrait = Tanguer_App.constants.get("display.BREAKPOINT_TABLET_PORTRAIT");
     this.displayMode = null;
 
     //Set up hiding on body click
@@ -105,7 +105,7 @@ Tanguer_Calendar.prototype = {
             ref = {scope:scope,instanceID:instance};
             e.preventDefault();
             var settings = {
-                target:"e-s-adv",
+                target:"m-e-s-adv",
                 hasBackground:true
             };
             var modalID = Tanguer_App.modal.open(settings);

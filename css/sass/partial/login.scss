@@ -60,20 +60,6 @@
             font-size: 1.4em;
         }
 
-        .cta-container{
-            padding:2px;
-            border:1px solid #b12f2c;
-            display:inline-block;
-        }
-
-        .cta{
-            color:$ctaUnfocusedFontColor;
-            font-weight:900;
-            padding:8px;
-            display:block;
-            font-size: 1.4em;
-        }
-
         .row{
             input{
                 &.submit{

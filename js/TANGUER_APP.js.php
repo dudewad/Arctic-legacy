@@ -3,11 +3,14 @@ define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 
 //Application JS contants
-$urlBase = constant("Utility_Constants::URL_MAIN");
-$urlJSONBase = constant("Utility_Constants::URL_JSON_BASE");
-$urlAssetBase = constant("Utility_Constants::URL_ASSET_BASE");
-$jsBreakpointTabletPortrait = constant("Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT");
-$appEnvironment = constant("Utility_Constants::APP_ENVIRONMENT");
+$urlBase = Utility_Constants::URL_MAIN;
+$urlJSONBase = Utility_Constants::URL_JSON_BASE;
+$urlAssetBase = Utility_Constants::URL_ASSET_BASE;
+$jsBreakpointTabletPortrait = Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT;
+$appEnvironment = Utility_Constants::APP_ENVIRONMENT;
+$requestTypeCalendarGetQuickEvent = Utility_Constants::REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT;
+$requestTypeCalendarFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_FULL_DAY;
+$requestTypeCalendarSortFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_SORT_FULL_DAY;
 
 $js = <<<JS
 ;
@@ -22,41 +25,55 @@ var Tanguer_App;
     TANGUER_APP.prototype = {
 
         /**
-         * Application settings
+         * Application constants - read-only.
          */
-        settings:{
+        constants:{
+            get:function(constant){
+                var constants = {
+                    app:{
+                        environment:"$appEnvironment"
+                    },
 
-            app:{
-                environment:"$appEnvironment"
-            },
+                    url:{
+                        URL_BASE:"$urlBase",
+                        URL_JSON_BASE:"$urlJSONBase",
+                        URL_ASSET_BASE:"$urlAssetBase",
+                        URL_IMAGE_BASE:"$urlAssetBase" + "image/"
+                    },
 
-            url:{
-                URL_BASE:"$urlBase",
-                URL_JSON_BASE:"$urlJSONBase",
-                URL_ASSET_BASE:"$urlAssetBase",
-                URL_IMAGE_BASE:"$urlAssetBase" + "image/"
-            },
+                    requestType:{
+                        REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT:"$requestTypeCalendarGetQuickEvent",
+                        REQUEST_TYPE_CALENDAR_FULL_DAY:"$requestTypeCalendarFullDay",
+                        REQUEST_TYPE_CALENDAR_SORT_FULL_DAY:"$requestTypeCalendarSortFullDay"
+                    },
 
-            display:{
-                BREAKPOINT_TABLET_PORTRAIT:"$jsBreakpointTabletPortrait"
-            },
-
-            preload:[
-                {
-                    type:"image",
-                    asset:"gui/gui-loading-333-16x16.gif"
+                    display:{
+                        BREAKPOINT_TABLET_PORTRAIT:"$jsBreakpointTabletPortrait"
+                    }
                 }
-            ]
+
+                var props = constant.split(".");
+                var p;
+                var obj = constants;
+                while(obj.hasOwnProperty(p = props.shift())){
+                    obj = obj[p];
+                }
+
+                return obj;
+            }
         },
 
 
 
         /**
-         * Application strings
+         * Any preload assets need to go here
          */
-        strings:{
-
-        },
+        preloadAssets:[
+            {
+                type:"image",
+                asset:"gui/gui-loading-333-16x16.gif"
+            }
+        ],
 
 
 
@@ -70,8 +87,6 @@ var Tanguer_App;
             this.jSel._window = $(window);
             this.jSel._body = $("body");
 
-            this.settings.app.timezoneOffset = new Date().getTimezoneOffset();
-
             this.ioc = new Tanguer_IOC();
             this.initIOC();
             //Upgrade GUI when JS capable
@@ -82,7 +97,7 @@ var Tanguer_App;
             this.extend("modal", this.ioc.build("modal"));
             //Localized strings for the front-end
             this.extend("string", Tanguer_String);
-            this.JSONCalls.setBaseJsonURL(this.settings.url.URL_JSON_BASE);
+            this.JSONCalls.setBaseJsonURL(this.constants.get("url.URL_JSON_BASE"));
             this.jqueryModPrototype();
             //Build all polyfill functionality
             this.polyfill();
@@ -228,7 +243,7 @@ var Tanguer_App;
             //When console is unavailable, fail silently. If in test environment, fire alerts instead.
             if(!window.console && !window.console.log){
                 window.console = {};
-                if(this.settings.app.environment == "test"){
+                if(this.constants.get("app.environment") == "test"){
                     window.console.log = function(str){alert(str)};
                 }
                 else{
@@ -243,12 +258,12 @@ var Tanguer_App;
          * Application asset preloader
          */
         preload:function(){
-            var length = this.settings.preload.length;
-            var env = this.settings.app.environment;
+            var length = this.preloadAssets.length;
+            var env = this.constants.get("app.environment");
             var obj = null;
-            var imageBase = this.settings.url.URL_IMAGE_BASE;
+            var imageBase = this.constants.get("url.URL_IMAGE_BASE");
             for(var i = 0; i < length; i++){
-                obj = this.settings.preload[i];
+                obj = this.preloadAssets[i];
                 //New img object for each loop
                 switch(obj.type){
                     case "image":
@@ -261,11 +276,13 @@ var Tanguer_App;
                         //Alert developer if an asset is broken
                         if(env === "test"){
                             img.onerror = function(){
-                                console.log("Error loading auto-image at global app level: '" + this.src + "'. Check the url and try again.");
+                                console.log("Error auto-loading image at global app level: '" + this.src + "'. Check the url and try again.");
                             };
                         }
                         break;
                     default:
+                        console.log("Could not preload resource- invalid type definition. Outputting relevant data:");
+                        console.log(obj);
                         continue;
                         break;
                 }

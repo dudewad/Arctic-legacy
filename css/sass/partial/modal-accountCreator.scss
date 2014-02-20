@@ -1,0 +1,50 @@
+/**
+ * "Start" flow
+ */
+.m .ac-start{
+    .title{
+        text-align:center;
+    }
+
+    label{
+        font-size: 1em;
+        text-align:left;
+        margin:0;
+        padding:0 0 0 10px;
+
+        p{
+            font-size:1.2em;
+            font-family:$baseApplicationTitleFontFamily;
+            color:$primaryNeutralDark;
+            margin:0 0 2px -10px;
+        }
+
+        input{
+            padding:0;
+            margin:0;
+        }
+
+        .input-bg{
+            background-color:$primaryNeutralDark;
+            padding:8px;
+            margin-bottom:20px;
+        }
+    }
+
+    .col-2-right{
+        .col-content{
+            padding-top:110px;
+            text-align:center;
+        }
+    }
+}
+
+
+
+/**
+ * All account creator flows
+ */
+
+.modal-ac-start{
+
+}
