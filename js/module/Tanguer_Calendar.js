@@ -15,7 +15,7 @@ var Tanguer_Calendar = function(){
     //Try to use the pre-selected common jquery selections first
     this._body = Tanguer_App.jSel._body || $("body");
     this._window = Tanguer_App.jSel._window || $(window);
-    this.breakpointTabletPortrait = Tanguer_App.constants.get("display.BREAKPOINT_TABLET_PORTRAIT");
+    this.breakpointTabletPortrait = Tanguer_App.constants.get("DISPLAY.BREAKPOINT_TABLET_PORTRAIT");
     this.displayMode = null;
 
     //Set up hiding on body click

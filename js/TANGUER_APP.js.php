@@ -3,11 +3,11 @@ define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 
 //Application JS contants
-$urlBase = Utility_Constants::URL_MAIN;
-$urlJSONBase = Utility_Constants::URL_JSON_BASE;
-$urlAssetBase = Utility_Constants::URL_ASSET_BASE;
+$urlBase = Utility_Constants::URL_MAIN;/////
+$urlJSONBase = Utility_Constants::URL_JSON_BASE;//////
+$urlAssetBase = Utility_Constants::URL_ASSET_BASE;//////
 $jsBreakpointTabletPortrait = Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT;
-$appEnvironment = Utility_Constants::APP_ENVIRONMENT;
+$appEnvironment = Utility_Constants::APP_ENVIRONMENT;////////
 $requestTypeCalendarGetQuickEvent = Utility_Constants::REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT;
 $requestTypeCalendarFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_FULL_DAY;
 $requestTypeCalendarSortFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_SORT_FULL_DAY;
@@ -30,26 +30,36 @@ var Tanguer_App;
         constants:{
             get:function(constant){
                 var constants = {
-                    app:{
-                        environment:"$appEnvironment"
+                    APP:{
+                        ENVIRONMENT:"$appEnvironment"
                     },
 
-                    url:{
-                        URL_BASE:"$urlBase",
-                        URL_JSON_BASE:"$urlJSONBase",
-                        URL_ASSET_BASE:"$urlAssetBase",
-                        URL_IMAGE_BASE:"$urlAssetBase" + "image/"
+                    URL:{
+                        BASE:"$urlBase",
+                        JSON_BASE:"$urlJSONBase",
+                        ASSET_BASE:"$urlAssetBase",
+                        IMAGE_BASE:"$urlAssetBase" + "image/"
                     },
 
-                    requestType:{
-                        REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT:"$requestTypeCalendarGetQuickEvent",
-                        REQUEST_TYPE_CALENDAR_FULL_DAY:"$requestTypeCalendarFullDay",
-                        REQUEST_TYPE_CALENDAR_SORT_FULL_DAY:"$requestTypeCalendarSortFullDay"
+                    REQUEST_TYPE:{
+                        CALENDAR_GET_QUICK_EVENT:"$requestTypeCalendarGetQuickEvent",
+                        CALENDAR_FULL_DAY:"$requestTypeCalendarFullDay",
+                        CALENDAR_SORT_FULL_DAY:"$requestTypeCalendarSortFullDay"
                     },
 
-                    display:{
+                    DISPLAY:{
                         BREAKPOINT_TABLET_PORTRAIT:"$jsBreakpointTabletPortrait"
-                    }
+                    },
+
+                    /**
+                     * Any preload assets need to go here
+                     */
+                    PRELOAD:[
+                        {
+                            type:"image",
+                            asset:"gui/gui-loading-333-16x16.gif"
+                        }
+                    ]
                 }
 
                 var props = constant.split(".");
@@ -62,18 +72,6 @@ var Tanguer_App;
                 return obj;
             }
         },
-
-
-
-        /**
-         * Any preload assets need to go here
-         */
-        preloadAssets:[
-            {
-                type:"image",
-                asset:"gui/gui-loading-333-16x16.gif"
-            }
-        ],
 
 
 
@@ -97,7 +95,7 @@ var Tanguer_App;
             this.extend("modal", this.ioc.build("modal"));
             //Localized strings for the front-end
             this.extend("string", Tanguer_String);
-            this.JSONCalls.setBaseJsonURL(this.constants.get("url.URL_JSON_BASE"));
+            this.JSONCalls.setBaseJsonURL(this.constants.get("URL.JSON_BASE"));
             this.jqueryModPrototype();
             //Build all polyfill functionality
             this.polyfill();
@@ -243,8 +241,8 @@ var Tanguer_App;
             //When console is unavailable, fail silently. If in test environment, fire alerts instead.
             if(!window.console && !window.console.log){
                 window.console = {};
-                if(this.constants.get("app.environment") == "test"){
-                    window.console.log = function(str){alert(str)};
+                if(this.constants.get("APP.ENVIRONMENT") == "test"){
+                    window.console.log = function(str){alert("Supplementary console log (window.console is unavailable): " + str)};
                 }
                 else{
                     window.console.log = function(str){};
@@ -258,12 +256,13 @@ var Tanguer_App;
          * Application asset preloader
          */
         preload:function(){
-            var length = this.preloadAssets.length;
-            var env = this.constants.get("app.environment");
+            var env = this.constants.get("APP.ENVIRONMENT");
+            var imageBase = this.constants.get("URL.IMAGE_BASE");
+            var preloadAssets = this.constants.get("PRELOAD");
+            var length = preloadAssets.length;
             var obj = null;
-            var imageBase = this.constants.get("url.URL_IMAGE_BASE");
             for(var i = 0; i < length; i++){
-                obj = this.preloadAssets[i];
+                obj = preloadAssets[i];
                 //New img object for each loop
                 switch(obj.type){
                     case "image":
@@ -286,7 +285,7 @@ var Tanguer_App;
                         continue;
                         break;
                 }
-;           }
+           }
         }
     };
 
