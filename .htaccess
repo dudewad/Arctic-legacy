@@ -15,3 +15,6 @@ RewriteRule ^finalize-account|finalizar-cuenta$ index.php?v=ac-f [L]
 
 #Account manager page
 RewriteRule ^account|cuenta$ index.php?v=ac-f [L]
+
+#Switches responses into JSON request mode
+RewriteRule ^j|jsonRequest.php& index.php?j=1 [QSA,L]

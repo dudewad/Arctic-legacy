@@ -20,8 +20,8 @@ class String_ENUS_TanguerApp {
     const COUNTRY_UNITED_STATES = "United States";
 
     //VIEW CONSTANTS (htaccess will deal with redirecting to the proper views)
-    const VIEW_TERMS_OF_SERVICE             = "terms-of-service/";
-    const VIEW_ACCOUNT_CREATOR_START        = "create-account/";
-    const VIEW_ACCOUNT_CREATOR_FINALIZE     = "finalize-account/";
-    const VIEW_ACCOUNT_MANAGER              = "account/";
+    const VIEW_TERMS_OF_SERVICE             = "terms-of-service";
+    const VIEW_ACCOUNT_CREATOR_START        = "create-account";
+    const VIEW_ACCOUNT_CREATOR_FINALIZE     = "finalize-account";
+    const VIEW_ACCOUNT_MANAGER              = "account";
 }

@@ -2,15 +2,18 @@
 define("BASEDIR", __DIR__ . "/../");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 
-//Application JS contants
+//Application JS constants
 $urlBase = Utility_Constants::URL_MAIN;/////
 $urlJSONBase = Utility_Constants::URL_JSON_BASE;//////
 $urlAssetBase = Utility_Constants::URL_ASSET_BASE;//////
 $jsBreakpointTabletPortrait = Utility_Constants::JS_BREAKPOINT_TABLET_PORTRAIT;
 $appEnvironment = Utility_Constants::APP_ENVIRONMENT;////////
-$requestTypeCalendarGetQuickEvent = Utility_Constants::REQUEST_TYPE_CALENDAR_GET_QUICK_EVENT;
-$requestTypeCalendarFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_FULL_DAY;
-$requestTypeCalendarSortFullDay = Utility_Constants::REQUEST_TYPE_CALENDAR_SORT_FULL_DAY;
+$requestTypeGetCalendarQuickEvent = Utility_Constants::REQUEST_TYPE_GET_CALENDAR_QUICK_EVENT;
+$requestTypeGetCalendarFullDay = Utility_Constants::REQUEST_TYPE_GET_CALENDAR_FULL_DAY;
+$requestTypePostCalendarSortFullDay = Utility_Constants::REQUEST_TYPE_POST_CALENDAR_SORT_FULL_DAY;
+$requestTypePostAccountCreatorStart = Utility_Constants::REQUEST_TYPE_POST_ACCOUNT_CREATOR_START;
+$requestTypePostAccountCreatorVerify = Utility_Constants::REQUEST_TYPE_POST_ACCOUNT_CREATOR_VERIFY;
+$requestTypePostAccountCreatorFinalize = Utility_Constants::REQUEST_TYPE_POST_ACCOUNT_CREATOR_FINALIZE;
 
 $js = <<<JS
 ;
@@ -42,9 +45,16 @@ var Tanguer_App;
                     },
 
                     REQUEST_TYPE:{
-                        CALENDAR_GET_QUICK_EVENT:"$requestTypeCalendarGetQuickEvent",
-                        CALENDAR_FULL_DAY:"$requestTypeCalendarFullDay",
-                        CALENDAR_SORT_FULL_DAY:"$requestTypeCalendarSortFullDay"
+                        GET:{
+                            CALENDAR_QUICK_EVENT:"$requestTypeGetCalendarQuickEvent",
+                            CALENDAR_FULL_DAY:"$requestTypeGetCalendarFullDay"
+                        },
+                        POST:{
+                            CALENDAR_SORT_FULL_DAY:"$requestTypePostCalendarSortFullDay",
+                            ACCOUNT_CREATOR_START:"$requestTypePostAccountCreatorStart",
+                            ACCOUNT_CREATOR_VERIFY:"$requestTypePostAccountCreatorVerify",
+                            ACCOUNT_CREATOR_FINALIZE:"$requestTypePostAccountCreatorFinalize"
+                        }
                     },
 
                     DISPLAY:{
@@ -60,7 +70,7 @@ var Tanguer_App;
                             asset:"gui/gui-loading-333-16x16.gif"
                         }
                     ]
-                }
+                };
 
                 var props = constant.split(".");
                 var p;
@@ -108,7 +118,7 @@ var Tanguer_App;
          * Register all IOC items (plugins, etc) here
          */
         initIOC: function () {
-            var scope = this;
+            var _this = this;
 
             this.ioc.register("tooltip", function(){
                 return new Tanguer_Tooltip();
@@ -132,17 +142,17 @@ var Tanguer_App;
 
             //Extensions are singletons
             this.ioc.register("modal", function(){
-                return scope.modal || new Tanguer_Modal();
+                return _this.modal || new Tanguer_Modal();
             });
 
             //Extensions are singletons
             this.ioc.register("gui", function(){
-                return scope.gui || new Tanguer_GUI();
+                return _this.gui || new Tanguer_GUI();
             });
 
             //Extensions are singletons
             this.ioc.register("JSONCalls", function(){
-                return scope.JSONCalls || new Tanguer_JSONCalls();
+                return _this.JSONCalls || new Tanguer_JSONCalls();
             });
         },
 
@@ -198,7 +208,9 @@ var Tanguer_App;
                 var refreshLayout = function(parent, loader){
                     var w = parent.outerWidth() + "px";
                     var h = parent.outerHeight() + "px";
-                    loader.css({width:w,height:h});
+                    var marginTop = -(parseInt(parent.css("padding-top")));
+                    var marginLeft = -(parseInt(parent.css("padding-left")));
+                    loader.css({width:w,height:h,marginTop:marginTop,marginLeft:marginLeft});
                 };
 
                 var t = $(this);
@@ -224,7 +236,7 @@ var Tanguer_App;
                 var t = $(this);
                 var loader = t.find(".dynamic-loader");
                 loader.fadeOut(400);
-            }
+            };
         },
 
 

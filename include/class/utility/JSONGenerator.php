@@ -39,11 +39,12 @@ class Utility_JSONGenerator {
      * echoDocument is necessary to wrap the json in a callback so this can be treated as a request and work cross-domain.
      * Note- the request must come in with a "cb" (short for "callback") variable specifying the client side callback
      * method to be executed on return.
-     * @param $data     Object          An object whose key/val pairs are to be output to JSON.
+     * @param $data     stdClass          An object whose key/val pairs are to be output to JSON.
      * @return string
      */
     public static function echoDocument($data){
         header("Content-type: application/json");
-        return $_REQUEST['cb'] . "([" . json_encode($data) . "])";
+        $callback = isset($_REQUEST['cb']) ? $_REQUEST['cb'] : "";
+        return $callback . "([" . json_encode($data) . "])";
     }
 }

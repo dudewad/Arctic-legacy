@@ -32,8 +32,6 @@ Tanguer_LocationSelector.prototype = {
      * Init method- functionality comments are inline
      */
     init:function(){
-        var scope = this;
-
         //Change the "change location" button to have fly-out functionality when clicked rather than when hovered
         this._body.on("click", ".lsel .change", function(e){
             e.preventDefault();

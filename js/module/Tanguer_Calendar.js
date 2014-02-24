@@ -37,7 +37,7 @@ Tanguer_Calendar.prototype = {
      * Init method- functionality comments are inline
      */
     init:function(){
-        var scope = this;
+        var _this = this;
         var ref = {};
         //Set current display mode (mobile or desktop)
         this.displayMode = this.setDisplayMode();
@@ -49,11 +49,11 @@ Tanguer_Calendar.prototype = {
             var eventID = thumb.data("event-id");
             var instance = $(this).closest(".c").attr("id");
             var data = {e:eventID};
-            ref = {scope:scope,instanceID:instance,eventID:eventID};
+            ref = {instanceID:instance,eventID:eventID};
             var li = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eventID + "']");
             //Hide currently selected element on mobile, otherwise return false
             if(thumb.hasClass("selected")){
-                if(scope._window.innerWidth() < scope.breakpointTabletPortrait){
+                if(_this._window.innerWidth() < _this.breakpointTabletPortrait){
                     if(li.is(":visible"))
                         li.slideUp();
                     else
@@ -65,28 +65,29 @@ Tanguer_Calendar.prototype = {
             thumb.addClass("selected");
             //If the newly selected thumb has been selected already, show it and don't make a request.
             if(li.length > 0){
-                scope.hideCurrentQuickEvent(instance);
-                scope.openQuickEvent(instance, eventID);
+                _this.hideCurrentQuickEvent(instance);
+                _this.openQuickEvent(instance, eventID);
                 return false;
             }
 
             //All checks passed, we have to make the call.
             //Needs to create and fill a "loading" area for the new event
-            scope.hideCurrentQuickEvent(instance);
-            scope.createQuickEventLoadingPlaceholder(thumb,eventID);
-            scope.openQuickEvent(instance,eventID);
-            Tanguer_App.JSONCalls.getQuickEvent(data,scope.ajax_getQuickEventHandler,ref);
+            _this.hideCurrentQuickEvent(instance);
+            _this.createQuickEventLoadingPlaceholder(thumb,eventID);
+            _this.openQuickEvent(instance,eventID);
+            //Bind the handler to the correct context
+            Tanguer_App.JSONCalls.getQuickEvent(data,_this.ajax_getQuickEventHandler.bind(_this),ref);
         });
 
         //Window resize event needs to have a few modifications
         this._window.resize(function(){
             //Handle any tasks associated from mobile to desktop version switch
-            if(scope._window.innerWidth() >= scope.breakpointTabletPortrait && scope.displayMode == "mobile"){
+            if(_this._window.innerWidth() >= _this.breakpointTabletPortrait && _this.displayMode == "mobile"){
                 var selectedEID = $(".c .th.selected").eq(0).data("event-id");
                 var selectedEvent = $(".c .c-e-disp.full[data-event-id='" + selectedEID + "']");
                 selectedEvent.show();
             }
-            scope.setDisplayMode();
+            _this.setDisplayMode();
         });
 
         //Add click events to the js version of the simple event sorts
@@ -102,7 +103,7 @@ Tanguer_Calendar.prototype = {
         //Advanced sort options modal
         this._body.on("click",".c .s-adv a.button.adv", function(e){
             var instance = $(this).closest(".c").attr("id");
-            ref = {scope:scope,instanceID:instance};
+            ref = {instanceID:instance};
             e.preventDefault();
             var settings = {
                 target:"m-e-s-adv",
@@ -116,14 +117,14 @@ Tanguer_Calendar.prototype = {
                 //Get form values
                 var sO = form.find("input[name=sO]:checked").val();
                 var data = {
-                    param:this.param.value,
+                    p:this.param.value,
                     sO:sO,
                     d:this.date.value
                 };
                 Tanguer_App.modal.close(modalID);
                 $(".c.disp").showLoader();
-                ref.scope = scope;
-                Tanguer_App.JSONCalls.getSortFullDay(data,scope.ajax_getSortFullDayHandler,ref);
+                //Bind the handler to the correct context
+                Tanguer_App.JSONCalls.postSortFullDay(data,_this.ajax_postSortFullDayHandler.bind(_this),ref);
             })
         });
 
@@ -146,7 +147,8 @@ Tanguer_Calendar.prototype = {
             };
             visualizer.hide();
             $(".c.disp").showLoader();
-            Tanguer_App.JSONCalls.getFullDay(data,scope.ajax_getFullDayHandler);
+            //Bind the handler to the correct context
+            Tanguer_App.JSONCalls.getFullDay(data,_this.ajax_getFullDayHandler.bind(_this));
         });
 
         //Disable selection of sort options for aesthetic purposes
@@ -159,16 +161,16 @@ Tanguer_Calendar.prototype = {
      * Handles data returned when a "quick event" is requested
      * @param e     Object      An object representation of the event, containing HTML of the object for viewing
      * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
-     *                          data such as scope and any other reference variables needed by the receiving method.
+     *                          data such as instance IDs, etc.
      */
     ajax_getQuickEventHandler:function(e,ref){
         if(e.error != undefined){
             //TODO: Handle error here
             console.log("getQuickEvent error in Tanguer_Calendar.js. Error handler not specified...");
         }
-        var that = ref.scope;
-        that.hideCurrentQuickEvent(ref.instanceID);
-        that.createQuickEvent(e,ref);
+        //"this" here references the Tanguer_Calendar object because it was bound before sending the call.
+        this.hideCurrentQuickEvent(ref.instanceID);
+        this.createQuickEvent(e,ref);
     },
 
 
@@ -177,12 +179,12 @@ Tanguer_Calendar.prototype = {
      * Handles data returned when a "quick event" is requested
      * @param e     Object      An object representation of the calendar data, containing HTML of the object for viewing
      * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
-     *                          data such as scope and any other reference variables needed by the receiving method.
+     *                          data such as instance IDs, etc.
      */
     ajax_getFullDayHandler:function(e, ref){
         if(e.error != undefined){
             //TODO: Handle error here
-            console.log("getSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
+            console.log("getFullDay error in Tanguer_Calendar.js. Error handler not specified...");
         }
         var instances = $(".c.full-day");
         instances.replaceWith(e.html);
@@ -192,7 +194,7 @@ Tanguer_Calendar.prototype = {
         instances.css({display:"none"});
         instances.fadeIn();
         $(".c.disp").hideLoader();
-        ref.scope.refreshGUI();
+        this.refreshGUI();
     },
 
 
@@ -201,12 +203,12 @@ Tanguer_Calendar.prototype = {
      * Handles data returned when a full day sort completes
      * @param e     Object      An object representation of the returned data, containing HTML of the object for viewing
      * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
-     *                          data such as scope and any other reference variables needed by the receiving method.
+     *                          data such as instance IDs, etc.
      */
-    ajax_getSortFullDayHandler:function(e,ref){
+    ajax_postSortFullDayHandler:function(e,ref){
         if(e.error != undefined){
             //TODO: Handle error here
-            console.log("getSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
+            console.log("postSortFullDay error in Tanguer_Calendar.js. Error handler not specified...");
         }
         var instance = $("#" + ref.instanceID);
         instance.replaceWith(e.html);
@@ -240,16 +242,16 @@ Tanguer_Calendar.prototype = {
     /**
      * Adds a full event to the calendar view system. A "quick event" is an event that lives in the single-day view
      * calendar and is intended to be quickly retrieved/viewed.
-     * @param e     Object      The object containing the quick event data, under a e.html variable
+     * @param e     Object      The object containing the quick event data (lives in the e.html property)
      * @param ref   Object      A reference object passed by the original requester of the AJAX call that will contain
-     *                          data such as scope and any other reference variables needed by the receiving method.
+     *                          data such instance IDs, etc.
      */
     createQuickEvent:function(e, ref){
         var html = e.html;
         var li = $("li.c-e-disp.full[data-event-id=" + ref.eventID + "]");
         li.removeClass("loading");
         li.html(html);
-        ref.scope.openQuickEvent(ref.instanceID, ref.eventID);
+        this.openQuickEvent(ref.instanceID, ref.eventID);
     },
 
 

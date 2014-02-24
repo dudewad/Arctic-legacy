@@ -10,7 +10,7 @@ class Module_Login{
     public function to_html_full($class = null){
         $logo = Utility_Constants::URL_ASSET_BASE . "image/gui/logo/logo-tanguer-large-gray.png";
         $formAction = Utility_Constants::URL_ASSET_BASE;
-        $dataPostType = Utility_Constants::REQUEST_TYPE_LOGIN;
+        $dataPostType = Utility_Constants::REQUEST_TYPE_POST_LOGIN;
         $registerAnchor = TanguerApp::buildAnchor(  String_String::getString("VIEW_ACCOUNT_CREATOR_START"),
                                                     String_String::getString("BUTTON_REGISTER",__CLASS__),
                                                     null,

@@ -447,7 +447,7 @@ HTML;
      * @return string
      */
     private function advancedSortModalToHTML($url, $date){
-        $dataPostType = Utility_Constants::REQUEST_TYPE_EVENT_ADVANCED_SORT;
+        $dataPostType = Utility_Constants::REQUEST_TYPE_POST_EVENT_ADVANCED_SORT;
         $submitButtonText = String_String::getString("SORT_SORT_SUBMIT",__CLASS__);
         $html = <<<HTML
                 <div class="e-s-adv">

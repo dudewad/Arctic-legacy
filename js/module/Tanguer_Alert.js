@@ -20,7 +20,6 @@ Tanguer_Alert.prototype = {
      * Init method- functionality comments are inline
      */
     init:function(){
-        var scope = this;
         //Disable all dismiss anchor links, and
         $(".alerts").on("click","a.dismiss",function(e){
             e.preventDefault();

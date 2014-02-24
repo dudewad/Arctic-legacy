@@ -18,6 +18,9 @@ var Tanguer_Modal = function(){
     //Modal settings
     this.settings = {};
 
+    //List of open modals
+    this.openModals = [];
+
     //Empty content
     this.content = "";
 };
@@ -37,6 +40,9 @@ Tanguer_Modal.prototype = {
             case "modalClass":
                 return "m";
                 break;
+            case "wrapperClass":
+                return "m-wrapper";
+                break;
             default:
                 return null;
                 break;
@@ -47,16 +53,28 @@ Tanguer_Modal.prototype = {
 
     /**
      * Opens a modal using the object settings specified by the constructor.
+     *
+     * @param params    Object      The parameters defining this modal that is to be opened
+     *
+     * @param content   String      Optional string of content to use if a modal is to be opened that's not on the page
+     *                              already, e.g. through an AJAX content load, etc.
+     *
      * @return string   The DOM ID of the modal that was created so that it can be closed
      */
-    open:function(params){
-        var scope = this;
+    open:function(params, content){
+        var _this = this;
+        if(typeof content != "undefined"){
+            params.content = content;
+        }
         this.setParams(params);
         var mid = this.getNextID();
-        var wrapperClass = "m-wrapper";
+        var wrapperClass = this.constant("wrapperClass");
         wrapperClass += this.settings.hasBackground ? " hasBG" : "";
         var html = "<div class='" + wrapperClass + "' id='" + mid + "'>" +
-                        "<div class='" + this.constant("modalClass") + " clearfix'>" + this.content + "</div>" +
+                        "<div class='" + this.constant("modalClass") + " clearfix'>" +
+                            "<div class='close'></div>" +
+                            this.content +
+                        "</div>" +
                     "</div>";
         this._body.append(html);
         var modal = $("#" + mid);
@@ -64,20 +82,21 @@ Tanguer_Modal.prototype = {
         modal.css({display:"block",visibility:"hidden"})
         this.vCenterModal(mid);
         modal.css({display:"none",visibility:"visible"});
-        modal.fadeIn(scope.constant("transitionSpeed"));
+        modal.fadeIn(_this.constant("transitionSpeed"));
 
         //On click of the wrapper only, hide/remove the modal
         this._body.on("click.modal" + mid,"#" + mid + ".m-wrapper",function(e){
             if($(e.target).hasClass("m-wrapper") || $(e.target).hasClass("close")){
-                scope.close(mid);
+                _this.close(mid);
             }
         });
 
         //On window resize, re-center the modal
         this._window.on("resize.modal" + mid,function(){
-            scope.vCenterModal(mid);
+            _this.vCenterModal(mid);
         });
 
+        this.openModals.push(mid);
         return mid;
     },
 
@@ -92,6 +111,25 @@ Tanguer_Modal.prototype = {
         //Remove listeners since it no longer applies
         this._body.off("click.modal" + mid);
         this._window.off("resize.modal" + mid);
+        //Remove the modal from the list of open modals
+        for(var i = 0; i < this.openModals.length; i++){
+            var m = this.openModals[i];
+            if(m == mid){
+                this.openModals.splice(i,1);
+                i = this.openModals.length;
+            }
+        }
+    },
+
+
+
+    /**
+     * Force-close all open modals
+     */
+    closeAll:function(){
+        for(var i = 0; i < this.openModals.length; i++){
+            this.close(this.openModals[i]);
+        }
     },
 
 
@@ -134,8 +172,13 @@ Tanguer_Modal.prototype = {
      */
     setParams:function(params){
         if(params){
-            var modal = $("#" + params.target).eq(0);
-            this.content = $(modal).html() || null;
+            if(params.target){
+                var modal = $("#" + params.target).eq(0);
+                this.content = $(modal).html() || "";
+            }
+            else if(params.content){
+                this.content = params.content || "";
+            }
             this.settings.hasBackground = params.hasBackground || false;
         }
     }

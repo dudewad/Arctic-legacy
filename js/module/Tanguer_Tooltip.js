@@ -17,14 +17,14 @@ function Tanguer_Tooltip(){
 
 Tanguer_Tooltip.prototype = {
     initialize:function(){
-        var scope = this;
+        var _this = this;
         //Require jQuery
         if(typeof $ == "undefined"){
             throw new Error("jQuery not detected. Tooltips will not function normally.");
         }
 
         //Add mouseover and mouseout events to all tooltips on the page
-        $("[data-tooltip]").on("mouseover",function(){scope.toggle(this, "over")}).on("mouseout", function(){scope.toggle(this, "out")});
+        $("[data-tooltip]").on("mouseover",function(){_this.toggle(this, "over")}).on("mouseout", function(){_this.toggle(this, "out")});
     },
 
     toggle:function(target, state){

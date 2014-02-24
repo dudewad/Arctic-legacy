@@ -30,14 +30,16 @@ Tanguer_JSONCalls.prototype = {
             //Requires:
             //e         The event id being requested
             case "getQuickEvent":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.CALENDAR_GET_QUICK_EVENT") + "&eid=" + params.e;
-                break;
-            case "getSortFullDay":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.CALENDAR_SORT_FULL_DAY") + "&d=" + params.d + "&sO=" + params.sO + "&p=" + params.param;
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT") + "&eid=" + params.e;
                 break;
             case "getFullDay":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.CALENDAR_FULL_DAY") + "&d=" + params.d;
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_FULL_DAY") + "&d=" + params.d;
                 break;
+            case "postSortFullDay":
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.CALENDAR_SORT_FULL_DAY");
+                break;
+            case "postAccountCreationStart":
+                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.ACCOUNT_CREATOR_START");
             default:
                 console.warn("Requested JSONCall URL does not exist.");
                 return "";
@@ -53,9 +55,14 @@ Tanguer_JSONCalls.prototype = {
      * @param callback      Closure     A callback method to use once the method is complete
      *
      * @param ref           Object      An additional data object to pass to the callback, if applicable
+     *
+     * @param type          String      Post or Get. Defaults to Get.
+     *
+     * @param postData      Object      An object containing data to post in the event that "type" is set to "Post".
+     *                                  Defaults to an empty object.
      */
-    makeAjaxCall:function(url, callback, ref){
-        $.getJSON(url + "&cb=?", null, function(data,status){
+    call:function(url, callback, ref, type, postData){
+        var successHandler = function(data, status){
             if(status != "success"){
                 //TODO: Come up with better error solution when ajax fails
                 [callback]({"error":"There was an error retrieving the data. Please try refreshing the page or wait and try again later"});
@@ -70,7 +77,20 @@ Tanguer_JSONCalls.prototype = {
             else{
                 callback(data[0], ref || {});
             }
-        });
+        };
+
+        var failureHandler = function(jqXHR, textStatus, errorThrown){
+            //TODO: Handle $.post errors with actual application level handling
+            console.log("json Post error. Following is the relevant data.");
+            console.log(textStatus);
+            console.log(errorThrown);
+        };
+
+        //Perform the get or post call
+        if(typeof type != "undefined" && type.toLowerCase() != "post")
+            $.getJSON(url + "&cb=?", null, successHandler).fail(failureHandler);
+        else
+            $.post(url + "&cb=?", (postData || {}), successHandler, "json").fail(failureHandler);
     },
 
 
@@ -81,12 +101,11 @@ Tanguer_JSONCalls.prototype = {
      *
      * @param callback  Required    The callback function used to respond when the response comes back
      *
-     * @param ref       Optional    An additional data object to be passed to the callback. This is useful for targeting
-     *                              the calling object, etc.
+     * @param ref       Optional    An additional data object to be passed to the callback.
      */
     getQuickEvent:function(data, callback, ref){
         var url = this.getURL("getQuickEvent", data);
-        this.makeAjaxCall(url, callback, ref);
+        this.call(url, callback, ref);
     },
 
 
@@ -97,12 +116,11 @@ Tanguer_JSONCalls.prototype = {
      *
      * @param callback  Required    The callback function used to respond when the response comes back
      *
-     * @param ref       Optional    An additional data object to be passed to the callback. This is useful for targeting
-     *                              the calling object, etc.
+     * @param ref       Optional    An additional data object to be passed to the callback.
      */
     getFullDay:function(data, callback, ref){
         var url = this.getURL("getFullDay", data);
-        this.makeAjaxCall(url, callback, ref);
+        this.call(url, callback, ref);
     },
 
 
@@ -113,12 +131,18 @@ Tanguer_JSONCalls.prototype = {
      *
      * @param callback  Required    The callback function used to respond when the response comes back
      *
-     * @param ref       Optional    An additional data object to be passed to the callback. This is useful for targeting
-     *                              the calling object, etc.
+     * @param ref       Optional    An additional data object to be passed to the callback.
      */
-    getSortFullDay:function(data, callback, ref){
-        var url = this.getURL("getSortFullDay", data);
-        this.makeAjaxCall(url, callback, ref);
+    postSortFullDay:function(data, callback, ref){
+        var url = this.getURL("postSortFullDay");
+        this.call(url, callback, ref, "post", data);
+    },
+
+
+
+    postAccountCreationStart:function(data,callback,ref){
+        var url = this.getURL("postAccountCreationStart");
+        this.call(url,callback,ref,"post",data);
     },
 
 

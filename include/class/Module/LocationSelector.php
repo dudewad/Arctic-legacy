@@ -29,7 +29,7 @@ class Module_LocationSelector{
      */
     public function to_html_full($class = null){
         $formAction = TanguerApp::getCurrentPageURL();
-        $dataPostType = Utility_Constants::REQUEST_TYPE_LOCATION_SELECTED;
+        $dataPostType = Utility_Constants::REQUEST_TYPE_POST_LOCATION_SELECTED;
         $city = isset($_SESSION['location']['city']) ? $_SESSION['location']['city'] : null;
         $country = isset($_SESSION['location']['country']) ? $_SESSION['location']['country'] : null;
         $title = String_String::getString("MODULE_TITLE",__CLASS__);

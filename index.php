@@ -8,6 +8,25 @@ define("BASEDIR", __DIR__ . "/");
 require_once(BASEDIR . "/include/script/Autoloader.php");
 require_once(BASEDIR . "/include/script/IOCRegistration.php");
 Utility_IOC::build("TanguerApp");
+
+
+
+/**
+ * JSON requests come in with $_GET['j'] == 1
+ */
+if(isset($_REQUEST['j']) && $_REQUEST['j'] == 1){
+    if(!isset($_REQUEST['t'])){
+        TanguerApp::jsonError();
+    }
+    require(BASEDIR . "/include/script/jsonRequestHandler.php");
+    die();
+}
+
+
+
+/**
+ * Non-JSON requests are processed if the requester is not requesting a JSON response
+ */
 ?>
     <!DOCTYPE html>
     <html lang="en" class="<?php echo Utility_Constants::APP_GUI_MODE == "dev" ? "devMode" : "";?>">
@@ -23,6 +42,7 @@ Utility_IOC::build("TanguerApp");
     </body>
     </html>
 <?php
+
 
 
 /**
