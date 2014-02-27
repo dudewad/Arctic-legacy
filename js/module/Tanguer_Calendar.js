@@ -48,7 +48,7 @@ Tanguer_Calendar.prototype = {
             var thumb = $(this).closest(".e.th");
             var eventID = thumb.data("event-id");
             var instance = $(this).closest(".c").attr("id");
-            var data = {e:eventID};
+            var data = {eid:eventID};
             ref = {instanceID:instance,eventID:eventID};
             var li = $("#" + instance).find("li.c-e-disp.full[data-event-id='" + eventID + "']");
             //Hide currently selected element on mobile, otherwise return false
@@ -76,7 +76,10 @@ Tanguer_Calendar.prototype = {
             _this.createQuickEventLoadingPlaceholder(thumb,eventID);
             _this.openQuickEvent(instance,eventID);
             //Bind the handler to the correct context
-            Tanguer_App.JSONCalls.getQuickEvent(data,_this.ajax_getQuickEventHandler.bind(_this),ref);
+            Tanguer_App.JSONCalls.get(  "REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT",
+                                        data,
+                                        _this.ajax_getQuickEventHandler.bind(_this),
+                                        ref);
         });
 
         //Window resize event needs to have a few modifications

@@ -59,29 +59,34 @@ var Tanguer_App;
 
                     DISPLAY:{
                         BREAKPOINT_TABLET_PORTRAIT:"$jsBreakpointTabletPortrait"
-                    },
-
-                    /**
-                     * Any preload assets need to go here
-                     */
-                    PRELOAD:[
-                        {
-                            type:"image",
-                            asset:"gui/gui-loading-333-16x16.gif"
-                        }
-                    ]
+                    }
                 };
 
                 var props = constant.split(".");
                 var p;
                 var obj = constants;
+                var hasProperty = null;
                 while(obj.hasOwnProperty(p = props.shift())){
                     obj = obj[p];
+                    if(typeof obj == "string")
+                        hasProperty = true;
                 }
 
-                return obj;
+                return hasProperty ? obj : hasProperty;
             }
         },
+
+
+
+        /**
+         * Any preload assets need to go here
+         */
+        preload:[
+            {
+                type:"image",
+                asset:"gui/gui-loading-333-16x16.gif"
+            }
+        ],
 
 
 
@@ -270,7 +275,7 @@ var Tanguer_App;
         preload:function(){
             var env = this.constants.get("APP.ENVIRONMENT");
             var imageBase = this.constants.get("URL.IMAGE_BASE");
-            var preloadAssets = this.constants.get("PRELOAD");
+            var preloadAssets = this.preload;
             var length = preloadAssets.length;
             var obj = null;
             for(var i = 0; i < length; i++){

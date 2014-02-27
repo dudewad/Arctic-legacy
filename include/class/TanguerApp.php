@@ -47,7 +47,7 @@ class TanguerApp{
         $error = new stdClass();
         $error->error = constant("Utility_Constants::E_$e");
         $error->errno = "E_" . $e;
-        exit(Utility_JSONGenerator::echoDocument($error));
+            exit(Utility_JSONGenerator::echoDocument($error));
     }
 
 

@@ -18,32 +18,35 @@ function Tanguer_JSONCalls(){
 Tanguer_JSONCalls.prototype = {
 
     /**
-     * Set URLs and GET parameters
-     * @param url       String          URL being requested
+     * Base JSON URL builder (requires type attribute be requested)
      *
-     * @param params    JSON Object     An object of key/val pairs to add as the GET string
+     * @param type       String          URL being requested
      *
      * @returns {string}
      */
-    getURL:function(url, params){
+    getURL:function(type){
+        if(Tanguer_App.constants.get(type) === null)
+            throw new Error("Invalid request type.");
+        return Tanguer_App.constants.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get(type);
+        /*
         switch(url){
             //Requires:
             //e         The event id being requested
             case "getQuickEvent":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT") + "&eid=" + params.e;
+                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT") + "&eid=" + params.e;
                 break;
             case "getFullDay":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_FULL_DAY") + "&d=" + params.d;
+                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_FULL_DAY") + "&d=" + params.d;
                 break;
             case "postSortFullDay":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.CALENDAR_SORT_FULL_DAY");
+                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.CALENDAR_SORT_FULL_DAY");
                 break;
             case "postAccountCreationStart":
-                return this.baseJsonURL + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.ACCOUNT_CREATOR_START");
+                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.ACCOUNT_CREATOR_START");
             default:
-                console.warn("Requested JSONCall URL does not exist.");
+                throw new Error("Invalid request type set.");
                 return "";
-        }
+        }*/
     },
 
 
@@ -84,13 +87,78 @@ Tanguer_JSONCalls.prototype = {
             console.log("json Post error. Following is the relevant data.");
             console.log(textStatus);
             console.log(errorThrown);
+            //callback("<p>Oh my... there was a serious error. We apologize, but we have absolutely no idea what happened. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref || {});
         };
 
         //Perform the get or post call
         if(typeof type != "undefined" && type.toLowerCase() != "post")
             $.getJSON(url + "&cb=?", null, successHandler).fail(failureHandler);
-        else
+        else{
+            console.log("sending post");
             $.post(url + "&cb=?", (postData || {}), successHandler, "json").fail(failureHandler);
+
+        }
+    },
+
+
+
+    /**
+     * Performs a GET request
+     *
+     * @param type      REQUIRED    The type of get request being made. This determines the URL to be called.
+     *
+     * @param data      REQUIRED    The data to be used to build the query string as key/val pairs
+     *
+     * @param callback  REQUIRED    The callback function used to respond when the response comes back
+     *
+     * @param ref       REQUIRED    An additional data object to be passed to the callback.
+     */
+    get:function(type, data, callback, ref){
+        try{
+            var url = this.getURL(type);
+        }
+        catch(e){
+            if(typeof callback == "function"){
+                //TODO fix this string...
+                callback("<p>Oh my... there was a serious error. We apologize. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref || {});
+            }
+            else{
+                this.callbackFail();
+            }
+        }
+        for(param in data){
+            url += "&" + param + "=" + data[param];
+        }
+
+        $.getJSON(url + "&cb=?", null, this.success.bind(this,callback,ref)).fail(this.failure.bind(this,callback,ref));
+    },
+
+
+
+    post:function(){
+
+    },
+
+
+
+    success:function(callback, ref, data, status){
+        //Make sure there's actually a callback
+        if(typeof callback != "function")
+            this.callbackFail();
+
+        if(status != "success"){
+            //TODO fix this string...
+            callback("<p>Oh my... there was a serious error. We apologize. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref || {});
+        }
+        else{
+            callback(data[0], ref || {});
+        }
+    },
+
+
+
+    failure:function(callback, ref){
+
     },
 
 
@@ -143,6 +211,12 @@ Tanguer_JSONCalls.prototype = {
     postAccountCreationStart:function(data,callback,ref){
         var url = this.getURL("postAccountCreationStart");
         this.call(url,callback,ref,"post",data);
+    },
+
+
+
+    callbackFail:function(){
+        alert("There was a horrible error on our end, and we can't complete your request right now. We're working on it, though! We apologize, please stick with us through these tough times.");
     },
 
 
