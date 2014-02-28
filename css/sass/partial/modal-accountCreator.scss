@@ -22,6 +22,7 @@
         input{
             padding:0;
             margin:0;
+            width:100%;
         }
 
         .input-bg{
@@ -45,6 +46,10 @@
  * All account creator flows
  */
 
-.modal-ac-start{
-
+.m{
+    .ac-start{
+        .errorMessage{
+            margin-bottom:5px;
+        }
+    }
 }
