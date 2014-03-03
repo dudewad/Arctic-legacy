@@ -12,6 +12,9 @@ class TanguerApp{
     private static $alerts = array();
     //Will contain a number of strings that are to be inserted into the DOM as modal objects
     private static $modals = array();
+    //Will contain a number of "interruption" items. See TanguerApp->loadInterruptions() for more
+    //if you don't know what interruptions are.
+    public static $interruptions = array();
     //Contains sanitized inputs that came in via get/post
     private static $userInput;
 
@@ -198,6 +201,30 @@ class TanguerApp{
 
 
     /**
+     * "Interruptions" are any view-agnostic controls that could appear anywhere. They will be
+     * rendered below the header and above the primary view, but often intended to be part of a
+     * modal flow - systems with javascript will pull them out of that position and perform
+     * the necessary work to make that happen oon the front-end, but this system allows Tanguer
+     * to remain non-JS system friendly, guaranteeing that all controls will be visible when
+     * necessary.
+     *
+     * @return string       HTML formatted string of the visualized interruption controls
+     */
+    public static function loadInterruptions(){
+        return count(self::$interruptions) ? implode(self::$interruptions) : "";
+    }
+
+
+
+    /**
+     * Sets an "interruption". See TanguerApp->loadInterruptions() for more on what interruptions are.
+     */
+    public static function setInterruption($interruption){
+        array_push(self::$interruptions, $interruption);
+    }
+
+
+    /**
      * @return string HTML string representing the site <head>
      */
     public static function head(){
@@ -338,21 +365,26 @@ HTML;
     /**
      * Gets an HTML formatted anchor tag and uses any passed view, copy, target, and query string data to do so.
      *
-     * @param      $view             String      The view to be linked to
-     * @param      $copy             String      The actual text to appear inside the anchor
-     * @param null $target           String      "Window target", e.g. "_blank". Defaults to nothing
-     * @param null $q                String      Query string arguments to be appended to the URL
-     * @param null $class            String      The CSS class attribute to add to the anchor
+     * @param      $view            String      The view to be linked to
+     * @param      $copy            String      The actual text to appear inside the anchor
+     * @param null $target          String      "Window target", e.g. "_blank". Defaults to nothing
+     * @param null $q               String      Query string arguments to be appended to the URL
+     * @param null $class           String      The CSS class attribute to add to the anchor
+     * @param null $dataAttrs       stdClass    A stdClass object of key/val pair of data-attributes to add
      *
      * @return string
      */
-    public static function buildAnchor($view, $copy, $target = null, $q = null, $class = null){
+    public static function buildAnchor($view, $copy, $target = null, $q = null, $class = null, $dataAttrs = null){
         $url    = self::getURL($view, $q);
         $anchor = "<a href='$url'";
         if(isset($target))
             $anchor .= " target='$target'";
         if(isset($class))
             $anchor .= " class='$class'";
+        if(isset($dataAttrs))
+            foreach($dataAttrs as $key => $val){
+                $anchor .= " data-$key='$val'";
+            }
         $anchor .= ">$copy</a>";
         return $anchor;
     }
@@ -405,42 +437,6 @@ HTML;
 
     public static function getUserSession(){
         return $_SESSION['user'];
-    }
-
-
-
-    private static function validateAndStoreInputs(){
-
-        /*
-        //Date input
-        if(isset($_GET['d'])){
-            //In case of invalid date being passed, send the user to the current day.
-            try{
-                Security_InputValidator::validateDateISO8601($_GET['d']);
-                self::$userInput->date = Date_TanguerDateTime::urlFriendlyDateToTimestamp($_GET['d']);
-            }
-            catch(Exception_SecurityInputValidatorException $e){
-                self::$userInput->date = time();
-            }
-        }
-        else{
-            self::$userInput->date = time();
-        }
-
-        //Event ID input
-        if(isset($_GET['e'])){
-            //In case of invalid event being passed, send the user to today's calendar with a null event selection
-            try{
-                Security_InputValidator::validateEventID($_GET['e']);
-                self::$userInput->eventID = $_GET['e'];
-            }
-            catch(Exception_SecurityInputValidatorException $e){
-                self::$userInput->eventID = null;
-            }
-        }
-        else{
-            self::$userInput->eventID = null;
-        }*/
     }
 
 

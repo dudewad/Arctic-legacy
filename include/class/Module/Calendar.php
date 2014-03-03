@@ -26,7 +26,7 @@ class Module_Calendar{
 
     /**
      * Formats the calendar to it's full HTML view for a single day
-     * @param   $eventList  Array           An array of Event objects to display
+     * @param   $eventList  Array           An array of Event_Event objects to display
      * @param   $date       Integer         Timestamp of the day to be displayed
      * @param   $event      Event_Event     The event to be viewed, if applicable. This typically will only be set if the
      *                                      user has Javascript disabled, as this data is brought in via AJAX otherwise
@@ -44,7 +44,10 @@ class Module_Calendar{
         }
         $sort = $this->sorterToHTML(TanguerApp::getCurrentPageURL(), $date);
 
-        if(isset($event)){
+        if(isset($event) || Module_Login::hasDisabledLogins()){
+            if(!isset($event))
+                $event = $eventList[0];
+
             switch(get_class($event)){
                 case "Event_Milonga":
                     $eObj = new Output_Event_Milonga($event);
@@ -63,8 +66,7 @@ class Module_Calendar{
             $default = $eObj->to_html_quick_view();
         }
         else{
-            $login = new Module_Login();
-            $default = $login->to_html_full();
+            $default = Module_Login::to_html_full();
         }
 
         $thumbs = $this->eventListToThumbs($eventList, $selectedID, $default);

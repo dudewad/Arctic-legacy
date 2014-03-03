@@ -85,6 +85,33 @@ table{
     padding-bottom:0 !important;
 }
 
+.error{
+    p{
+        color:$primaryAccentColor !important;
+    }
+}
+
+.errorMessage{
+    padding-left:15px;
+    position:relative;
+
+    p{
+        font-family:$baseApplicationFontFamily !important;
+        font-size:1em !important;
+        font-weight:normal !important;
+    }
+
+    .icon{
+        display:inline-block;
+        width:13px;
+        height:13px;
+        background:url($sprite) no-repeat -28px -34px;
+        margin-top:2px;
+        position:absolute;
+        left:-10px;
+    }
+}
+
 
 ///////////////
 //GRID STYLES//

@@ -9,6 +9,7 @@ var Tanguer_Modal = function(){
         console.warn("Tanguer_App module not detected. Cannot initialize the Tanguer_Modal module.");
         return;
     }
+    var _this = this;
 
     //Try to use the pre-selected common jquery selections first
     this._body = Tanguer_App.jSel._body || $("body");
@@ -23,6 +24,15 @@ var Tanguer_Modal = function(){
 
     //Empty content
     this.content = "";
+
+    //If any modals are flagged to be visible when the page loads, open them.
+    $("[data-modal-start='true']").each(function(){
+        var params = {
+            hasBackground:true
+        };
+        _this.open(params,$(this)[0].outerHTML);
+        $(this).hide();
+    });
 };
 
 Tanguer_Modal.prototype = {
@@ -72,7 +82,7 @@ Tanguer_Modal.prototype = {
         wrapperClass += this.settings.hasBackground ? " hasBG" : "";
         var html = "<div class='" + wrapperClass + "' id='" + mid + "'>" +
                         "<div class='" + this.constant("modalClass") + " clearfix'>" +
-                            "<div class='close'></div>" +
+                            "<div class='close' data-modal-control='close'></div>" +
                             this.content +
                         "</div>" +
                     "</div>";
@@ -86,7 +96,8 @@ Tanguer_Modal.prototype = {
 
         //On click of the wrapper only, hide/remove the modal
         this._body.on("click.modal" + mid,"#" + mid + ".m-wrapper",function(e){
-            if($(e.target).hasClass("m-wrapper") || $(e.target).hasClass("close")){
+            if( $(e.target).hasClass("m-wrapper")
+                || ($(e.target).data("modal-control") && $(e.target).data("modal-control").toLowerCase() == "close")){
                 _this.close(mid);
             }
         });

@@ -10,6 +10,7 @@ class String_ENUS_Module_Login {
     const FIELD_USERNAME = "User";
     const FIELD_PASSWORD = "Password";
     const FIELD_SUBMIT_LOGIN = "Enter";
+    const FIRST_LOGIN_SUBTITLE = "Log in to activate your new account.";
 
     //Buttons
     const BUTTON_REGISTER = "Register Now";

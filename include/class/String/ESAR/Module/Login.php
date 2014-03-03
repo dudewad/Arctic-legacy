@@ -10,6 +10,7 @@ class String_ESAR_Module_Login {
     const FIELD_USERNAME = "Usuario";
     const FIELD_PASSWORD = "Contraseña";
     const FIELD_SUBMIT_LOGIN = "Entrar";
+    const FIRST_LOGIN_SUBTITLE = "Login para activar tu cuenta nueva.";
 
     //Button strings
     const BUTTON_REGISTER = "Registrate ahora";

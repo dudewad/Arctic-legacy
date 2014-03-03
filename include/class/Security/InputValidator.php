@@ -5,6 +5,13 @@
  * Date: 1/12/14
  */
 final class Security_InputValidator{
+    //Common regex patterns
+    const HAS_SYMBOL            = '/[.!@#$%^&*()\-_+=\s~]+/';
+    const HAS_LOWER_CASE        = '/[a-z]+/';
+    const IS_VALID_EMAIL           = '/^[\w0-9.%+-]+\@[\w0-9.-]+\.[\w]{2,4}$/';
+    const HAS_UPPER_CASE        = '/[A-Z]+/';
+    const HAS_WHITE_SPACE       = '/\s/';
+
 
 
     private final function __construct(){
@@ -79,15 +86,15 @@ final class Security_InputValidator{
 
 
     /**
-     * Validate an email address conforming to IETF RFC 3696 - max length of 254 characters
+     * Validate an email address
      *
      * @param $email
      *
      * @return bool
      */
     public static function validateEmail($email){
-        $regex = '/^[\w0-9.%+-]+\@[\w0-9.-]+\.[\w]{2,4}$/';
-        if(strlen($email) > 254 || !preg_match($regex, $email)){
+        if( strlen($email) > 254
+            || !preg_match(self::IS_VALID_EMAIL, $email)){
             self::throwError(204);
         }
         return true;
@@ -98,21 +105,51 @@ final class Security_InputValidator{
     /**
      * Checks to see if the password conforms to the password policy
      *
-     * @param $password                         String      REQUIRED    The password to be validated
-     * @param $isNew                            Boolean                 Whether the user is setting a password, or if this is to be
-     *                                          checked against an existing password in the database
+     * @param $password     String      REQUIRED    The password to be validated
+     * @param $isNew        Boolean                 Whether the user is setting a password, or if this is to be
+     *                                              checked against an existing password in the database
      *
      * @return mixed
      */
     public static function validatePassword($password, $isNew = false){
-        $regex = '/^[\w.!@#$%^&*()\-+=\s~]+$/';
-        if(strlen($password) < 10 || !preg_match($regex, $password)){
+        if( strlen($password) < 8
+            || !preg_match(self::HAS_SYMBOL, $password)
+            || !preg_match(self::HAS_LOWER_CASE, $password)
+            || !preg_match(self::HAS_UPPER_CASE, $password)){
             if($isNew)
                 self::throwError(205);
             else
                 self::throwError(206);
+
+            return false;
         }
         return true;
+    }
+
+
+
+    /**
+     * Checks to be sure a first name input is valid
+     *
+     * @param $name  String      REQUIRED        The name to check
+     */
+    public static function validateFirstName($name){
+        if(preg_match(self::HAS_WHITE_SPACE, $name) !== false){
+            self::throwError(102);
+        }
+    }
+
+
+
+    /**
+     * Checks to be sure a first name input is valid
+     *
+     * @param $name  String      REQUIRED        The name to check
+     */
+    public static function validateLastName($name){
+        if(preg_match(self::HAS_WHITE_SPACE, $name) !== false){
+            self::throwError(103);
+        }
     }
 
 

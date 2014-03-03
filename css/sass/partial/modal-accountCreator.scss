@@ -1,10 +1,7 @@
 /**
  * "Start" flow
  */
-.m .ac-start{
-    .title{
-        text-align:center;
-    }
+.m .ac-s{
 
     label{
         font-size: 1em;
@@ -47,7 +44,9 @@
  */
 
 .m{
-    .ac-start{
+    .ac-s,
+    .ac-r,
+    .ac-f{
         .errorMessage{
             margin-bottom:5px;
         }

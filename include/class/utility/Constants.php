@@ -36,6 +36,7 @@ class Utility_Constants {
     const REQUEST_TYPE_POST_ACCOUNT_CREATOR_START = "ac-s";
     const REQUEST_TYPE_POST_EVENT_ADVANCED_SORT = "e-s-adv";
     const REQUEST_TYPE_POST_LOGIN = "l";
+    const REQUEST_TYPE_POST_LOGIN_FIRST_TIME = "l-f";
 
 
 
@@ -68,6 +69,16 @@ class Utility_Constants {
     /**
      * Error constants
      */
+    //100 range - General application errors
+    //Default/unknown general application error
+    const E_100         = "Unknown error occurred.";
+    //Form field required
+    const E_101         = "Field cannot be empty.";
+    //Invalid first name submitted
+    const E_102         = "Invalid first name value submitted.";
+    //Invalid last name submitted
+    const E_103         = "Invalid last name value submitted.";
+
     //200 range - SecurityInputValidator exceptions
     //Default/unknown SecurityInputValidator error
     const E_200         = "Invalid input.";
@@ -92,6 +103,8 @@ class Utility_Constants {
     const E_300         = "Authentication failed.";
     //Setting user password impossible - passwords don't match
     const E_301         = "Cannot create password- the passwords do not match!";
+    //Invalid Account verification information
+    const E_302         = "Could not verify account - required information was missing.";
 
     //600 range - Calendar module
 

@@ -45,6 +45,7 @@ if(isset($_REQUEST['j']) && $_REQUEST['j'] == 1){
 
 
 
+//TODO: Move this??
 /**
  * Useful Usort for sorting a list of events by their start times
  * @param Event_Event $a

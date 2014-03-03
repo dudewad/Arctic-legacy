@@ -44,7 +44,9 @@ class Utility_JSONGenerator {
      */
     public static function echoDocument($data){
         header("Content-type: application/json");
-        $callback = isset($_REQUEST['cb']) ? $_REQUEST['cb'] : "";
-        return $callback . "([" . json_encode($data) . "])";
+        if(isset($_REQUEST['cb'])){
+            return $_REQUEST['cb'] . "([" . json_encode($data) . "])";
+        }
+        return json_encode($data);
     }
 }

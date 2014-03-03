@@ -28,25 +28,6 @@ Tanguer_JSONCalls.prototype = {
         if(Tanguer_App.constants.get(type) === null)
             throw new Error("Invalid request type.");
         return Tanguer_App.constants.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get(type);
-        /*
-        switch(url){
-            //Requires:
-            //e         The event id being requested
-            case "getQuickEvent":
-                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT") + "&eid=" + params.e;
-                break;
-            case "getFullDay":
-                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.GET.CALENDAR_FULL_DAY") + "&d=" + params.d;
-                break;
-            case "postSortFullDay":
-                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.CALENDAR_SORT_FULL_DAY");
-                break;
-            case "postAccountCreationStart":
-                return this.constant.get("URL.JSON_BASE") + "?t=" + Tanguer_App.constants.get("REQUEST_TYPE.POST.ACCOUNT_CREATOR_START");
-            default:
-                throw new Error("Invalid request type set.");
-                return "";
-        }*/
     },
 
 
@@ -130,13 +111,43 @@ Tanguer_JSONCalls.prototype = {
             url += "&" + param + "=" + data[param];
         }
 
-        $.getJSON(url + "&cb=?", null, this.success.bind(this,callback,ref)).fail(this.failure.bind(this,callback,ref));
+        $.getJSON(  url + "&cb=?",
+                    null,
+                    this.success.bind(this,callback,ref)
+        ).fail(this.failure.bind(this,callback,ref));
     },
 
 
 
-    post:function(){
+    /**
+     * Performs a GET request
+     *
+     * @param type      REQUIRED    The type of get request being made. This determines the URL to be called.
+     *
+     * @param data      REQUIRED    The data to be used to build the query string as key/val pairs
+     *
+     * @param callback  REQUIRED    The callback function used to respond when the response comes back
+     *
+     * @param ref       REQUIRED    An additional data object to be passed to the callback.
+     */
+    post:function(type, data, callback, ref){
+        try{
+            var url = this.getURL(type);
+        }
+        catch(e){
+            if(typeof callback == "function"){
+                //TODO fix this string...
+                callback("<p>Oh my... there was a serious error. We apologize. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref || {});
+            }
+            else{
+                this.callbackFail();
+            }
+        }
 
+        $.post( url,
+                data || {},
+                this.success.bind(this,callback,ref)
+        ).fail(this.failure.bind(this,callback,ref));
     },
 
 
@@ -145,77 +156,42 @@ Tanguer_JSONCalls.prototype = {
         //Make sure there's actually a callback
         if(typeof callback != "function")
             this.callbackFail();
+        ref = ref ? ref : {};
 
         if(status != "success"){
             //TODO fix this string...
-            callback("<p>Oh my... there was a serious error. We apologize. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref || {});
+            callback("<p>Oh my... there was a serious error. We apologize. We assure you: we're looking into it. Sorry for the inconvenience.</p>", ref);
+            return;
+        }
+
+        //Tanguer in test mode will add a 1 second delay to simulate ajax calls happening.
+        if(Tanguer_App.constants.get("APP.ENVIRONMENT") == "test"){
+            setTimeout(function(){
+                callback(data.html ? data : data[0], ref);
+            },1000);
         }
         else{
-            callback(data[0], ref || {});
+            callback(data.html ? data : data[0], ref);
         }
     },
 
 
 
-    failure:function(callback, ref){
-
+    failure:function(callback, ref, data, status){
+        //TODO: Handle the errorz
+        console.log("Ajax failure.");
+        console.log("Status: " + status);
+        console.log("Data following...");
+        console.log(data);
     },
 
 
 
     /**
-     * Gets an event with the specified ID
-     * @param data      Required    The data to be used to build the query string
-     *
-     * @param callback  Required    The callback function used to respond when the response comes back
-     *
-     * @param ref       Optional    An additional data object to be passed to the callback.
+     * Handler for when callbacks are invalid
      */
-    getQuickEvent:function(data, callback, ref){
-        var url = this.getURL("getQuickEvent", data);
-        this.call(url, callback, ref);
-    },
-
-
-
-    /**
-     * Gets a full day calendar view based off the date passed
-     * @param data      Required    The data to be used to build the query string
-     *
-     * @param callback  Required    The callback function used to respond when the response comes back
-     *
-     * @param ref       Optional    An additional data object to be passed to the callback.
-     */
-    getFullDay:function(data, callback, ref){
-        var url = this.getURL("getFullDay", data);
-        this.call(url, callback, ref);
-    },
-
-
-
-    /**
-     * Gets an event with the specified ID
-     * @param data      Required    The data to be used to build the query string
-     *
-     * @param callback  Required    The callback function used to respond when the response comes back
-     *
-     * @param ref       Optional    An additional data object to be passed to the callback.
-     */
-    postSortFullDay:function(data, callback, ref){
-        var url = this.getURL("postSortFullDay");
-        this.call(url, callback, ref, "post", data);
-    },
-
-
-
-    postAccountCreationStart:function(data,callback,ref){
-        var url = this.getURL("postAccountCreationStart");
-        this.call(url,callback,ref,"post",data);
-    },
-
-
-
     callbackFail:function(){
+        //TODO: Handle callback failure
         alert("There was a horrible error on our end, and we can't complete your request right now. We're working on it, though! We apologize, please stick with us through these tough times.");
     },
 

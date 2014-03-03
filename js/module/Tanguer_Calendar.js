@@ -18,8 +18,8 @@ var Tanguer_Calendar = function(){
     this.breakpointTabletPortrait = Tanguer_App.constants.get("DISPLAY.BREAKPOINT_TABLET_PORTRAIT");
     this.displayMode = null;
 
-    //Set up hiding on body click
-    this._body.on("click",function(e){
+    //Set up hiding calendar pickers that are showing on body click
+    this._body.on("click touchend",function(e){
         var el = $(e.target);
         //If the user clicked inside a picker element we won't want to hide that one.
         $(".c.picker .visualizer:visible").each(function(){
@@ -75,9 +75,10 @@ Tanguer_Calendar.prototype = {
             _this.hideCurrentQuickEvent(instance);
             _this.createQuickEventLoadingPlaceholder(thumb,eventID);
             _this.openQuickEvent(instance,eventID);
-            //Bind the handler to the correct context
+            //Make ajax GET request
             Tanguer_App.JSONCalls.get(  "REQUEST_TYPE.GET.CALENDAR_QUICK_EVENT",
                                         data,
+                                        //Bind the handler to the correct context
                                         _this.ajax_getQuickEventHandler.bind(_this),
                                         ref);
         });
@@ -126,8 +127,12 @@ Tanguer_Calendar.prototype = {
                 };
                 Tanguer_App.modal.close(modalID);
                 $(".c.disp").showLoader();
-                //Bind the handler to the correct context
-                Tanguer_App.JSONCalls.postSortFullDay(data,_this.ajax_postSortFullDayHandler.bind(_this),ref);
+                //Make ajax POST request
+                Tanguer_App.JSONCalls.post( "REQUEST_TYPE.POST.CALENDAR_SORT_FULL_DAY",
+                                            data,
+                                            //Bind the handler to the correct context
+                                            _this.ajax_postSortFullDayHandler.bind(_this),
+                                            ref);
             })
         });
 
@@ -150,8 +155,12 @@ Tanguer_Calendar.prototype = {
             };
             visualizer.hide();
             $(".c.disp").showLoader();
-            //Bind the handler to the correct context
-            Tanguer_App.JSONCalls.getFullDay(data,_this.ajax_getFullDayHandler.bind(_this));
+            //Make ajax GET request
+            Tanguer_App.JSONCalls.get(  "REQUEST_TYPE.GET.CALENDAR_FULL_DAY",
+                                        data,
+                                        //Bind the handler to the correct context
+                                        _this.ajax_getFullDayHandler.bind(_this),
+                                        ref);
         });
 
         //Disable selection of sort options for aesthetic purposes

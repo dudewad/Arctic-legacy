@@ -1,3 +1,25 @@
+///////////////////////////
+//LOGIN MODULE - STANDARD//
+///////////////////////////
+
+.login{
+    text-align:center;
+
+    //First-time login box
+    &.first{
+    }
+
+    label{
+        display:block;
+        padding:8px;
+        height:16px;
+        font-size:1.3em;
+        font-style:italic;
+    }
+
+}
+
+
 
 ////////////////////////////////////
 //LOGIN MODULE INSIDE THE CALENDAR//
@@ -6,9 +28,8 @@
 //Calendar login is hidden on the mobile view
 .c{
     .login{
-        text-align:center;
-        background-color:$primaryNeutralLight;
         padding:30px 20px;
+        background-color:$primaryNeutralLight;
         border:smallSolidBorder($primaryNeutralDark);
         display:none;
 
@@ -34,14 +55,6 @@
 
         input{
             margin-bottom:10px;
-        }
-
-        label{
-            display:block;
-            padding:8px;
-            height:16px;
-            font-size:1.3em;
-            font-style:italic;
         }
 
         hr{
@@ -77,27 +90,31 @@
 /////////////////
 
 @media #{$mq_minPhonePortrait}{
+    .login{
+        .row{
+            label{
+                float:right;
+            }
+
+            input{
+                float:left;
+                min-width:25%;
+                max-width:75%;
+
+                &.submit{
+                    min-width:0;
+                    max-width:100%;
+                    float:none;
+                }
+            }
+        }
+    }
+
+    //Login inside Calendar module styles
     .c{
         .login{
             label{
                 margin-bottom:0;
-            }
-
-            .row{
-                label{
-                    float:right;
-                }
-
-                input{
-                    float:left;
-                    min-width:25%;
-                    max-width:75%;
-
-                    &.submit{
-                        min-width:0;
-                        max-width:100%;
-                    }
-                }
             }
         }
     }

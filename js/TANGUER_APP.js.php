@@ -328,7 +328,7 @@ var Tanguer_App;
             Tanguer_App.ioc.build("locationSelector");
 
         //If any location selector modules are present, add them to the page
-        if($(".cta.flow-start-ac").length > 0)
+        if($("[data-flow_start='ac']").length > 0)
             Tanguer_App.ioc.build("accountCreator");
 
         //All alerts should be handled; we may want to add alerts dynamically

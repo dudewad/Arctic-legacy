@@ -28,6 +28,14 @@ interface Interface_HasForms {
 
 
     /**
+     * Sets a validation error when one occurs
+     *
+     * @param $e    Exception   REQUIRED    The error that occurred in validation
+     */
+    public static function setValidationError($e);
+
+
+    /**
      * Takes a stdClass object and sets it on form submission. This object contains data that was relevant to the
      * previous submission such as an email address that will be used in the next flow, etc.
      *
@@ -46,4 +54,11 @@ interface Interface_HasForms {
      *                     submission as parameters (key/val)
      */
     public static function getSubmissionData();
+
+
+
+    /**
+     * Clears the local set of validation errors
+     */
+    public static function clearValidationErrors();
 }
